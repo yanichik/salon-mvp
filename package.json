@@ -1,0 +1,25 @@
+{
+  "name": "salon-mvp",
+  "version": "1.0.0",
+  "description": "Web platform for small-business salon owners to record and manage all business transactions",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanichik/salon-mvp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanichik/salon-mvp/issues"
+  },
+  "homepage": "https://github.com/yanichik/salon-mvp#readme",
+  "dependencies": {
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.6"
+  }
+}
