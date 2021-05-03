@@ -44,6 +44,11 @@
 					<!-- List of products/services and/or expenses-->
 					<div class="prod-serv-exp-items">
 					</div>
+					<div class="row">
+						<div class="col-12">
+							<textarea name="trasactionNotes" id="trasactionNotes" rows="5" class="form-control my-2"></textarea>
+						</div>
+					</div>
 					<div class="d-grid">
 						<button class="btn btn-lg btn-success">Submit Transaction</button>
 					</div>
@@ -86,6 +91,7 @@
 										  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>`;
+
 	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
 	function addProdServ(){
 		const prodServElement = document.createElement('div');
