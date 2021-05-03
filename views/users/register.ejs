@@ -2,53 +2,53 @@
 <div class="container">
 	<div class="row justify-content-center">
 			<div class="card col-6" style="width: 28rem;">
-				<span class="text-center">Register</span>
+				<span class="text-center h3">Register</span>
 			  <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2706&q=80" class="card-img-top" alt="...">
 			  <div class="card-body">
 			  	<form action="#">
 			  		<p class="text-center">Select One:</p>
-			  		<div class="row mb-3">
+			  		<div class="row mb-2">
 			  			<div class="col-6 text-center">
-			  				<input type="radio" class="form-control btn-check" name="regOwner" id="regOwner" autocomplete="off">
-								<label class="btn btn-primary btn-sm" for="regOwner">Salon Owner</label>
+			  				<input type="radio" class="form-control btn-check" name="regType" id="regOwner" autocomplete="off" onchange="viewOwner(this)">
+								<label class="btn btn-primary btn-sm" for="regOwner">I'm a Salon Owner</label>
 			  			</div>
 			  			<div class="col-6 text-center">
-								<input type="radio" class="form-control btn-check" name="regClient" id="regClient" autocomplete="off">
-								<label class="btn btn-primary btn-sm" for="regClient">Client</label>
+								<input type="radio" class="form-control btn-check" name="regType" id="regClient" autocomplete="off" onchange="hideOwner(this)">
+								<label class="btn btn-primary btn-sm" for="regClient">I'm a Salon Client</label>
 							</div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-2">
 						  <div class="col">
-						    <input type="text" class="form-control" placeholder="Business Name" aria-label="Business Name" name="businessName">
+						    <input type="text" class="form-control" placeholder="Business Name" aria-label="business name" name="businessName" id="businessName">
 						  </div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-2">
 						  <div class="col">
-						    <input type="text" class="form-control" placeholder="Business Address" aria-label="Business Address" name="businessAddress">
+						    <input type="text" class="form-control" placeholder="Business Address" aria-label="business address" name="businessAddress" id="businessAddress">
 						  </div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-2">
 						  <div class="col">
-						    <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" name="firstName">
+						    <input type="text" class="form-control" placeholder="First Name" aria-label="first name" name="firstName">
 						  </div>
 						  <div class="col">
-						    <input type="text" class="form-control" placeholder="Last Name" aria-label="Last name" name="lastName">
-						  </div>
-						</div>
-						<div class="row mb-3">
-						  <div class="col">
-						    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email">
-						  </div>
-						  <div class="col">
-						    <input type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number" name="phoneNumber">
+						    <input type="text" class="form-control" placeholder="Last Name" aria-label="last name" name="lastName">
 						  </div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-2">
+						  <div class="col">
+						    <input type="email" class="form-control" placeholder="Email" aria-label="email" name="email">
+						  </div>
+						  <div class="col">
+						    <input type="text" class="form-control" placeholder="Phone Number" aria-label="phone number" name="phoneNumber">
+						  </div>
+						</div>
+						<div class="row mb-2">
 						  <div class="col">
 						    <input type="password" class="form-control" placeholder="Password" name="password">
 						  </div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-2">
 						  <div class="col">
 						    <input type="password" class="form-control" placeholder="Repeat Password" name="passwordRepeat">
 						  </div>
@@ -63,3 +63,29 @@
 			</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	function viewOwner(x){
+		if (x.checked) {
+			document.getElementById('businessName').style.display = 'initial';
+			document.getElementById('businessAddress').style.display = 'initial';
+		}
+	}	
+
+	function hideOwner(x){
+		if (x.checked) {
+			document.getElementById('businessName').style.display = 'none';
+			document.getElementById('businessAddress').style.display = 'none';
+		}
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
