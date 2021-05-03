@@ -39,7 +39,11 @@ app.use( (req, res, next) =>{
 
 /*START ROUTES*/
 app.get('/', async (req, res, next)=>{
-	res.render('home');
+	res.redirect('login');
+})
+
+app.get('/login', async (req, res, next)=>{
+	res.render('users/login');
 })
 
 app.get('/register', async(req, res, next) => {
