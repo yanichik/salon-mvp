@@ -32,6 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));  // sets default direct
 app.use(express.urlencoded({extended: true}));	//
 app.use( (req, res, next) =>{
 	res.locals.url = req.originalUrl;
+	res.locals.isClient = isClient = 0;
+	res.locals.isOwner = isOwner = 1;
 	next();
 })
 // app.use(express.json());
@@ -53,6 +55,15 @@ app.get('/register', async(req, res, next) => {
 app.post('/register', async(req, res, next) => {
 	console.log(req.body);
 	res.send(req.body);
+})
+
+app.get('/dashboard', async(req, res, next) => {
+	if (isOwner) {
+		res.render('dashboards/owner');
+	}
+	if (isClient) {
+		res.render('dashboards/client');
+	}
 })
 /*END ROUTES*/
 
