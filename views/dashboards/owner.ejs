@@ -20,6 +20,128 @@
 		</div>
 	</div>
 	<div class="col-10 border border-secondary">
-		
+		<div class="card row">
+			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
+				Bela's Beauty Studio
+			</div>
+			<div class="card-body">
+				<form action="#">
+					<div class="row mb-2">
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon owner" name="salonOwner">
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="salonClient">
+						</div>
+						<div class="col">
+					    <input type="text" class="form-control" placeholder="Today's Date" aria-label="date" name="date">
+					  </div>
+					</div>
+					<!-- List of products/services -->
+					<div class="prod-serv-exp-items">
+						<div class="row mb-2">
+							<div class="col-8">
+								<div class="row">
+									<div class="col-2">
+										<label for="product-service-item-1" class="col-form-label">Product/Service</label>
+									</div>
+									<div class="col-10">
+										<input type="text" class="form-control" placeholder="Blow dry" id="product-service-item-1">
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="input-group mb-3">
+								    <span class="input-group-text">$</span>
+								  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- List of expenses -->
+<!-- 					<div class="row mb-2">
+						<div class="col-8">
+							<div class="row">
+								<div class="col-2">
+									<label for="product-service-item-1" class="col-form-label">Expense</label>
+								</div>
+								<div class="col-10">
+									<input type="text" class="form-control" placeholder="Color #23g" id="product-service-item-1">
+								</div>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group mb-3">
+							    <span class="input-group-text">$</span>
+							  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+							</div>
+						</div>
+					</div> -->
+					<div class="d-flex flex-column align-items-end prod-serv-exp-buttons">
+						<button class="btn btn-secondary" onclick="addProdServ()">Add Product/Service Item</button>
+						<button class="btn btn-secondary" onclick="addExpense()">Add Expense Item</button>
+					</div>
+					<div class="d-grid">
+						<button class="btn btn-lg btn-success">Submit Transaction</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
+
+<script>
+	const expenseDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-2">
+												<label for="product-service-item-1" class="col-form-label">Expense</label>
+											</div>
+											<div class="col-10">
+												<input type="text" class="form-control" placeholder="Color #23g" id="product-service-item-1">
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-3">
+										    <span class="input-group-text">$</span>
+										  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
+	const prodServDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-2">
+												<label for="product-service-item-1" class="col-form-label">Product/Service</label>
+											</div>
+											<div class="col-10">
+												<input type="text" class="form-control" placeholder="Color #23g" id="product-service-item-1">
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-3">
+										    <span class="input-group-text">$</span>
+										  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
+	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
+	function addProdServ(){
+		const prodServElement = document.createElement('div');
+		prodServElement.className = 'row mb-2';
+		prodServElement.innerHTML = prodServDiv;
+		prodServExpItems.appendChild(prodServElement);
+	}
+
+	function addExpense(){
+		const expElement = document.createElement('div');
+		expElement.className = 'row mb-2';
+		expElement.innerHTML = expenseDiv;
+		prodServExpItems.appendChild(expElement);
+	}
+</script>
+
+
+
+
+
+
+
