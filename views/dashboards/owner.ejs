@@ -61,34 +61,34 @@
 <script>
 	const expenseDiv = `<div class="col-8">
 										<div class="row">
-											<div class="col-2">
-												<label for="product-service-item-1" class="col-form-label">Expense</label>
-											</div>
-											<div class="col-10">
-												<input type="text" class="form-control" placeholder="Color #23g" id="product-service-item-1">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Expense</span>
+													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-4">
-										<div class="input-group mb-3">
+										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
-										  <input type="text" class="form-control" id="prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>`;
 	const prodServDiv = `<div class="col-8">
 										<div class="row">
-											<div class="col-2">
-												<label for="product-service-item-1" class="col-form-label">Product/Service</label>
-											</div>
-											<div class="col-10">
-												<input type="text" class="form-control" id="prod-serv-exp-value" placeholder="Color #23g" id="product-service-item-1">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Product/Service</span>
+													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-4">
-										<div class="input-group mb-3">
+										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
-										  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>`;
 
