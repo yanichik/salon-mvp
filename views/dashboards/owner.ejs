@@ -58,7 +58,9 @@
 	</div>
 </div>
 
-<script>
+
+
+  <script>
 	const expenseDiv = `<div class="col-8">
 										<div class="row">
 											<div class="col-12">
@@ -106,13 +108,68 @@
 		expElement.className = 'row mb-2';
 		expElement.innerHTML = expenseDiv;
 		prodServExpItems.appendChild(expElement);
-		res.redirect('/dashboard');
 	}
+
+	// (function(){
+	// 	let state = {};
+
+	// 	function updateState(id, val){
+	// 		state[id] = val;
+	// 		handleState(state);
+	// 	}
+
+	// 	function handleState(state){
+	// 		const len = state.length;
+	// 		let total = 0;
+	// 		if (len){
+	// 			console.log(state);
+	// 		}
+	// 	}
+	// })()
+	let total = 0;
+	// let items = [];
+	const addProdServBtn = document.querySelector('a[onclick]');
+	addProdServBtn.addEventListener('click', updateItems);
+	function updateItems(){
+		// let item =  document.querySelector('.prod-serv-exp-value:last-child');
+		const items = document.querySelectorAll('.prod-serv-exp-value');
+		items.forEach(item => {
+			item.addEventListener('change', function(){
+				console.log(item.value);
+			})
+		})
+		// item.id = `itemId-${items.length}`;
+		// items.push(item);
+		// console.log(items);
+		// item.addEventListener('change', function(){
+		// 	console.log(item.value);
+		// });
+		// console.log(items);
+	}
+
+	// function updateTotal(){
+	// 	// const items = querySelectorAll()
+	// 	total = items.forEach(item => {
+
+	// 	})
+	// }
+
+	// function updateTotal() {
+ //    console.log(items.reduce((total, item) => total + parseInt(item.value), 0));
+	// }
+
+
+
+
+	// forEach(input=>{
+		// input.addEventListener('input', updateState(ind, input.target.value));
+		// console.log(input.target.value);
+		// total = total + parseInt(input.target.value);
+		// console.log(input);
+		// console.log(total)
+	// })
+
 </script>
-
-
-
-
 
 
 
