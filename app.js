@@ -75,9 +75,33 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 	res.render('dashboards/owner/transactions/new');
 })
 
-app.post('/owner/transactions', async (req, res, next) => {
-	res.send(req.body);
+app.get('/owner/transactions', async (req, res, next) => {
+	// res.send(req.body);
+	res.render('dashboards/owner/transactions/index')
 })
+
+app.get('/owner/transactions/:id', async (req, res, next) => {
+	// res.send(req.body);
+	const transaction = {
+		owner: "Bela",
+		client: "Daisy",
+		salon: "Bela's Beauty Studio",
+		date: "12/12/20",
+		prodServ: [
+			"wash hair",
+			"color hair",
+			"color: light brown"
+		],
+		lineItemValue: [25, 90, -20],
+		transactionNotes: "Some notes here"
+	}
+	// res.render('dashboards/owner/transactions/show', {salon: "Bela's Beauty Studio"});
+	res.render('dashboards/owner/transactions/show', {
+		'salon': "Bela's Beauty Studio"
+		}
+	);
+})
+
 // Owner Routes End
 
 /*END ROUTES*/

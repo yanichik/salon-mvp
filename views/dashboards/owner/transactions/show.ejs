@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') %>
+<!-- <h1>isOwner</h1> -->
+
+<div class="row vh-90 border border-success">
+	<%- include('../../../partials/sidebar') %>	<!-- relative path -->
+	<div class="col-10 border border-secondary">
+		<div class="card row">
+			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
+				<%= salon %>
+			</div>
+			<div class="card-body">
+				<form action="/owner/transactions" method="POST">
+					<div class="row mb-2">
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon name" name="salon">
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="salonClient">
+						</div>
+						<div class="col">
+					    <input type="text" class="form-control" placeholder="Today's Date" aria-label="date" name="date">
+					  </div>
+					</div>
+					<div class="d-flex flex-column align-items-end prod-serv-exp-buttons">
+						<a class="btn btn-secondary" onclick="addProdServ()">Add Product/Service Item</a>
+						<a class="btn btn-secondary" onclick="addExpense()">Add Expense Item</a>
+					</div>
+					<!-- List of products/services and/or expenses-->
+					<div class="prod-serv-exp-items">
+					</div>
+					<div class="row textArea">
+						<div class="col-12">
+							<textarea name="transactionNotes" id="transactionNotes" rows="5" class="form-control my-2"></textarea>
+						</div>
+					</div>
+					<div class="d-grid">
+						<button class="btn btn-lg btn-success">Submit Transaction</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
