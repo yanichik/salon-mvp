@@ -29,7 +29,8 @@ app.set('views', path.join(__dirname, 'views'));  // sets default directory for 
 
 /*START USES*/
 app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
-app.use(express.urlencoded({extended: true}));	//
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use( (req, res, next) =>{
 	res.locals.url = req.originalUrl;
 	res.locals.isClient = isClient = 0;
@@ -83,23 +84,20 @@ app.get('/owner/transactions', async (req, res, next) => {
 app.get('/owner/transactions/:id', async (req, res, next) => {
 	// res.send(req.body);
 	const transaction = {
-		owner: "Bela",
-		client: "Daisy",
-		salon: "Bela's Beauty Studio",
-		date: "12/12/20",
-		prodServ: [
+		"owner": "Bela",
+		"client": "Daisy",
+		"salon": "Bela's Beauty Studio",
+		"date": "12/12/20",
+		"prodServ": [
 			"wash hair",
 			"color hair",
 			"color: light brown"
 		],
-		lineItemValue: [25, 90, -20],
-		transactionNotes: "Some notes here"
+		"lineItemValue": [25, 90, -20],
+		"transactionNotes": "Some notes here"
 	}
-	// res.render('dashboards/owner/transactions/show', {salon: "Bela's Beauty Studio"});
-	res.render('dashboards/owner/transactions/show', {
-		'salon': "Bela's Beauty Studio"
-		}
-	);
+	res.render('dashboards/owner/transactions/show', {transaction});
+	// res.render('dashboards/owner/transactions/show', {'salon': "Bela's Beauty Studio"});
 })
 
 // Owner Routes End
