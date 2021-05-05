@@ -54,6 +54,8 @@ app.get('/register', async(req, res, next) => {
 })
 
 app.post('/register', async(req, res, next) => {
+	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
+	const user = new User({})
 	console.log(req.body);
 	res.send(req.body);
 })
