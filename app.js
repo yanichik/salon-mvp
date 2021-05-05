@@ -88,14 +88,26 @@ app.get('/owner/transactions/:id', async (req, res, next) => {
 		"client": "Daisy",
 		"salon": "Bela's Beauty Studio",
 		"date": "12/12/20",
-		"prodServ": [
-			"wash hair",
-			"color hair",
-			"color: light brown"
+		"lineItems": [
+			{
+				lineItemType: "product/service",
+				lineItemContent: "wash hair",
+				lineItemValue: 25
+			},
+			{
+				lineItemType: "product/service",
+				lineItemContent: "color hair",
+				lineItemValue: 90
+			},
+			{
+				lineItemType: "expense",
+				lineItemContent: "color - light brown",
+				lineItemValue: -20
+			}
 		],
-		"lineItemValue": [25, 90, -20],
 		"transactionNotes": "Some notes here"
 	}
+	transaction.total = transaction.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0);
 	res.render('dashboards/owner/transactions/show', {transaction});
 	// res.render('dashboards/owner/transactions/show', {'salon': "Bela's Beauty Studio"});
 })

@@ -9,34 +9,63 @@
 				<%= transaction.salon %>
 			</div>
 			<div class="card-body">
-				<form action="/owner/transactions" method="POST">
 					<div class="row mb-2">
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon name" name="salon">
+							Salon Owner: <p><%= transaction.owner%></p>
 						</div>
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="salonClient">
+							Salon Client: <p><%= transaction.client%></p>
 						</div>
 						<div class="col">
-					    <input type="text" class="form-control" placeholder="Today's Date" aria-label="date" name="date">
-					  </div>
+							Transaction Date: <p><%= transaction.date%></p>
+						</div>
 					</div>
-					<div class="d-flex flex-column align-items-end prod-serv-exp-buttons">
-						<a class="btn btn-secondary" onclick="addProdServ()">Add Product/Service Item</a>
-						<a class="btn btn-secondary" onclick="addExpense()">Add Expense Item</a>
+					<div class="row mb-2">
+						<div class="col-4">
+							<h3>Type</h3>
+							<% for(let lineItem of transaction.lineItems) {%>
+								<p><%=lineItem.lineItemType%>: </p>
+							<% } %>
+						</div>
+						<div class="col-4">
+							<h3>Description</h3>
+							<% for(let lineItem of transaction.lineItems) {%>
+								<p><%=lineItem.lineItemContent%></p>
+							<% } %>
+						</div>
+						<div class="col-4">
+							<h3>Value</h3>
+							<% for(let lineItem of transaction.lineItems) {%>
+								<p>$<%=lineItem.lineItemValue%></p>
+							<% } %>
+						</div>
+						<hr>
 					</div>
+						<div class="row mb-2 inline-block">
+							<div class="col-4 offset-4">
+								<p class="display-6">TOTAL:</p>
+							</div>
+							<div class="col-4">
+								<p class="display-6 fw-bold">$<%=transaction.total%></p>
+							</div>
+						</div>
 					<!-- List of products/services and/or expenses-->
 					<div class="prod-serv-exp-items">
 					</div>
-					<div class="row textArea">
+					<div class="row mb-2">
 						<div class="col-12">
-							<textarea name="transactionNotes" id="transactionNotes" rows="5" class="form-control my-2"></textarea>
+							<h3>Transaction Notes:</h3>
+							<%= transaction.transactionNotes%>
 						</div>
 					</div>
-					<div class="d-grid">
-						<button class="btn btn-lg btn-success">Submit Transaction</button>
+					<div class="row mb-2">
+						<div class="d-grid col-6">
+							<a href="/owner/transactions/new" class="btn btn-success">Start a New Transaction</a>
+						</div>
+						<div class="d-grid col-6">
+							<a href="/owner/transactions" class="btn btn-success">Go to Reports</a>
+						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
