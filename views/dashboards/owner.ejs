@@ -58,25 +58,8 @@
 	</div>
 </div>
 
-
-
-  <script>
-	const expenseDiv = `<div class="col-8">
-										<div class="row">
-											<div class="col-12">
-												<div class="input-group">
-													<span class="input-group-text">Expense</span>
-													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="input-group mb-1">
-										    <span class="input-group-text">$</span>
-										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
-										</div>
-									</div>`;
+ <script>
+ 	// inner html of expense div to be added at click of "Add Product/Service Item"
 	const prodServDiv = `<div class="col-8">
 										<div class="row">
 											<div class="col-12">
@@ -94,82 +77,87 @@
 										</div>
 									</div>`;
 
+	// inner html of expense div to be added at click of "Add Expense Item"
+	const expenseDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Expense</span>
+													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-1">
+										    <span class="input-group-text">$</span>
+										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
+	
 	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
-	let lineId = 0;
+	
+	let state = {
+		inputIds: {},
+		total: 0
+	}
+
+	// add Product-Service line item
 	function addProdServ(){
 		const prodServElement = document.createElement('div');
 		prodServElement.className = 'row mb-2';
 		prodServElement.innerHTML = prodServDiv;
+
+		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
+		prodServElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
 		prodServExpItems.appendChild(prodServElement);
+
+		console.log(document.querySelectorAll('input.prod-serv-exp-value'));
+		updateInputChanges();
 	}
 
+	// add Expense line item
 	function addExpense(){
 		const expElement = document.createElement('div');
 		expElement.className = 'row mb-2';
 		expElement.innerHTML = expenseDiv;
+
+		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
+		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
 		prodServExpItems.appendChild(expElement);
+
+		console.log(document.querySelectorAll('input.prod-serv-exp-value'));
+		updateInputChanges();
 	}
 
-	// (function(){
-	// 	let state = {};
-
-	// 	function updateState(id, val){
-	// 		state[id] = val;
-	// 		handleState(state);
-	// 	}
-
-	// 	function handleState(state){
-	// 		const len = state.length;
-	// 		let total = 0;
-	// 		if (len){
-	// 			console.log(state);
-	// 		}
-	// 	}
-	// })()
-	let total = 0;
-	// let items = [];
-	const addProdServBtn = document.querySelector('a[onclick]');
-	addProdServBtn.addEventListener('click', updateItems);
-	function updateItems(){
-		// let item =  document.querySelector('.prod-serv-exp-value:last-child');
-		const items = document.querySelectorAll('.prod-serv-exp-value');
-		items.forEach(item => {
-			item.addEventListener('change', function(){
-				console.log(item.value);
-			})
+	// resets event listeners on the inputs to prevent doubling up event listeners on the same inputs
+	function	updateInputChanges(){
+		const inputs = document.querySelectorAll('.prod-serv-exp-value');
+		inputs.forEach(input => {
+			input.removeEventListener('change', updateState);
+			input.addEventListener('change', updateState);
 		})
-		// item.id = `itemId-${items.length}`;
-		// items.push(item);
-		// console.log(items);
-		// item.addEventListener('change', function(){
-		// 	console.log(item.value);
-		// });
-		// console.log(items);
 	}
 
-	// function updateTotal(){
-	// 	// const items = querySelectorAll()
-	// 	total = items.forEach(item => {
+	// update state with key-value pairs of IDs to current value, and total sum of transaction values
+	function updateState(){
+		const inputs = document.querySelectorAll('.prod-serv-exp-value');
+		console.log(inputs);
+		inputs.forEach(input => {
+			state.inputIds[input.id] = parseInt(input.value);
+			state.total = Object.values(state.inputIds).reduce((acc, v) => {
+				return acc + v;
+			}, 0)
+		})
+	}
 
-	// 	})
-	// }
-
-	// function updateTotal() {
- //    console.log(items.reduce((total, item) => total + parseInt(item.value), 0));
-	// }
-
-
-
-
-	// forEach(input=>{
-		// input.addEventListener('input', updateState(ind, input.target.value));
-		// console.log(input.target.value);
-		// total = total + parseInt(input.target.value);
-		// console.log(input);
-		// console.log(total)
-	// })
+	function displayTotal(){
+		if (state.inputIds.length) {
+			const latestInput = document.querySelector('.prod-serv-exp-value:last-child');
+			const  = document.createElement('div');
+		}
+	}
 
 </script>
-
 
 
