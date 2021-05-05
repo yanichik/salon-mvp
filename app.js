@@ -48,6 +48,7 @@ app.get('/login', async (req, res, next)=>{
 	res.render('users/login');
 })
 
+// User Routes Start
 app.get('/register', async(req, res, next) => {
 	res.render('users/register');
 })
@@ -56,6 +57,7 @@ app.post('/register', async(req, res, next) => {
 	console.log(req.body);
 	res.send(req.body);
 })
+// User Routes End
 
 app.get('/dashboard', (req, res, next) => {
 	if (isOwner) {
