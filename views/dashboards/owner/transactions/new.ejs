@@ -138,21 +138,16 @@
 
 	// display the up-to-date (live) total value of transaction for user to view
 	function displayTotal(){
-		console.log('inside displayTotal')
-		let len = Object.keys(state.inputIds).length;
-		const stateTotalDisplay = document.createElement('div');
-		stateTotalDisplay.className = 'stateDisplay';
-		stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
-		if (len) {
-			console.log('inside if')
-			const displaysToRemove = document.querySelectorAll('div.stateDisplay');
-			console.log(displaysToRemove);
-			displaysToRemove.forEach(display => {
-				display.parentNode.removeChild(display);
-			})
+		let stateTotalDisplay = document.querySelector('.stateDisplay')
+		if(!stateTotalDisplay){
 			const textArea = document.querySelector('.textArea');
-			textArea.prepend(stateTotalDisplay);
+			stateTotalDisplay = document.createElement('div');
+			stateTotalDisplay.className = 'stateDisplay';
+			stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
 			stateTotalDisplay.style.display = 'block';
+			textArea.prepend(stateTotalDisplay);
+		} else {
+				stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
 		}
 	}
 
