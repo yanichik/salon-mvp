@@ -105,6 +105,7 @@ app.get('/owner/transactions/:id', async (req, res, next) => {
 				lineItemValue: -20
 			}
 		],
+		// "total": this.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0),
 		"transactionNotes": "Some notes here"
 	}
 	transaction.total = transaction.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0);
