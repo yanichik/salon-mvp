@@ -44,7 +44,7 @@
 					<!-- List of products/services and/or expenses-->
 					<div class="prod-serv-exp-items">
 					</div>
-					<div class="row textArea">
+					<div class="row">
 						<div class="col-12">
 							<textarea name="trasactionNotes" id="trasactionNotes" rows="5" class="form-control my-2"></textarea>
 						</div>
@@ -58,26 +58,9 @@
 	</div>
 </div>
 
- <script>
- 	// inner html of expense div to be added at click of "Add Product/Service Item"
-	const prodServDiv = `<div class="col-8">
-										<div class="row">
-											<div class="col-12">
-												<div class="input-group">
-													<span class="input-group-text">Product/Service</span>
-													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-4">
-										<div class="input-group mb-1">
-										    <span class="input-group-text">$</span>
-										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
-										</div>
-									</div>`;
 
-	// inner html of expense div to be added at click of "Add Expense Item"
+
+  <script>
 	const expenseDiv = `<div class="col-8">
 										<div class="row">
 											<div class="col-12">
@@ -91,87 +74,62 @@
 									<div class="col-4">
 										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
-										  <input type="text" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										  <input type="number" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>`;
-	
-	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
-	
-	let state = {
-		inputIds: {},
-		total: 0
-	}
+	const prodServDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Product/Service</span>
+													<input type="text" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-1">
+										    <span class="input-group-text">$</span>
+										  <input type="number" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
 
-	// add Product-Service line item
+	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
+	console.log(typeof prodServExpItems)
+	let lineId = 0;
 	function addProdServ(){
 		const prodServElement = document.createElement('div');
 		prodServElement.className = 'row mb-2';
 		prodServElement.innerHTML = prodServDiv;
-
-		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
-		prodServElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		prodServElement.querySelector('input.prod-serv-exp-value').id = document.querySelectorAll('input.prod-serv-exp-value').length+1
 		prodServExpItems.appendChild(prodServElement);
-
-		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
-		updateInputChanges();
+		respondToInputChanges()
 	}
 
-	// add Expense line item
 	function addExpense(){
 		const expElement = document.createElement('div');
 		expElement.className = 'row mb-2';
 		expElement.innerHTML = expenseDiv;
-
-		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
-		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		expElement.querySelector('input.prod-serv-exp-value').id = document.querySelectorAll('input.prod-serv-exp-value').length+1
 		prodServExpItems.appendChild(expElement);
-
-		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
-		updateInputChanges();
+		respondToInputChanges()
 	}
 
-	// resets event listeners on the inputs to prevent doubling up event listeners on the same inputs
-	function	updateInputChanges(){
-		const inputs = document.querySelectorAll('.prod-serv-exp-value');
-		inputs.forEach(input => {
-			input.removeEventListener('change', updateState);
-			input.addEventListener('change', updateState);
+	let state = {
+		inputValues: {},
+		total: 0
+	}
+	function updateInputState(evt) {
+		state['inputValues'][evt.target.id] = evt.target.value
+		state['total'] = Object.values(state['inputValues']).reduce((total, v) => total + parseInt(v), 0)
+	}
+
+	function respondToInputChanges() {
+		const items = document.querySelectorAll('input.prod-serv-exp-value');
+		items.forEach(item => {
+			item.removeEventListener('input', updateInputState)
+			item.addEventListener('input', updateInputState)
 		})
-	}
-
-	// update state with key-value pairs of IDs to current value, and total sum of transaction values
-	function updateState(){
-		const inputs = document.querySelectorAll('.prod-serv-exp-value');
-		// console.log(inputs);
-		inputs.forEach(input => {
-			state.inputIds[input.id] = parseInt(input.value) | 0;
-			state.total = Object.values(state.inputIds).reduce((acc, v) => {
-				return acc + v;
-			}, 0)
-		})
-		displayTotal();
-	}
-
-	// display the up-to-date (live) total value of transaction for user to view
-	function displayTotal(){
-		console.log('inside displayTotal')
-		let len = Object.keys(state.inputIds).length;
-		const stateTotalDisplay = document.createElement('div');
-		stateTotalDisplay.className = 'stateDisplay';
-		stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
-		if (len) {
-			console.log('inside if')
-			const displaysToRemove = document.querySelectorAll('div.stateDisplay');
-			console.log(displaysToRemove);
-			displaysToRemove.forEach(display => {
-				display.parentNode.removeChild(display);
-			})
-			const textArea = document.querySelector('.textArea');
-			textArea.prepend(stateTotalDisplay);
-			stateTotalDisplay.style.display = 'block';
-		}
 	}
 
 </script>
-
-

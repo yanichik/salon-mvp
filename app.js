@@ -57,14 +57,25 @@ app.post('/register', async(req, res, next) => {
 	res.send(req.body);
 })
 
-app.get('/dashboard', async(req, res, next) => {
+app.get('/dashboard', (req, res, next) => {
 	if (isOwner) {
-		res.render('dashboards/owner');
+		res.redirect('owner/transactions/new');
 	}
 	if (isClient) {
-		res.render('dashboards/client');
+		res.redirect('client/transactions/new');
 	}
 })
+
+// Owner Routes Start
+app.get('/owner/transactions/new', async (req, res, next) =>{
+	res.render('dashboards/owner/transactions/new');
+})
+
+app.post('/owner/transactions', async (req, res, next) => {
+	res.send(req.body);
+})
+// Owner Routes End
+
 /*END ROUTES*/
 
 /*START LISTEN @ ROUTER*/
@@ -72,3 +83,10 @@ app.listen(port, ()=>{
 	console.log(`Listening on Port ${port}`);
 })
 /*END LISTEN @ ROUTER*/
+
+
+
+
+
+
+
