@@ -144,7 +144,7 @@
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
 		// console.log(inputs);
 		inputs.forEach(input => {
-			state.inputIds[input.id] = parseInt(input.value);
+			state.inputIds[input.id] = parseInt(input.value) | 0;
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
 				return acc + v;
 			}, 0)
@@ -152,6 +152,7 @@
 		displayTotal();
 	}
 
+	// display the up-to-date (live) total value of transaction for user to view
 	function displayTotal(){
 		console.log('inside displayTotal')
 		let len = Object.keys(state.inputIds).length;
