@@ -4,7 +4,8 @@ const express = require('express'),
 	ejsMate = require('ejs-mate'),  // includes layout, partial, & block template functions for view engine
 	path = require('path'),
 	port = process.env.PORT || 3000,  // port defined in .env file or localhost:3000
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	{singleTransaction, manyTransactions} = require('./seeds/transactions');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -78,39 +79,13 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 
 app.get('/owner/transactions', async (req, res, next) => {
 	// res.send(req.body);
-	res.render('dashboards/owner/transactions/index')
+	res.render('dashboards/owner/transactions/index');
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
-	// res.send(req.body);
-	const transaction = {
-		"owner": "Bela",
-		"client": "Daisy",
-		"salon": "Bela's Beauty Studio",
-		"date": "12/12/20",
-		"lineItems": [
-			{
-				lineItemType: "product/service",
-				lineItemContent: "wash hair",
-				lineItemValue: 25
-			},
-			{
-				lineItemType: "product/service",
-				lineItemContent: "color hair",
-				lineItemValue: 90
-			},
-			{
-				lineItemType: "expense",
-				lineItemContent: "color - light brown",
-				lineItemValue: -20
-			}
-		],
-		// "total": this.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0),
-		"transactionNotes": "Some notes here"
-	}
-	transaction.total = transaction.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0);
-	res.render('dashboards/owner/transactions/show', {transaction});
-	// res.render('dashboards/owner/transactions/show', {'salon': "Bela's Beauty Studio"});
+	res.render('dashboards/owner/transactions/show', {singleTransaction});
+	// res.render('dashboards/owner/transactions/show', {transactions});
+
 })
 
 // Owner Routes End
