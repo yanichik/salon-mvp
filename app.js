@@ -5,7 +5,8 @@ const express = require('express'),
 	path = require('path'),
 	port = process.env.PORT || 3000,  // port defined in .env file or localhost:3000
 	mongoose = require('mongoose'),
-	{singleTransaction, manyTransactions} = require('./seeds/transactions');
+	{singleTransaction, manyTransactions} = require('./seeds/transactions'),
+	{ownerSample} = require('./seeds/users');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -77,17 +78,32 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 	res.render('dashboards/owner/transactions/new');
 })
 
+app.post('/owner/transactions', async (req, res, next) => {
+	// temp routing to show a single mock transaction
+	res.render('dashboards/owner/transactions/show', {singleTransaction});
+})
+
 app.get('/owner/transactions', async (req, res, next) => {
-	// res.send(req.body);
 	res.render('dashboards/owner/transactions/index');
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
 	res.render('dashboards/owner/transactions/show', {singleTransaction});
 	// res.render('dashboards/owner/transactions/show', {transactions});
-
 })
 
+app.get('/owner/profile', async (req, res, next) => {
+	res.render('dashboards/owner/profile/show', {ownerSample});
+})
+
+app.post('/owner/profile', async (req, res, next) => {
+	// res.render('dashboards/owner/profile/show', {ownerSample});
+	res.send('Edit Profile Here')
+})
+
+app.get('/owner/profile/edit', async (req, res, next) => {
+	res.render('dashboards/owner/profile/edit', {ownerSample});
+})
 // Owner Routes End
 
 /*END ROUTES*/
