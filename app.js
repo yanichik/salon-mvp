@@ -5,7 +5,7 @@ const express = require('express'),
 	path = require('path'),
 	port = process.env.PORT || 3000,  // port defined in .env file or localhost:3000
 	mongoose = require('mongoose'),
-	{singleTransaction, manyTransactions} = require('./seeds/transactions'),
+	{singleTransaction, manyTransactions, sortedTransactions} = require('./seeds/transactions'),
 	{ownerSample} = require('./seeds/users');
 /*END INCLUSIONS*/
 
@@ -84,7 +84,7 @@ app.post('/owner/transactions', async (req, res, next) => {
 })
 
 app.get('/owner/transactions', async (req, res, next) => {
-	res.render('dashboards/owner/transactions/index');
+	res.render('dashboards/owner/transactions/index', {sortedTransactions});
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
