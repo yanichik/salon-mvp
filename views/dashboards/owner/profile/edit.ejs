@@ -8,7 +8,7 @@
 						<span class="text-center h3">Edit Profile</span>
 					  <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2706&q=80" class="card-img-top" alt="...">
 					  <div class="card-body">
-					  	<form action="/register" method="POST">
+					  	<form action="/owner/profile" method="POST">
 								<div class="row mb-2">
 								  <div class="col">
 								    <input type="text" class="form-control" placeholder="Business Name" aria-label="business name" name="businessName" id="businessName">
@@ -45,9 +45,14 @@
 								    <input type="password" class="form-control" placeholder="Repeat Password" name="passwordRepeat">
 								  </div>
 								</div>
-					  		<div class="d-grid">
-					    		<a href="/owner/profile" class="btn btn-success">Submit Profile Edit</a>
-					    	</div>
+								<div class="row mb-2">
+									<div class="d-grid col-6">
+										<button class="btn btn-success">Submit Profile Edit</a>
+									</div>
+									<div class="d-grid col-6">
+										<a href="/owner/profile" class="btn btn-success">Back to Profile View</a>
+									</div>
+								</div>
 					  	</form>
 					  </div>
 					</div>
