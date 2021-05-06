@@ -11,12 +11,14 @@
 			<div class="card-body">
 					<div class="row mb-2">
 						<div class="col-4">
+							<button class="btn btn-info mb-2">Prev Month</button>
 							<h3>Date</h3>
 							<% for(let item of manyTransactions) { %>
 							<p><%= item.date %></p>
 							<% } %>
 						</div>
 						<div class="col-4">
+							<button class="btn invisible mb-2">Placeholder</button>
 							<h3>Description</h3>
 							<% for(let item of manyTransactions) { %>
 								<p><% for(let content of item.lineItems) { %>
@@ -25,6 +27,7 @@
 							<% } %>
 						</div>
 						<div class="col-4">
+							<button class="btn btn-info mb-2">Next Month</button>
 							<h3>Value</h3>
 							<% for(let item of manyTransactions) { %>
 								<p>$<%=item.total%></p>
@@ -52,6 +55,55 @@
 	</div>
 </div>
 
+<script>
+	const dates = [];
+	const manyTransactions = <%- JSON.stringify(manyTransactions) %>;
+	manyTransactions.forEach( (item, ind) => {
+		dates.push({date: new Date(item.date)});
+	})
+	/* console.log(dates[0].date) */
+	dates.forEach((day, ind) => {
+		day.ind = ind;
+		day.stamp = day.date.getTime();
+	  day.date = day.date.toString();
+	/*   console.log(day.stamp); */
+	})
+	/* console.log(dates); */
+
+	const day2mil = 24*60*60*1000;
+	const thirtyDays2mil = 30*day2mil;
+	const year2mil = day2mil*365;
+
+	var start = new Date();
+	/* console.log(Date(start)) */
+	start.setHours(0,0,0,0);
+	/* console.log(typeof start) */
+	/* console.log(start.toString()) */
+
+	start = new Date(start.getTime() - year2mil);
+	/* console.log(start.toString()) */
+
+	var end = new Date();
+	end.setHours(23,59,59,999);
+	/* console.log(end.toString()) */
+
+	/* alert( start.toUTCString() + ':' + end.toUTCString() ); */
+
+	let result = dates.filter(function(obj){
+		return obj.stamp >=start.getTime() && obj.stamp <=end.getTime();
+	})
+
+const sortedResult = result.sort((a,b) =>{
+		return a.stamp - b.stamp
+	});
+const sortedTransactions = [];
+sortedResult.forEach( (item, ind) => {
+	sortedTransactions[ind] = manyTransactions[item.ind];
+})
+
+// console.log(sortedResult);
+console.log(sortedTransactions);
+</script>
 
 <!-- <script>
 	// turn array into comma-separated string
