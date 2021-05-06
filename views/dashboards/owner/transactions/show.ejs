@@ -6,36 +6,36 @@
 	<div class="col-10 border border-secondary">
 		<div class="card row">
 			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
-				<%= transaction.salon %>
+				<%= singleTransaction.salon %>
 			</div>
 			<div class="card-body">
 					<div class="row mb-2">
 						<div class="col">
-							Salon Owner: <p><%= transaction.owner%></p>
+							Salon Owner: <p><%= singleTransaction.owner%></p>
 						</div>
 						<div class="col">
-							Salon Client: <p><%= transaction.client%></p>
+							Salon Client: <p><%= singleTransaction.client%></p>
 						</div>
 						<div class="col">
-							Transaction Date: <p><%= transaction.date%></p>
+							Transaction Date: <p><%= singleTransaction.date%></p>
 						</div>
 					</div>
 					<div class="row mb-2">
 						<div class="col-4">
 							<h3>Type</h3>
-							<% for(let lineItem of transaction.lineItems) {%>
+							<% for(let lineItem of singleTransaction.lineItems) {%>
 								<p><%=lineItem.lineItemType%>: </p>
 							<% } %>
 						</div>
 						<div class="col-4">
 							<h3>Description</h3>
-							<% for(let lineItem of transaction.lineItems) {%>
+							<% for(let lineItem of singleTransaction.lineItems) {%>
 								<p><%=lineItem.lineItemContent%></p>
 							<% } %>
 						</div>
 						<div class="col-4">
 							<h3>Value</h3>
-							<% for(let lineItem of transaction.lineItems) {%>
+							<% for(let lineItem of singleTransaction.lineItems) {%>
 								<p>$<%=lineItem.lineItemValue%></p>
 							<% } %>
 						</div>
@@ -46,16 +46,13 @@
 								<p class="display-6">TOTAL:</p>
 							</div>
 							<div class="col-4">
-								<p class="display-6 fw-bold">$<%=transaction.total%></p>
+								<p class="display-6 fw-bold">$<%=singleTransaction.total%></p>
 							</div>
 						</div>
-					<!-- List of products/services and/or expenses-->
-					<div class="prod-serv-exp-items">
-					</div>
 					<div class="row mb-2">
 						<div class="col-12">
 							<h3>Transaction Notes:</h3>
-							<%= transaction.transactionNotes%>
+							<%= singleTransaction.transactionNotes%>
 						</div>
 					</div>
 					<div class="row mb-2">

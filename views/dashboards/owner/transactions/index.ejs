@@ -1,2 +1,64 @@
 <% layout('layouts/boilerplate') %>
-<h1>Reports Here</h1>
+<!-- <h1>isOwner</h1> -->
+
+<div class="row vh-90 border border-success">
+	<%- include('../../../partials/sidebar') %>	<!-- relative path -->
+	<div class="col-10 border border-secondary">
+		<div class="card row">
+			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
+				<%= manyTransactions[0].salon %>
+			</div>
+			<div class="card-body">
+					<div class="row mb-2">
+						<div class="col-4">
+							<h3>Date</h3>
+							<% for(let item of manyTransactions) { %>
+							<p><%= item.date %></p>
+							<% } %>
+						</div>
+						<div class="col-4">
+							<h3>Description</h3>
+							<% for(let item of manyTransactions) { %>
+								<p><% for(let content of item.lineItems) { %>
+									<%= content.lineItemContent %>,
+								<% } %></p>
+							<% } %>
+						</div>
+						<div class="col-4">
+							<h3>Value</h3>
+							<% for(let item of manyTransactions) { %>
+								<p>$<%=item.total%></p>
+							<% } %>
+						</div>
+						<hr>
+					</div>
+					<!-- 
+					<div class="row mb-2 inline-block">
+						<div class="col-4 offset-4">
+							<p class="display-6">TOTAL:</p>
+						</div>
+						<div class="col-4">
+							<p class="display-6 fw-bold">$<%=manyTransactions[0].total%></p>
+						</div>
+					-->
+					</div>
+					<div class="row mb-2">
+						<div class="d-grid col-6">
+							<a href="/owner/transactions/new" class="btn btn-success">Start a New Transaction</a>
+						</div>
+						<div class="d-grid col-6">
+							<a href="/owner/transactions" class="btn btn-success">Go to Reports</a>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- <script>
+	// turn array into comma-separated string
+	function stringifyLineItemContent(lineItemsArray){
+		lineItemsArray.join
+	}
+</script> -->
