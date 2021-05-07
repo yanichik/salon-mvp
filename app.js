@@ -6,11 +6,12 @@ const express = require('express'),
 	port = process.env.PORT || 3000,  // port defined in .env file or localhost:3000
 	mongoose = require('mongoose'),
 	{singleTransaction, manyTransactions, sortedTransactions} = require('./seeds/transactions'),
-	{ownerSample} = require('./seeds/users');
+	{ownerSample} = require('./seeds/users'),
+	Transaction = require('./models/transaction');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
-mongoose.connect('mongodb://localhost/salon-mvp', {
+mongoose.connect('mongodb://localhost:27017/salon-mvp', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,

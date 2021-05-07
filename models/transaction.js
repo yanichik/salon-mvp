@@ -2,17 +2,14 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose;
 
 const transactionSchema = new Schema({
-	salon: {
-		type: Schema.Types.ObjectId,
-		ref: 'User'
-	},
-	client: {
-		type: Schema.Types.ObjectId,
-		ref: 'User'
-	},
-	date: {
-		type: String
-	},
+	owner: String,
+	client: String,
+	salon: String,
+	date:	String,
+	email: String,
+	phone: String,
+	address: String,
+	transactionNotes: String,
 	lineItems: [
 		{
 			lineItemType: {
@@ -22,6 +19,7 @@ const transactionSchema = new Schema({
 			lineItemContent: String,
 			lineItemValue: Number
 		}
-	],
-	transactionNotes: String
+	]
 })
+
+module.exports = mongoose.model('Transaction', transactionSchema);
