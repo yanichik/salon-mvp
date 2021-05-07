@@ -1,34 +1,53 @@
 <% layout('layouts/boilerplate') %>
-<!-- <h1>isOwner</h1> -->
 <div class="row vh-90 border border-success">
 	<%- include('../../../partials/sidebar') %>	<!-- relative path -->
 	<div class="col-10 border border-secondary">
 		<div class="card row">
 			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
-				<%= sortedTransactionsByDays[0].salon %> Salon
+				<%= sortedTransactions[0].salon %> Salon
 			</div>
 			<div class="card-body">
 					<div class="row mb-2">
-						<div class="col-4">
-							<button class="btn btn-info mb-2">Prev Month</button>
+						<div class="col-2">
+							<button class="btn btn-info mb-2"><%=startDate%></button>
 							<h3>Date</h3>
-							<% for(let item of sortedTransactionsByDays) { %>
+							<% for(let item of sortedTransactions) { %>
 							<p><%= item.date %></p>
 							<% } %>
 						</div>
-						<div class="col-4">
-							<button class="btn btn-info mb-2"><%=startDate%> to <%=endDate%></button>
-							<h3>Description</h3>
-							<% for(let item of sortedTransactionsByDays) { %>
-								<p><% for(let content of item.lineItems) { %>
+						<div class="col-8">
+							<div class="row mb-2">
+								<form class="row row-cols align-items-center" action="/owner/transactions?_method=PUT" method="POST">
+									<div class="col-5">
+										<label class="visually-hidden" for="startDate">Start</label>
+										<div class="input-group">
+											<div class="input-group-text">Start</div>
+											<input type="text" id="startDate" class="form-control" placeholder="" aria-label="startdate" name="startDate">
+										</div>
+									</div>
+									<div class="col-5">
+										<label class="visually-hidden" for="endDate">End</label>
+										<div class="input-group">
+											<div class="input-group-text">End</div>
+											<input type="text" id="endDate" class="form-control" placeholder="" aria-label="enddate" name="endDate">
+										</div>
+									</div>
+									<div class="col-2">
+										<button class="btn btn-success">Submit</button>
+									</div>
+								</form>
+							</div>
+							<h3 class="text-center">Description</h3>
+							<% for(let item of sortedTransactions) { %>
+								<p class="text-center"><% for(let content of item.lineItems) { %>
 									<%= content.lineItemContent %>,
 								<% } %></p>
 							<% } %>
 						</div>
-						<div class="col-4">
-							<button class="btn btn-info mb-2">Next Month</button>
+						<div class="col-2">
+							<button class="btn btn-info mb-2"><%=endDate%></button>
 							<h3>Value</h3>
-							<% for(let item of sortedTransactionsByDays) { %>
+							<% for(let item of sortedTransactions) { %>
 								<p>$<%=item.total%></p>
 							<% } %>
 						</div>
@@ -40,7 +59,7 @@
 							<p class="display-6">TOTAL:</p>
 						</div>
 						<div class="col-4">
-							<p class="display-6 fw-bold">$<%=sortedTransactionsByDays[0].total%></p>
+							<p class="display-6 fw-bold">$<%=sortedTransactions[0].total%></p>
 						</div>
 					-->
 					</div>
@@ -53,6 +72,14 @@
 		</div>
 	</div>
 </div>
+
+<!-- <script>
+	const startDate	= "1/1/19",
+				endDate		= "12/31/20";
+	let myScript = document.createElement('script');
+	myScript.textContent = sortTransactions.sortTransactions(sortedTransactions, startDate, endDate);
+	myScript.appendChild()
+</script> -->
 
 
 

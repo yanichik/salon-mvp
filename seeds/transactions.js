@@ -1,4 +1,4 @@
-singleTransaction = {
+const singleTransaction = {
     "owner": "Bela",
     "client": "Daisy",
     "salon": "Bela's Beauty Studio",
@@ -26,7 +26,7 @@ singleTransaction.total = singleTransaction.lineItems.reduce( (acc, v) => {retur
 
 module.exports.singleTransaction = singleTransaction;
 
-manyTransactions = [
+const manyTransactions = [
   {
     "owner": "Ella",
     "client": "Diaz",
@@ -2777,12 +2777,12 @@ let result = dates.filter(function(obj){
 const sortedResult = result.sort((a,b) =>{
   return a.stamp - b.stamp
 });
-const sortedTransactions = [];
+const sortedAllTransactions = [];
 sortedResult.forEach( (item, ind) => {
-sortedTransactions[ind] = manyTransactions[item.ind];
+sortedAllTransactions[ind] = manyTransactions[item.ind];
 })
 
 // console.log(sortedResult);
-// console.log(sortedTransactions);
+// console.log(sortedAllTransactions);
 
-module.exports.sortedTransactions = sortedTransactions;
+module.exports.sortedAllTransactions = sortedAllTransactions;

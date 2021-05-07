@@ -5,10 +5,11 @@ const express = require('express'),
 	path = require('path'),
 	port = process.env.PORT || 3000,  // port defined in .env file or localhost:3000
 	mongoose = require('mongoose'),
-	{singleTransaction, manyTransactions, sortedTransactions} = require('./seeds/transactions'),
+	{singleTransaction, manyTransactions, sortedAllTransactions} = require('./seeds/transactions'),
 	{ownerSample} = require('./seeds/users'),
 	Transaction = require('./models/transaction')
-	sortTransactions = require('./utils/sortTransactions');
+	sortTransactions = require('./utils/sortTransactions'),
+	methodOverride = require('method-override');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -32,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));  // sets default directory for 
 /*END SETS*/
 
 /*START USES*/
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -91,11 +93,20 @@ app.get('/owner/transactions', async (req, res, next) => {
 	const startDate = '5/5/19';
 	const endDate = '12/31/20';
 	// const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
-	const sortedTransactionsByDays = sortTransactions(seededTransactions, startDate, endDate);
+	const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
 	// console.log(sortedTransactionsByDays);
 	// res.send(sortedTransactionsByDays[0]);
 	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, days2Sort});
-	res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
+	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
+	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
+})
+
+app.put('/owner/transactions', async (req, res, next) => {
+	const {startDate, endDate} = req.body;
+	const seededTransactions = await Transaction.find({});
+	const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
+	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
+	// res.send(req.body);
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
