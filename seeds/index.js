@@ -27,22 +27,10 @@ const seedTransactions = async () => {
 			phone: manyTransactions[i].phone,
 			address: manyTransactions[i].address,
 			transactionNotes: manyTransactions[i].transactionNotes,
-			lineItems: setLineItems(manyTransactions[i].lineItems)
+			lineItems: manyTransactions[i].lineItems
 		})
 		await xAction.save();
 	}
-}
-
-const setLineItems = async (transactions) => {
-	const lineItemsArray = [];
-	for (let i=0; i<transactions.length; i++){
-		lineItemsArray[i] = {
-			"lineItemType": transactions.lineItemType,
-      "lineItemContent": transactions.lineItemContent,
-      "lineItemValue": transactions.lineItemValue
-		}
-	}
-	return lineItemsArray;
 }
 
 seedTransactions().then(() => {
