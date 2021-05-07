@@ -7,7 +7,8 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	{singleTransaction, manyTransactions, sortedTransactions} = require('./seeds/transactions'),
 	{ownerSample} = require('./seeds/users'),
-	Transaction = require('./models/transaction');
+	Transaction = require('./models/transaction')
+	sortTransactions = require('./utils/sortTransactions');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -86,9 +87,11 @@ app.post('/owner/transactions', async (req, res, next) => {
 
 app.get('/owner/transactions', async (req, res, next) => {
 	const seededTransactions = await Transaction.find({});
-	// console.log(seededTransactions[0]);
-	// res.send(seededTransactions[0]);
-	res.render('dashboards/owner/transactions/index', {seededTransactions});
+	const days2Sort = 365;
+	const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
+	// console.log(sortedTransactionsByDays);
+	// res.send(sortedTransactionsByDays[0]);
+	res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays});
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
