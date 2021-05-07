@@ -29,6 +29,9 @@ const seedTransactions = async () => {
 			transactionNotes: manyTransactions[i].transactionNotes,
 			lineItems: manyTransactions[i].lineItems
 		})
+	  const totalValue = xAction.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0);
+	  xAction.total = totalValue;
+	  console.log(xAction);
 		await xAction.save();
 	}
 }

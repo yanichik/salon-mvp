@@ -5,21 +5,21 @@
 	<div class="col-10 border border-secondary">
 		<div class="card row">
 			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
-				<%= sortedTransactions[0].salon %> Salon
+				<%= seededTransactions[0].salon %> Salon
 			</div>
 			<div class="card-body">
 					<div class="row mb-2">
 						<div class="col-4">
 							<button class="btn btn-info mb-2">Prev Month</button>
 							<h3>Date</h3>
-							<% for(let item of sortedTransactions) { %>
+							<% for(let item of seededTransactions) { %>
 							<p><%= item.date %></p>
 							<% } %>
 						</div>
 						<div class="col-4">
 							<button class="btn invisible mb-2">Placeholder</button>
 							<h3>Description</h3>
-							<% for(let item of sortedTransactions) { %>
+							<% for(let item of seededTransactions) { %>
 								<p><% for(let content of item.lineItems) { %>
 									<%= content.lineItemContent %>,
 								<% } %></p>
@@ -28,7 +28,7 @@
 						<div class="col-4">
 							<button class="btn btn-info mb-2">Next Month</button>
 							<h3>Value</h3>
-							<% for(let item of sortedTransactions) { %>
+							<% for(let item of seededTransactions) { %>
 								<p>$<%=item.total%></p>
 							<% } %>
 						</div>
@@ -40,7 +40,7 @@
 							<p class="display-6">TOTAL:</p>
 						</div>
 						<div class="col-4">
-							<p class="display-6 fw-bold">$<%=sortedTransactions[0].total%></p>
+							<p class="display-6 fw-bold">$<%=seededTransactions[0].total%></p>
 						</div>
 					-->
 					</div>

@@ -19,7 +19,8 @@ const transactionSchema = new Schema({
 			lineItemContent: String,
 			lineItemValue: Number
 		}
-	]
+	],
+	total: Number
 })
 
 module.exports = mongoose.model('Transaction', transactionSchema);

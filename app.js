@@ -85,7 +85,10 @@ app.post('/owner/transactions', async (req, res, next) => {
 })
 
 app.get('/owner/transactions', async (req, res, next) => {
-	res.render('dashboards/owner/transactions/index', {sortedTransactions});
+	const seededTransactions = await Transaction.find({});
+	// console.log(seededTransactions[0]);
+	// res.send(seededTransactions[0]);
+	res.render('dashboards/owner/transactions/index', {seededTransactions});
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
