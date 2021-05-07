@@ -20,7 +20,6 @@ singleTransaction = {
         lineItemValue: -20
       }
     ],
-    // "total": this.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0),
     "transactionNotes": "Some notes here"
 }
 singleTransaction.total = singleTransaction.lineItems.reduce( (acc, v) => {return v.lineItemValue + acc}, 0);
@@ -53,8 +52,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 89
       }
-    ],
-    "total": 360
+    ]
   },
   {
     "owner": "Irene",
@@ -81,8 +79,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 67
       }
-    ],
-    "total": 637
+    ]
   },
   {
     "owner": "Walton",
@@ -109,8 +106,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 108
       }
-    ],
-    "total": 965
+    ]
   },
   {
     "owner": "Patrice",
@@ -137,8 +133,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 122
       }
-    ],
-    "total": 562
+    ]
   },
   {
     "owner": "Laurie",
@@ -165,8 +160,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 85
       }
-    ],
-    "total": 569
+    ]
   },
   {
     "owner": "Preston",
@@ -193,8 +187,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 60
       }
-    ],
-    "total": 607
+    ]
   },
   {
     "owner": "Geneva",
@@ -221,8 +214,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 81
       }
-    ],
-    "total": 258
+    ]
   },
   {
     "owner": "Arline",
@@ -249,8 +241,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 28
       }
-    ],
-    "total": 204
+    ]
   },
   {
     "owner": "Jeanne",
@@ -277,8 +268,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 127
       }
-    ],
-    "total": 456
+    ]
   },
   {
     "owner": "Kitty",
@@ -305,8 +295,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 57
       }
-    ],
-    "total": 743
+    ]
   },
   {
     "owner": "Robert",
@@ -333,8 +322,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 74
       }
-    ],
-    "total": 524
+    ]
   },
   {
     "owner": "Corinne",
@@ -361,8 +349,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 40
       }
-    ],
-    "total": 259
+    ]
   },
   {
     "owner": "Sheri",
@@ -389,8 +376,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 40
       }
-    ],
-    "total": 253
+    ]
   },
   {
     "owner": "Schultz",
@@ -417,8 +403,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 48
       }
-    ],
-    "total": 437
+    ]
   },
   {
     "owner": "Branch",
@@ -445,8 +430,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 4
       }
-    ],
-    "total": 760
+    ]
   },
   {
     "owner": "Ochoa",
@@ -473,8 +457,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 134
       }
-    ],
-    "total": 629
+    ]
   },
   {
     "owner": "Chan",
@@ -501,8 +484,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 57
       }
-    ],
-    "total": 980
+    ]
   },
   {
     "owner": "Tonya",
@@ -529,8 +511,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 52
       }
-    ],
-    "total": 955
+    ]
   },
   {
     "owner": "Patel",
@@ -557,8 +538,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 139
       }
-    ],
-    "total": 881
+    ]
   },
   {
     "owner": "Marjorie",
@@ -585,8 +565,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 101
       }
-    ],
-    "total": 246
+    ]
   },
   {
     "owner": "Lang",
@@ -613,8 +592,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 51
       }
-    ],
-    "total": 796
+    ]
   },
   {
     "owner": "Rodriguez",
@@ -641,8 +619,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 96
       }
-    ],
-    "total": 137
+    ]
   },
   {
     "owner": "Gamble",
@@ -669,8 +646,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 27
       }
-    ],
-    "total": 939
+    ]
   },
   {
     "owner": "Carolina",
@@ -697,8 +673,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 33
       }
-    ],
-    "total": 297
+    ]
   },
   {
     "owner": "Cathryn",
@@ -725,8 +700,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 18
       }
-    ],
-    "total": 491
+    ]
   },
   {
     "owner": "Brennan",
@@ -753,8 +727,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 112
       }
-    ],
-    "total": 697
+    ]
   },
   {
     "owner": "Gladys",
@@ -781,8 +754,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 112
       }
-    ],
-    "total": 803
+    ]
   },
   {
     "owner": "Alberta",
@@ -809,8 +781,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 80
       }
-    ],
-    "total": 644
+    ]
   },
   {
     "owner": "Carmen",
@@ -837,8 +808,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 52
       }
-    ],
-    "total": 247
+    ]
   },
   {
     "owner": "Emilia",
@@ -865,8 +835,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 29
       }
-    ],
-    "total": 130
+    ]
   },
   {
     "owner": "Charles",
@@ -893,8 +862,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 102
       }
-    ],
-    "total": 736
+    ]
   },
   {
     "owner": "Twila",
@@ -921,8 +889,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 136
       }
-    ],
-    "total": 739
+    ]
   },
   {
     "owner": "Conrad",
@@ -949,8 +916,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 63
       }
-    ],
-    "total": 427
+    ]
   },
   {
     "owner": "Keller",
@@ -977,8 +943,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 20
       }
-    ],
-    "total": 498
+    ]
   },
   {
     "owner": "Evans",
@@ -1005,8 +970,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 38
       }
-    ],
-    "total": 289
+    ]
   },
   {
     "owner": "Louise",
@@ -1033,8 +997,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 15
       }
-    ],
-    "total": 840
+    ]
   },
   {
     "owner": "Underwood",
@@ -1061,8 +1024,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 97
       }
-    ],
-    "total": 234
+    ]
   },
   {
     "owner": "Robinson",
@@ -1089,8 +1051,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 6
       }
-    ],
-    "total": 400
+    ]
   },
   {
     "owner": "Macias",
@@ -1117,8 +1078,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 90
       }
-    ],
-    "total": 498
+    ]
   },
   {
     "owner": "Craft",
@@ -1145,8 +1105,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 112
       }
-    ],
-    "total": 989
+    ]
   },
   {
     "owner": "Mia",
@@ -1173,8 +1132,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 99
       }
-    ],
-    "total": 384
+    ]
   },
   {
     "owner": "Vaughan",
@@ -1201,8 +1159,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 125
       }
-    ],
-    "total": 112
+    ]
   },
   {
     "owner": "Downs",
@@ -1229,8 +1186,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 90
       }
-    ],
-    "total": 792
+    ]
   },
   {
     "owner": "Curry",
@@ -1257,8 +1213,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 32
       }
-    ],
-    "total": 466
+    ]
   },
   {
     "owner": "Young",
@@ -1285,8 +1240,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 129
       }
-    ],
-    "total": 763
+    ]
   },
   {
     "owner": "Lelia",
@@ -1313,8 +1267,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 59
       }
-    ],
-    "total": 994
+    ]
   },
   {
     "owner": "Eliza",
@@ -1341,8 +1294,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 149
       }
-    ],
-    "total": 414
+    ]
   },
   {
     "owner": "Julianne",
@@ -1369,8 +1321,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 133
       }
-    ],
-    "total": 943
+    ]
   },
   {
     "owner": "Sherrie",
@@ -1397,8 +1348,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 115
       }
-    ],
-    "total": 611
+    ]
   },
   {
     "owner": "Keisha",
@@ -1425,8 +1375,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 63
       }
-    ],
-    "total": 163
+    ]
   },
   {
     "owner": "Navarro",
@@ -1453,8 +1402,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 113
       }
-    ],
-    "total": 424
+    ]
   },
   {
     "owner": "Davidson",
@@ -1481,8 +1429,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 83
       }
-    ],
-    "total": 588
+    ]
   },
   {
     "owner": "Justine",
@@ -1509,8 +1456,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 82
       }
-    ],
-    "total": 689
+    ]
   },
   {
     "owner": "Edna",
@@ -1537,8 +1483,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 66
       }
-    ],
-    "total": 341
+    ]
   },
   {
     "owner": "Morgan",
@@ -1565,8 +1510,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 41
       }
-    ],
-    "total": 788
+    ]
   },
   {
     "owner": "Maricela",
@@ -1593,8 +1537,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 142
       }
-    ],
-    "total": 265
+    ]
   },
   {
     "owner": "Lesa",
@@ -1621,8 +1564,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 60
       }
-    ],
-    "total": 161
+    ]
   },
   {
     "owner": "Slater",
@@ -1649,8 +1591,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 18
       }
-    ],
-    "total": 616
+    ]
   },
   {
     "owner": "Welch",
@@ -1677,8 +1618,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 16
       }
-    ],
-    "total": 775
+    ]
   },
   {
     "owner": "Madelyn",
@@ -1705,8 +1645,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 13
       }
-    ],
-    "total": 834
+    ]
   },
   {
     "owner": "Herman",
@@ -1733,8 +1672,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 33
       }
-    ],
-    "total": 605
+    ]
   },
   {
     "owner": "Morrow",
@@ -1761,8 +1699,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 75
       }
-    ],
-    "total": 788
+    ]
   },
   {
     "owner": "Frost",
@@ -1789,8 +1726,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 130
       }
-    ],
-    "total": 506
+    ]
   },
   {
     "owner": "Mcdowell",
@@ -1817,8 +1753,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 24
       }
-    ],
-    "total": 373
+    ]
   },
   {
     "owner": "Elizabeth",
@@ -1845,8 +1780,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 17
       }
-    ],
-    "total": 490
+    ]
   },
   {
     "owner": "Barrera",
@@ -1873,8 +1807,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 28
       }
-    ],
-    "total": 928
+    ]
   },
   {
     "owner": "Figueroa",
@@ -1901,8 +1834,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 71
       }
-    ],
-    "total": 809
+    ]
   },
   {
     "owner": "Pearlie",
@@ -1929,8 +1861,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 126
       }
-    ],
-    "total": 895
+    ]
   },
   {
     "owner": "Cantrell",
@@ -1957,8 +1888,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 80
       }
-    ],
-    "total": 552
+    ]
   },
   {
     "owner": "Sweet",
@@ -1985,8 +1915,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 85
       }
-    ],
-    "total": 597
+    ]
   },
   {
     "owner": "Minnie",
@@ -2013,8 +1942,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 40
       }
-    ],
-    "total": 149
+    ]
   },
   {
     "owner": "Debra",
@@ -2041,8 +1969,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 31
       }
-    ],
-    "total": 331
+    ]
   },
   {
     "owner": "Neva",
@@ -2069,8 +1996,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 70
       }
-    ],
-    "total": 312
+    ]
   },
   {
     "owner": "Vicky",
@@ -2097,8 +2023,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 113
       }
-    ],
-    "total": 514
+    ]
   },
   {
     "owner": "Celina",
@@ -2125,8 +2050,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 66
       }
-    ],
-    "total": 904
+    ]
   },
   {
     "owner": "Poole",
@@ -2153,8 +2077,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 30
       }
-    ],
-    "total": 576
+    ]
   },
   {
     "owner": "Burch",
@@ -2181,8 +2104,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 129
       }
-    ],
-    "total": 748
+    ]
   },
   {
     "owner": "Sawyer",
@@ -2209,8 +2131,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 123
       }
-    ],
-    "total": 453
+    ]
   },
   {
     "owner": "Skinner",
@@ -2237,8 +2158,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 149
       }
-    ],
-    "total": 458
+    ]
   },
   {
     "owner": "Rutledge",
@@ -2265,8 +2185,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 75
       }
-    ],
-    "total": 250
+    ]
   },
   {
     "owner": "Moran",
@@ -2293,8 +2212,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 58
       }
-    ],
-    "total": 134
+    ]
   },
   {
     "owner": "Hilda",
@@ -2321,8 +2239,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 18
       }
-    ],
-    "total": 959
+    ]
   },
   {
     "owner": "Ashlee",
@@ -2349,8 +2266,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 3
       }
-    ],
-    "total": 937
+    ]
   },
   {
     "owner": "Aileen",
@@ -2377,8 +2293,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 62
       }
-    ],
-    "total": 834
+    ]
   },
   {
     "owner": "Marina",
@@ -2405,8 +2320,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 45
       }
-    ],
-    "total": 316
+    ]
   },
   {
     "owner": "Dionne",
@@ -2433,8 +2347,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 111
       }
-    ],
-    "total": 132
+    ]
   },
   {
     "owner": "Queen",
@@ -2461,8 +2374,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 110
       }
-    ],
-    "total": 866
+    ]
   },
   {
     "owner": "Kerri",
@@ -2489,8 +2401,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 115
       }
-    ],
-    "total": 148
+    ]
   },
   {
     "owner": "Lora",
@@ -2517,8 +2428,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 72
       }
-    ],
-    "total": 936
+    ]
   },
   {
     "owner": "Melissa",
@@ -2545,8 +2455,7 @@ manyTransactions = [
         "lineItemContent": "wash",
         "lineItemValue": 124
       }
-    ],
-    "total": 696
+    ]
   },
   {
     "owner": "Hobbs",
@@ -2573,8 +2482,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 94
       }
-    ],
-    "total": 286
+    ]
   },
   {
     "owner": "Haney",
@@ -2601,8 +2509,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 114
       }
-    ],
-    "total": 118
+    ]
   },
   {
     "owner": "Cash",
@@ -2629,8 +2536,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 65
       }
-    ],
-    "total": 108
+    ]
   },
   {
     "owner": "Potter",
@@ -2657,8 +2563,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 108
       }
-    ],
-    "total": 871
+    ]
   },
   {
     "owner": "Blanche",
@@ -2685,8 +2590,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 9
       }
-    ],
-    "total": 354
+    ]
   },
   {
     "owner": "Diana",
@@ -2713,8 +2617,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 61
       }
-    ],
-    "total": 600
+    ]
   },
   {
     "owner": "Elva",
@@ -2741,8 +2644,7 @@ manyTransactions = [
         "lineItemContent": "shave",
         "lineItemValue": 29
       }
-    ],
-    "total": 684
+    ]
   },
   {
     "owner": "Leah",
@@ -2769,8 +2671,7 @@ manyTransactions = [
         "lineItemContent": "color",
         "lineItemValue": 49
       }
-    ],
-    "total": 589
+    ]
   },
   {
     "owner": "Lizzie",
@@ -2797,8 +2698,7 @@ manyTransactions = [
         "lineItemContent": "haircut",
         "lineItemValue": 59
       }
-    ],
-    "total": 557
+    ]
   },
   {
     "owner": "Barr",
@@ -2825,8 +2725,7 @@ manyTransactions = [
         "lineItemContent": "nails",
         "lineItemValue": 18
       }
-    ],
-    "total": 679
+    ]
   }
 ]
 
