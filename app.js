@@ -88,10 +88,14 @@ app.post('/owner/transactions', async (req, res, next) => {
 app.get('/owner/transactions', async (req, res, next) => {
 	const seededTransactions = await Transaction.find({});
 	const days2Sort = 365;
-	const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
+	const startDate = '5/5/19';
+	const endDate = '12/31/20';
+	// const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
+	const sortedTransactionsByDays = sortTransactions(seededTransactions, startDate, endDate);
 	// console.log(sortedTransactionsByDays);
 	// res.send(sortedTransactionsByDays[0]);
-	res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays});
+	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, days2Sort});
+	res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {

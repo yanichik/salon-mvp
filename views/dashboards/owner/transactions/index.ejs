@@ -17,7 +17,7 @@
 							<% } %>
 						</div>
 						<div class="col-4">
-							<button class="btn btn-info mb-2">Showing All Transactions</button>
+							<button class="btn btn-info mb-2"><%=startDate%> to <%=endDate%></button>
 							<h3>Description</h3>
 							<% for(let item of sortedTransactionsByDays) { %>
 								<p><% for(let content of item.lineItems) { %>

@@ -1,4 +1,4 @@
-module.exports = function sortTransactions(unsortedXactions, numDays){
+module.exports = function sortTransactions(unsortedXactions, startDate, endDate){
 	const dates = [];
 	unsortedXactions.forEach( (item, ind) => {
 	  dates.push({date: new Date(item.date)});
@@ -15,20 +15,20 @@ module.exports = function sortTransactions(unsortedXactions, numDays){
 	const day2mil = 24*60*60*1000;
 	const thirtyDays2mil = 30*day2mil;
 	const year2mil = day2mil*365;
-	const numDays2mil = numDays*24*60*60*1000;
+	// const numDays2mil = numDays*24*60*60*1000;
 
-	var start = new Date();
+	var start = new Date(startDate);
 	/* console.log(Date(start)) */
 	start.setHours(0,0,0,0);
 	/* console.log(typeof start) */
 	/* console.log(start.toString()) */
 
-	start = new Date(start.getTime() - numDays2mil);
-	 console.log(start.toString()) 
+	// start = new Date(start.getTime() - numDays2mil);
+	 // console.log(start.toString()) 
 
-	var end = new Date();
+	var end = new Date(endDate);
 	end.setHours(23,59,59,999);
-	 console.log(end.toString()) 
+	 // console.log(end.toString()) 
 
 	/* alert( start.toUTCString() + ':' + end.toUTCString() ); */
 
