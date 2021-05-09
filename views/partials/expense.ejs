@@ -1,0 +1,19 @@
+<div class="row mb-2">
+	<div class="col-8">
+		<div class="row">
+			<div class="col-12">
+				<div class="input-group">
+					<span class="input-group-text">Expense</span>
+					<input type="text" name="lineItemContent[]" value="<%=item.lineItemContent%>" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+					<input type="hidden" name="lineItemType[]" value="expense">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="input-group mb-1">
+		    <span class="input-group-text">$</span>
+		  <input type="text" name="lineItemValue[]" id="<%=ind%>" value="<%=item.lineItemValue%>" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+		</div>
+	</div>
+</div>
