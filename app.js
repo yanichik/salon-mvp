@@ -147,7 +147,7 @@ app.post('/owner/transactions', async (req, res, next) => {
 })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
-	console.log(req.params['id'])
+	// console.log(req.params['id'])
 	const transaction = await Transaction.findById(req.params['id'])
 	// res.render('dashboards/owner/transactions/show', {singleTransaction});
 	res.render('dashboards/owner/transactions/show', {transaction});
@@ -157,6 +157,29 @@ app.get('/owner/transactions/:id/edit', async (req, res, next) => {
 	// console.log(req.params['id'])
 	const transaction = await Transaction.findById(req.params['id'])
 	res.render('dashboards/owner/transactions/edit', {transaction});
+})
+
+app.put('/owner/transactions/:id', async (req, res, next) => {
+	const transaction = new Transaction({
+		owner: req.body.owner,
+		client: req.body.client,
+		salon: req.body.salon,
+		date:	req.body.date,
+		email: req.body.email,
+		phone: req.body.phone,
+		address: req.body.address,
+		transactionNotes: req.body.transactionNotes,
+		lineItems: req.body.lineItemContent.map(function (content, index){
+   		return {lineItemContent: content, 
+   		lineItemType: req.body.lineItemType[index], 
+   		lineItemValue: req.body.lineItemValue[index]}
+   	}),
+		total: req.body.lineItemValue.reduce((acc, v) => {
+				return acc + parseInt(v);
+			}, 0)
+	})
+	await transaction.save();
+	res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 app.get('/owner/profile', async (req, res, next) => {
