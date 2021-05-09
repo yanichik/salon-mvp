@@ -17,7 +17,7 @@
 							Salon Client: <p><%= transaction.client%></p>
 						</div>
 						<div class="col">
-							Transaction Date: <p><%= transaction.date%></p>
+							Transaction Date: <p><%=transaction.date.toLocaleString().split(',')[0]%></p>
 						</div>
 					</div>
 					<div class="row mb-2">
