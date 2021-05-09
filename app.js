@@ -89,12 +89,18 @@ app.post('/owner/transactions', async (req, res, next) => {
 
 app.get('/owner/transactions', async (req, res, next) => {
 	let {startDate, endDate} = req.query;
-	console.log(startDate, endDate);
-	if (!startDate || !endDate) {
+
+	// if startDate left blank, set to start of 1900
+	if (!startDate ){
 		startDate = '1/1/1900';
+	}
+
+	// if endDate left blank, set to today's date
+	if (!endDate) {
 		endDate = new Date().toLocaleString().split(',')[0];
 	}
-	console.log(startDate, endDate);
+
+	// console.log(startDate, endDate);
 	//underscore or lodash util libs 
 	//datepicker
 
@@ -107,20 +113,15 @@ app.get('/owner/transactions', async (req, res, next) => {
 	}).sort({
 		date: -1
 	})
-	// console.log(sortedTransactions[0].myDate);
-	// console.log(seededTransactions);
-	// res.send('yesh')
-
-	// const days2Sort = 365;
-	// const startDate = '5/5/19';
-	// const endDate = '12/31/20';
-
-	// const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
-	// const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
-	// console.log(sortedTransactionsByDays);
 
 	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, days2Sort});
 	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
+	
+	// if startDate is left blank pass in the date of the first transaction
+	// benefits user: date is informative and not arbitrary
+	if (startDate === '1/1/1900') {
+		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
+	}
 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
 })
 
