@@ -113,9 +113,6 @@ app.get('/owner/transactions', async (req, res, next) => {
 	}).sort({
 		date: -1
 	})
-
-	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, days2Sort});
-	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
 	
 	// if startDate is left blank pass in the date of the first transaction
 	// benefits user: date is informative and not arbitrary

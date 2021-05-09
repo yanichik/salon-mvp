@@ -40,12 +40,16 @@
 								</form>
 							</div>
 							<h3 class="text-center">Description</h3>
+
 							<% for(let item of sortedTransactions) { %>
-								<p class="text-center"><% for(let content of item.lineItems) { %>
-									<%= content.lineItemContent %>,
-								<% } %></p>
+								<% let final = "" %>
+								<% item.lineItems.forEach(content => {%>
+									<% final = content.lineItemContent + "," + final %>
+								<% }) %>
+								<p class="text-center"><%= final.split(',').slice(0,-1).join(', ') %></p>
 							<% } %>
 						</div>
+
 						<div class="col-2">
 							<button class="btn btn-info mb-2"><%=endDate%></button>
 							<h3>Total</h3>
