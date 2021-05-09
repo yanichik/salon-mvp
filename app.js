@@ -87,23 +87,19 @@ app.post('/owner/transactions', async (req, res, next) => {
 	res.render('dashboards/owner/transactions/show', {singleTransaction});
 })
 
+// Option 1: use GET method to pass in user's date range to view Reports
+// LOOK INTO: underscore or lodash util libs 
+// NEED TO ADD: datepicker
 app.get('/owner/transactions', async (req, res, next) => {
 	let {startDate, endDate} = req.query;
-
 	// if startDate left blank, set to start of 1900
 	if (!startDate ){
 		startDate = '1/1/1900';
 	}
-
 	// if endDate left blank, set to today's date
 	if (!endDate) {
 		endDate = new Date().toLocaleString().split(',')[0];
 	}
-
-	// console.log(startDate, endDate);
-	//underscore or lodash util libs 
-	//datepicker
-
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	let sortedTransactions = await Transaction.find({
     date: {
@@ -113,7 +109,6 @@ app.get('/owner/transactions', async (req, res, next) => {
 	}).sort({
 		date: -1
 	})
-	
 	// if startDate is left blank pass in the date of the first transaction
 	// benefits user: date is informative and not arbitrary
 	if (startDate === '1/1/1900') {
@@ -122,6 +117,7 @@ app.get('/owner/transactions', async (req, res, next) => {
 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
 })
 
+// Option 2: use PUT method to pass in user's date range to view Reports
 // app.put('/owner/transactions', async (req, res, next) => {
 // 	const {startDate, endDate} = req.body;
 // 	const seededTransactions = await Transaction.find({});
@@ -131,8 +127,10 @@ app.get('/owner/transactions', async (req, res, next) => {
 // })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
-	res.render('dashboards/owner/transactions/show', {singleTransaction});
-	// res.render('dashboards/owner/transactions/show', {transactions});
+	console.log(req.params['id'])
+	const transaction = await Transaction.findById(req.params['id'])
+	// res.render('dashboards/owner/transactions/show', {singleTransaction});
+	res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 app.get('/owner/profile', async (req, res, next) => {

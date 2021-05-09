@@ -14,7 +14,7 @@
 							<button class="btn btn-info mb-2"><%=startDate%></button>
 							<h3>Date</h3>
 							<% for(let item of sortedTransactions) { %>
-							<p><%= item.myDate %></p>
+							<p><a href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
 							<% } %>
 						</div>
 						<div class="col-8">
@@ -46,7 +46,9 @@
 								<% item.lineItems.forEach(content => {%>
 									<% final = content.lineItemContent + "," + final %>
 								<% }) %>
-								<p class="text-center"><%= final.split(',').slice(0,-1).join(', ') %></p>
+								<p class="text-center">
+									<%= item.client %>: <%= final.split(',').slice(0,-1).join(', ') %>
+								</p>
 							<% } %>
 						</div>
 

@@ -6,36 +6,36 @@
 	<div class="col-10 border border-secondary">
 		<div class="card row">
 			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
-				<%= singleTransaction.salon %>
+				<%= transaction.salon %> Salon
 			</div>
 			<div class="card-body">
 					<div class="row mb-2">
 						<div class="col">
-							Salon Owner: <p><%= singleTransaction.owner%></p>
+							Salon Owner: <p><%= transaction.owner%></p>
 						</div>
 						<div class="col">
-							Salon Client: <p><%= singleTransaction.client%></p>
+							Salon Client: <p><%= transaction.client%></p>
 						</div>
 						<div class="col">
-							Transaction Date: <p><%= singleTransaction.date%></p>
+							Transaction Date: <p><%= transaction.date%></p>
 						</div>
 					</div>
 					<div class="row mb-2">
 						<div class="col-4">
 							<h3>Type</h3>
-							<% for(let lineItem of singleTransaction.lineItems) {%>
+							<% for(let lineItem of transaction.lineItems) {%>
 								<p><%=lineItem.lineItemType%>: </p>
 							<% } %>
 						</div>
 						<div class="col-4">
 							<h3>Description</h3>
-							<% for(let lineItem of singleTransaction.lineItems) {%>
+							<% for(let lineItem of transaction.lineItems) {%>
 								<p><%=lineItem.lineItemContent%></p>
 							<% } %>
 						</div>
 						<div class="col-4">
 							<h3>Value</h3>
-							<% for(let lineItem of singleTransaction.lineItems) {%>
+							<% for(let lineItem of transaction.lineItems) {%>
 								<p>$<%=lineItem.lineItemValue%></p>
 							<% } %>
 						</div>
@@ -46,13 +46,13 @@
 								<p class="display-6">TOTAL:</p>
 							</div>
 							<div class="col-4">
-								<p class="display-6 fw-bold">$<%=singleTransaction.total%></p>
+								<p class="display-6 fw-bold">$<%=transaction.total%></p>
 							</div>
 						</div>
 					<div class="row mb-2">
 						<div class="col-12">
 							<h3>Transaction Notes:</h3>
-							<%= singleTransaction.transactionNotes%>
+							<%= transaction.transactionNotes%>
 						</div>
 					</div>
 					<div class="row mb-2">
