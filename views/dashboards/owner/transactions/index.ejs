@@ -12,23 +12,23 @@
 							<button class="btn btn-info mb-2"><%=startDate%></button>
 							<h3>Date</h3>
 							<% for(let item of sortedTransactions) { %>
-							<p><%= item.date %></p>
+							<p><%= item.myDate %></p>
 							<% } %>
 						</div>
 						<div class="col-8">
 							<div class="row mb-2">
-								<form class="row row-cols align-items-center" action="/owner/transactions?_method=PUT" method="POST">
+								<form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
 									<div class="col-5">
-										<label class="visually-hidden" for="startDate">Start</label>
+										<label class="visually-hidden" for="startDate">Start Date</label>
 										<div class="input-group">
-											<div class="input-group-text">Start</div>
+											<div class="input-group-text">Start Date</div>
 											<input type="text" id="startDate" class="form-control" placeholder="" aria-label="startdate" name="startDate">
 										</div>
 									</div>
 									<div class="col-5">
-										<label class="visually-hidden" for="endDate">End</label>
+										<label class="visually-hidden" for="endDate">End Date</label>
 										<div class="input-group">
-											<div class="input-group-text">End</div>
+											<div class="input-group-text">End Date</div>
 											<input type="text" id="endDate" class="form-control" placeholder="" aria-label="enddate" name="endDate">
 										</div>
 									</div>
@@ -46,7 +46,7 @@
 						</div>
 						<div class="col-2">
 							<button class="btn btn-info mb-2"><%=endDate%></button>
-							<h3>Value</h3>
+							<h3>Total</h3>
 							<% for(let item of sortedTransactions) { %>
 								<p>$<%=item.total%></p>
 							<% } %>

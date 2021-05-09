@@ -88,26 +88,49 @@ app.post('/owner/transactions', async (req, res, next) => {
 })
 
 app.get('/owner/transactions', async (req, res, next) => {
-	const seededTransactions = await Transaction.find({});
-	const days2Sort = 365;
-	const startDate = '5/5/19';
-	const endDate = '12/31/20';
+	let {startDate, endDate} = req.query;
+	console.log(startDate, endDate);
+	if (!startDate || !endDate) {
+		startDate = '1/1/1900';
+		endDate = new Date().toLocaleString().split(',')[0];
+	}
+	console.log(startDate, endDate);
+	//underscore or lodash util libs 
+	//datepicker
+
+	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
+	let sortedTransactions = await Transaction.find({
+    date: {
+        $gte: new Date(startDate),
+        $lt:  new Date(endDate)
+    }
+	}).sort({
+		date: -1
+	})
+	// console.log(sortedTransactions[0].myDate);
+	// console.log(seededTransactions);
+	// res.send('yesh')
+
+	// const days2Sort = 365;
+	// const startDate = '5/5/19';
+	// const endDate = '12/31/20';
+
 	// const sortedTransactionsByDays = sortTransactions(seededTransactions, days2Sort);
-	const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
+	// const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
 	// console.log(sortedTransactionsByDays);
-	// res.send(sortedTransactionsByDays[0]);
+
 	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, days2Sort});
 	// res.render('dashboards/owner/transactions/index', {sortedTransactionsByDays, startDate, endDate});
 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
 })
 
-app.put('/owner/transactions', async (req, res, next) => {
-	const {startDate, endDate} = req.body;
-	const seededTransactions = await Transaction.find({});
-	const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
-	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
-	// res.send(req.body);
-})
+// app.put('/owner/transactions', async (req, res, next) => {
+// 	const {startDate, endDate} = req.body;
+// 	const seededTransactions = await Transaction.find({});
+// 	const sortedTransactions = sortTransactions(seededTransactions, startDate, endDate);
+// 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
+// 	// res.send(req.body);
+// })
 
 app.get('/owner/transactions/:id', async (req, res, next) => {
 	res.render('dashboards/owner/transactions/show', {singleTransaction});
