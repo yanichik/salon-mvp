@@ -13,6 +13,10 @@
 					<div class="row mb-2">
 						<div class="col">
 							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon name" name="salon">
+							<input type="hidden" name="address" value="1452 Noriega St., San Francisco, CA">
+							<input type="hidden" name="owner" value="Bela">
+							<input type="hidden" name="email" value="bela@bela.com">
+							<input type="hidden" name="phone" value="415-566-1404">
 						</div>
 						<div class="col">
 							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="client">
@@ -49,7 +53,8 @@
 											<div class="col-12">
 												<div class="input-group">
 													<span class="input-group-text">Product/Service</span>
-													<input type="text" name="prodServ[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="hidden" name="lineItemType[]" value="product/service">
 												</div>
 											</div>
 										</div>
@@ -67,7 +72,8 @@
 											<div class="col-12">
 												<div class="input-group">
 													<span class="input-group-text">Expense</span>
-													<input type="text" name="expense[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="hidden" name="lineItemType[]" value="expense">
 												</div>
 											</div>
 										</div>
