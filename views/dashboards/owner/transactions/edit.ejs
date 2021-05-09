@@ -1,1 +1,170 @@
-<h1><%=transaction.salon%></h1>
+<% layout('layouts/boilerplate') %>
+<!-- <h1>isOwner</h1> -->
+
+<div class="row vh-90 border border-success">
+<%- include('../../../partials/sidebar') %>	<!-- relative path -->
+	<div class="col-10 border border-secondary">
+		<div class="card row">
+			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
+				Bela's Beauty Studio
+			</div>
+			<div class="card-body">
+				<form action="/owner/transactions/<%=transaction._id%>?_method=PUT" method="POST">
+					<div class="row mb-2">
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon name" name="salon">
+							<input type="hidden" name="address" value="1452 Noriega St., San Francisco, CA">
+							<input type="hidden" name="owner" value="Bela">
+							<input type="hidden" name="email" value="bela@bela.com">
+							<input type="hidden" name="phone" value="415-566-1404">
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="client" value="<%=transaction.client%>">
+						</div>
+						<div class="col">
+					    <input type="text" class="form-control" placeholder="Today's Date" aria-label="date" name="date" value="<%=transaction.date.toLocaleString().split(',')[0]%>">
+					  </div>
+					</div>
+					<div class="d-flex flex-column align-items-end prod-serv-exp-buttons">
+						<a class="btn btn-secondary mb-1" onclick="addProdServ()">Add Product/Service Item</a>
+						<a class="btn btn-secondary mb-2" onclick="addExpense()">Add Expense Item</a>
+					</div>
+					<!-- List of products/services and/or expenses-->
+					<div class="prod-serv-exp-items">
+						<% transaction.lineItems.forEach( (item, ind)=>{%>
+							<% if(item.lineItemType === 'product/service') {%>
+								<%- include('../../../partials/productService', {item, ind})%>
+							<% }%>
+							<% if(item.lineItemType === 'expense') {%>
+								<%- include('../../../partials/expense', {item, ind})%>
+							<% }%>
+						<% }) %>
+					</div>
+					<div class="row textArea">
+						<div class="col-12">
+							<textarea name="transactionNotes" id="transactionNotes" rows="5" class="form-control my-2"><%=transaction.transactionNotes%></textarea>
+						</div>
+					</div>
+					<div class="d-grid">
+						<button class="btn btn-lg btn-success">Submit Transaction Edit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <script>
+ 	// inner html of expense div to be added at click of "Add Product/Service Item"
+	const prodServDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Product/Service</span>
+													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="hidden" name="lineItemType[]" value="product/service">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-1">
+										    <span class="input-group-text">$</span>
+										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
+
+	// inner html of expense div to be added at click of "Add Expense Item"
+	const expenseDiv = `<div class="col-8">
+										<div class="row">
+											<div class="col-12">
+												<div class="input-group">
+													<span class="input-group-text">Expense</span>
+													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<input type="hidden" name="lineItemType[]" value="expense">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group mb-1">
+										    <span class="input-group-text">$</span>
+										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										</div>
+									</div>`;
+	
+	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
+	
+	let state = {
+		inputIds: {},
+		total: 0
+	}
+	updateState();
+
+	// add Product-Service line item
+	function addProdServ(){
+		updateState();
+		const prodServElement = document.createElement('div');
+		prodServElement.className = 'row mb-2';
+		prodServElement.innerHTML = prodServDiv;
+
+		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
+		prodServElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		prodServExpItems.appendChild(prodServElement);
+
+		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
+		updateInputChanges();
+	}
+
+	// add Expense line item
+	function addExpense(){
+		updateState();
+		const expElement = document.createElement('div');
+		expElement.className = 'row mb-2';
+		expElement.innerHTML = expenseDiv;
+
+		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
+		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		prodServExpItems.appendChild(expElement);
+
+		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
+		updateInputChanges();
+	}
+
+	// resets event listeners on the inputs to prevent doubling up event listeners on the same inputs
+	function	updateInputChanges(){
+		const inputs = document.querySelectorAll('.prod-serv-exp-value');
+		inputs.forEach(input => {
+			input.removeEventListener('change', updateState);
+			input.addEventListener('change', updateState);
+		})
+	}
+
+	// update state with key-value pairs of IDs to current value, and total sum of transaction values
+	function updateState(){
+		const inputs = document.querySelectorAll('.prod-serv-exp-value');
+		inputs.forEach(input => {
+			state.inputIds[input.id] = parseInt(input.value) | 0;
+			state.total = Object.values(state.inputIds).reduce((acc, v) => {
+				return acc + v;
+			}, 0)
+		})
+		displayTotal();
+	}
+
+	// display the up-to-date (live) total value of transaction for user to view
+	function displayTotal(){
+		let stateTotalDisplay = document.querySelector('.stateDisplay')
+		if(!stateTotalDisplay){
+			const textArea = document.querySelector('.textArea');
+			stateTotalDisplay = document.createElement('div');
+			stateTotalDisplay.className = 'stateDisplay';
+			stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
+			stateTotalDisplay.style.display = 'block';
+			textArea.prepend(stateTotalDisplay);
+		} else {
+				stateTotalDisplay.innerHTML = `Total transaction is: $${state.total}`;
+		}
+	}
+
+</script>
