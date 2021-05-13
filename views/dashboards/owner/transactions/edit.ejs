@@ -97,7 +97,8 @@
 	
 	let state = {
 		inputIds: {},
-		total: 0
+		total: 0,
+		idCounter: 0
 	}
 	updateState();
 
@@ -109,7 +110,15 @@
 		prodServElement.innerHTML = prodServDiv;
 
 		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
-		prodServElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		let nextId;
+		if (state.idCounter) {
+			nextId = state.idCounter++;
+		} 
+		else {
+			nextId = document.querySelectorAll('input.prod-serv-exp-value').length + 1;
+			state.idCounter++;
+		}
+		prodServElementInput.id = `inputId-${nextId}`;
 		prodServExpItems.appendChild(prodServElement);
 
 		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
@@ -124,6 +133,14 @@
 		expElement.innerHTML = expenseDiv;
 
 		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
+		let nextId;
+		if (state.idCounter) {
+			nextId = state.idCounter++;
+		} 
+		else {
+			nextId = document.querySelectorAll('input.prod-serv-exp-value').length + 1;
+			state.idCounter++;
+		}
 		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
 		prodServExpItems.appendChild(expElement);
 
