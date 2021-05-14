@@ -45,8 +45,13 @@
 							<textarea name="transactionNotes" id="transactionNotes" rows="5" class="form-control my-2"><%=transaction.transactionNotes%></textarea>
 						</div>
 					</div>
-					<div class="d-grid">
-						<button class="btn btn-lg btn-success">Submit Transaction Edit</button>
+					<div class="row">
+						<div class="col-6 d-grid">
+							<button class="btn btn-lg btn-success">Submit Transaction Edit</button>
+						</div>
+						<div class="col-6 d-grid">
+							<a href="/owner/transactions/<%=transaction._id%>" class="btn btn-lg btn-success">Cancel Edit</a>
+						</div>
 					</div>
 				</form>
 			</div>
