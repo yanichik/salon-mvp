@@ -1,3 +1,4 @@
+// Refactor: divide between external lib imports, local libs, and initializations
 /*START INCLUSIONS*/
 const express = require('express'),
 	app = express(),
@@ -88,6 +89,8 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 // LOOK INTO: underscore or lodash util libs 
 // NEED TO ADD: datepicker
 app.get('/owner/transactions', async (req, res, next) => {
+
+// Default Dates Start: when first opening reports, sets defaults to view all transactions
 	let {startDate, endDate} = req.query;
 	// if startDate left blank, set to start of 1900
 	if (!startDate ){
@@ -97,6 +100,23 @@ app.get('/owner/transactions', async (req, res, next) => {
 	if (!endDate) {
 		endDate = new Date().toLocaleString().split(',')[0];
 	}
+// Default Dates End
+
+// Toggle View Start: toggle between 30-day & monthly views
+	let {viewType} = req.query;
+	// if startDate left blank, set to start of 1900
+	if (viewType === "thirty-day"){
+		startDate = new Date(new Date().valueOf() - 30*24*60*60*1000).toLocaleString().split(',')[0]
+		endDate = new Date().toLocaleString().split(',')[0];
+	}
+	// if endDate left blank, set to today's date
+	if (viewType === "monthly") {
+		startDate = new Date(new Date().valueOf() - ((new Date()).getDate()-1)*24*60*60*1000).toLocaleString().split(',')[0]
+		endDate = new Date().toLocaleString().split(',')[0];
+	}
+// Toggle View End
+
+
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	let sortedTransactions = await Transaction.find({
     date: {

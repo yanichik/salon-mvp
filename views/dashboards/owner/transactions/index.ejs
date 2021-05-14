@@ -20,6 +20,13 @@
 						<div class="col-8">
 							<div class="row mb-2">
 								<form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
+									<div class="btn-group" role="group" aria-label="Basic example">
+									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-warning">30-Day View</button>
+									  <button type="submit" class="btn btn-primary">All Transactions</button>
+									  <button type="submit" name="viewType" value="monthly" class="btn btn-danger">Monthly</button>
+									</div>
+								</form>								
+								<!-- <form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
 									<div class="col-5">
 										<label class="visually-hidden" for="startDate">Start Date</label>
 										<div class="input-group">
@@ -37,7 +44,7 @@
 									<div class="col-2">
 										<button class="btn btn-success">Submit</button>
 									</div>
-								</form>
+								</form> -->
 							</div>
 							<h3 class="text-center">Description</h3>
 
@@ -61,7 +68,7 @@
 						</div>
 						<hr>
 					</div>
-					<!-- 
+					 
 					<div class="row mb-2 inline-block">
 						<div class="col-4 offset-4">
 							<p class="display-6">TOTAL:</p>
@@ -69,7 +76,7 @@
 						<div class="col-4">
 							<p class="display-6 fw-bold">$<%=sortedTransactions[0].total%></p>
 						</div>
-					-->
+					
 					</div>
 					<div class="row mb-2">
 						<div class="d-grid">
