@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/yanichik/salon-mvp#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
