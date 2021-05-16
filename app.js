@@ -118,9 +118,9 @@ app.get('/owner/transactions', async (req, res, next) => {
 		endDate = new Date().toLocaleString().split(',')[0];
 	}
 	// if viewType is 'monthly', reset to view this month
-	if (req.cookies.viewType === "monthly" || viewType === "monthly") {
+	if (!prevOrNext && (req.cookies.viewType === "monthly" || viewType === "monthly")) {
 		startDate = new Date(new Date().valueOf() - ((new Date()).getDate()-1)*24*60*60*1000).toLocaleString().split(',')[0]
-		endDate = new Date().toLocaleString().split(',')[0];
+		endDate = new Date((new Date().getFullYear()), (new Date().getMonth())+1, 0).toLocaleString().split(',')[0];
 	}
 	// if viewType is 'all', reset to view all
 	if (viewType != 'monthly' && viewType != 'thirty-day' && (req.cookies.viewType === "all" || req.cookies.viewType === 'undefined')) {
