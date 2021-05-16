@@ -123,7 +123,7 @@ app.get('/owner/transactions', async (req, res, next) => {
 		endDate = new Date((new Date().getFullYear()), (new Date().getMonth())+1, 0).toLocaleString().split(',')[0];
 	}
 	// if viewType is 'all', reset to view all
-	if (viewType != 'monthly' && viewType != 'thirty-day' && (req.cookies.viewType === "all" || req.cookies.viewType === 'undefined')) {
+	if (viewType != 'monthly' && viewType != 'thirty-day' && (viewType === "all" || req.cookies.viewType === "all" || req.cookies.viewType === 'undefined')) {
 		startDate = '1/1/1900';
 		endDate = new Date().toLocaleString().split(',')[0];
 	}
