@@ -13,7 +13,8 @@ const express = require('express'),
 	methodOverride = require('method-override'),
 	cookieParser = require('cookie-parser'),
 	setDateByViewType = require('./utils/setDateByViewType'),
-	setDateAtFirstVisit = require('./utils/setDateAtFirstVisit');
+	setDateAtFirstVisit = require('./utils/setDateAtFirstVisit'),
+	setDateByPrevOrNext = require('./utils/setDateByPrevOrNext');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -93,18 +94,18 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 // LOOK INTO: underscore or lodash util libs 
 // NEED TO ADD: datepicker
 app.get('/owner/transactions', async (req, res, next) => {
-	if (!req.query.length) {
+	if (!Object.keys(req.query).length) {
 		res.cookie('viewType', 'all');
 	}
-	else {
+	else if(req.query.viewType != undefined){
 		res.cookie('viewType', req.query.viewType);
 	}
 
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
 	let {startDate, endDate} = req.cookies;
 	// if startDate left blank, set to start of 1900
-	startDate = setDateAtFirstVisit(startDate, endDate)[0]
-	endDate = setDateAtFirstVisit(startDate, endDate)[1];
+	[startDate, endDate] = setDateAtFirstVisit(startDate, endDate)
+	// endDate = setDateAtFirstVisit(startDate, endDate)[1];
 // Default Dates End
 
 // Toggle View Start: toggle between 30-day, monthly, or all transactions views
@@ -115,23 +116,15 @@ app.get('/owner/transactions', async (req, res, next) => {
 	// console.log(startDate, endDate);
 // Toggle View End
 
-	// console.log(startDate, endDate)
 	res.cookie('startDate', startDate);
 	res.cookie('endDate', endDate);
 
-	if (req.query.prevOrNext === 'next' && (req.cookies.viewType === 'monthly' || req.cookies.viewType === 'thirty-day')) {
-		startDate = new Date((new Date(req.cookies.startDate)).valueOf() + 30*24*60*60*1000).toLocaleString().split(',')[0]
-		endDate = new Date((new Date(req.cookies.endDate)).valueOf() + 30*24*60*60*1000).toLocaleString().split(',')[0]
-		res.cookie('startDate', startDate);
-		res.cookie('endDate', endDate);
-	}
-
-	if (req.query.prevOrNext === 'prev' && (req.cookies.viewType === 'monthly' || req.cookies.viewType === 'thirty-day')) {
-		startDate = new Date((new Date(req.cookies.startDate)).valueOf() - 30*24*60*60*1000).toLocaleString().split(',')[0]
-		endDate = new Date((new Date(req.cookies.endDate)).valueOf() - 30*24*60*60*1000).toLocaleString().split(',')[0]
-		res.cookie('startDate', startDate);
-		res.cookie('endDate', endDate);
-	}
+// Prev or Next Start: handles dates based on queries of prev or next by user
+	startDate = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate)[0];
+	endDate = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate)[1];
+	res.cookie('startDate', startDate);
+	res.cookie('endDate', endDate);
+// Prev or Next End
 
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	let sortedTransactions = await Transaction.find({

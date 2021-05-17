@@ -11,7 +11,7 @@ module.exports = function setDateByViewType(cookies, viewTypeParam, start, end){
 	}
 	// if viewType is 'all', reset to view all
 	if (viewTypeParam != 'monthly' && viewTypeParam != 'thirty-day' && (viewTypeParam === "all" || 
-		cookies.viewType === "all" || cookies.viewType === 'undefined')) {
+		cookies.viewType === "all" || cookies.viewType === 'undefined') || !viewTypeParam) {
 			start = '1/1/1900';
 			end = new Date().toLocaleString().split(',')[0];
 	}
