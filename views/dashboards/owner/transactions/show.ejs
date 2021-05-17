@@ -56,14 +56,17 @@
 						</div>
 					</div>
 					<div class="row mb-2">
-						<div class="d-grid col-4">
+						<div class="d-grid col-3">
 							<a href="/owner/transactions/new" class="btn btn-success">Start a New Transaction</a>
 						</div>
-						<div class="d-grid col-4">
+						<div class="d-grid col-3">
 							<a href="/owner/transactions" class="btn btn-success">Go to Reports</a>
 						</div>
-						<div class="d-grid col-4">
+						<div class="d-grid col-3">
 							<a href="/owner/transactions/<%=transaction._id%>/edit" class="btn btn-success">Edit Transaction</a>
+						</div>
+						<div class="d-grid col-3">
+							<a href="/owner/transactions/<%=transaction._id%>" method="DELETE" class="btn btn-danger">Delete Transaction</a>
 						</div>
 					</div>
 			</div>

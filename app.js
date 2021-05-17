@@ -11,7 +11,8 @@ const express = require('express'),
 	Transaction = require('./models/transaction')
 	sortTransactions = require('./utils/sortTransactions'),
 	methodOverride = require('method-override'),
-	cookieParser = require('cookie-parser');
+	cookieParser = require('cookie-parser'),
+	setDateByViewType = require('./utils/setDateByViewType');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -93,10 +94,11 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 app.get('/owner/transactions', async (req, res, next) => {
 	if (!req.query.length) {
 		res.cookie('viewType', 'all');
-	};
-	if (req.query.viewType) {
+	}
+	else {
 		res.cookie('viewType', req.query.viewType);
 	}
+
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
 	let {startDate, endDate} = req.cookies;
 	// if startDate left blank, set to start of 1900
@@ -109,28 +111,14 @@ app.get('/owner/transactions', async (req, res, next) => {
 	}
 // Default Dates End
 
-
-	// console.log(req.cookies);
-	// console.log(req.query);
-
-// Toggle View Start: toggle between 30-day & monthly views
+// Toggle View Start: toggle between 30-day, monthly, or all transactions views
+// setDateByViewType function: checks if user toggled any of these by checking the query
 	let {viewType, prevOrNext} = req.query;
-	// if viewType is 'thirty-day', reset to view last 30 days
-	if (viewType === "thirty-day"){
-		startDate = new Date(new Date().valueOf() - 30*24*60*60*1000).toLocaleString().split(',')[0]
-		endDate = new Date().toLocaleString().split(',')[0];
-	}
-	// if viewType is 'monthly', reset to view this month
-	if (viewType === "monthly") {
-		startDate = new Date(new Date().valueOf() - ((new Date()).getDate()-1)*24*60*60*1000).toLocaleString().split(',')[0]
-		endDate = new Date((new Date().getFullYear()), (new Date().getMonth())+1, 0).toLocaleString().split(',')[0];
-	}
-	// if viewType is 'all', reset to view all
-	if (viewType != 'monthly' && viewType != 'thirty-day' && (viewType === "all" || req.cookies.viewType === "all" || req.cookies.viewType === 'undefined')) {
-		startDate = '1/1/1900';
-		endDate = new Date().toLocaleString().split(',')[0];
-	}
+	startDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[0];
+	endDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[1];
+	// console.log(startDate, endDate);
 // Toggle View End
+
 	// console.log(startDate, endDate)
 	res.cookie('startDate', startDate);
 	res.cookie('endDate', endDate);
@@ -160,7 +148,7 @@ app.get('/owner/transactions', async (req, res, next) => {
 	})
 	// if startDate is left blank pass in the date of the first transaction
 	// benefits user: date is informative and not arbitrary
-	if (startDate === '1/1/1900') {
+	if (sortedTransactions.length > 0 && startDate === '1/1/1900') {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate);
 	}
@@ -213,7 +201,8 @@ app.get('/owner/transactions/:id/edit', async (req, res, next) => {
 })
 
 app.put('/owner/transactions/:id', async (req, res, next) => {
-	const transaction = new Transaction({
+	console.log(typeof req.params.id);
+	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
 		owner: req.body.owner,
 		client: req.body.client,
 		salon: req.body.salon,
@@ -231,8 +220,14 @@ app.put('/owner/transactions/:id', async (req, res, next) => {
 				return acc + parseInt(v);
 			}, 0)
 	})
+	console.log(transaction);
 	await transaction.save();
-	res.render('dashboards/owner/transactions/show', {transaction});
+	res.redirect(`${req.params.id}`);
+})
+
+app.delete('/owner/transactions/:id', async (req, res, next) => {
+	const transaction = await Transaction.findByIdAndRemove(req.params.id);
+	res.redirect('owner/transactions');
 })
 
 app.get('/owner/profile', async (req, res, next) => {
