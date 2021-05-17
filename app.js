@@ -12,7 +12,8 @@ const express = require('express'),
 	sortTransactions = require('./utils/sortTransactions'),
 	methodOverride = require('method-override'),
 	cookieParser = require('cookie-parser'),
-	setDateByViewType = require('./utils/setDateByViewType');
+	setDateByViewType = require('./utils/setDateByViewType'),
+	setDateAtFirstVisit = require('./utils/setDateAtFirstVisit');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -102,13 +103,8 @@ app.get('/owner/transactions', async (req, res, next) => {
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
 	let {startDate, endDate} = req.cookies;
 	// if startDate left blank, set to start of 1900
-	if (!startDate ){
-		startDate = '1/1/1900';
-	}
-	// if endDate left blank, set to today's date
-	if (!endDate) {
-		endDate = new Date().toLocaleString().split(',')[0];
-	}
+	startDate = setDateAtFirstVisit(startDate, endDate)[0]
+	endDate = setDateAtFirstVisit(startDate, endDate)[1];
 // Default Dates End
 
 // Toggle View Start: toggle between 30-day, monthly, or all transactions views
