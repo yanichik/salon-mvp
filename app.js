@@ -68,7 +68,7 @@ app.get('/register', async(req, res, next) => {
 })
 
 app.post('/register', async(req, res, next) => {
-	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
+	// const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
 	const user = new User(req.body);
 	await user.save();
 	console.log(req.body);
@@ -236,6 +236,11 @@ app.post('/owner/profile', async (req, res, next) => {
 
 app.get('/owner/profile/edit', async (req, res, next) => {
 	res.render('dashboards/owner/profile/edit', {ownerSample});
+})
+
+app.delete('/owner/profile', async (req, res, next) => {
+	console.log('Deleting Profile');
+	res.redirect('/register');
 })
 // Owner Routes End
 

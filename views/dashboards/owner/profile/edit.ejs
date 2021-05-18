@@ -4,7 +4,7 @@
 	<div class="col-10 border border-secondary">
 		<div class="container">
 			<div class="row justify-content-center">
-					<div class="card col-6" style="width: 28rem;">
+					<div class="card col-6" style="width: 40rem;">
 						<span class="text-center h3">Edit Profile</span>
 					  <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2706&q=80" class="card-img-top" alt="...">
 					  <div class="card-body">
@@ -46,14 +46,21 @@
 								  </div>
 								</div>
 								<div class="row mb-2">
-									<div class="d-grid col-6">
-										<button class="btn btn-success">Submit Profile Edit</a>
-									</div>
-									<div class="d-grid col-6">
-										<a href="/owner/profile" class="btn btn-success">Back to Profile View</a>
+									<div class="d-grid">
+										<button class="btn btn-success">Submit Profile Edit</button>
 									</div>
 								</div>
 					  	</form>
+								<div class="row mb-2">
+									<div class="d-grid col-6">
+										<a href="/owner/profile" class="btn btn-success">Back to Profile View</a>
+									</div>
+									<div class="col-6">
+										<form class="d-grid" action="/owner/profile?_method=DELETE" method=POST>
+											<button class="btn btn-danger">Delete User</button>
+										</form>
+									</div>
+								</div>
 					  </div>
 					</div>
 			</div>
