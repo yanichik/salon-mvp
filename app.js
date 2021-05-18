@@ -96,8 +96,7 @@ app.get('/owner/transactions/new', async (req, res, next) =>{
 app.get('/owner/transactions', async (req, res, next) => {
 	if (!Object.keys(req.query).length) {
 		res.cookie('viewType', 'all');
-	}
-	else if(req.query.viewType != undefined){
+	}else if(req.query.viewType != undefined){
 		res.cookie('viewType', req.query.viewType);
 	}
 
@@ -215,8 +214,14 @@ app.put('/owner/transactions/:id', async (req, res, next) => {
 })
 
 app.delete('/owner/transactions/:id', async (req, res, next) => {
-	const transaction = await Transaction.findByIdAndRemove(req.params.id);
-	res.redirect('owner/transactions');
+	const transaction = await Transaction.findByIdAndRemove(req.params.id, (e, doc)=>{
+		if(e) {
+			console.log(e);
+		}else {
+			console.log('Removed transaction:', doc);
+		}
+	});
+	res.redirect('/owner/transactions');
 })
 
 app.get('/owner/profile', async (req, res, next) => {

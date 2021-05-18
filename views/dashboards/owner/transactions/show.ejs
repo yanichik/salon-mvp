@@ -65,9 +65,11 @@
 						<div class="d-grid col-3">
 							<a href="/owner/transactions/<%=transaction._id%>/edit" class="btn btn-success">Edit Transaction</a>
 						</div>
-						<div class="d-grid col-3">
-							<a href="/owner/transactions/<%=transaction._id%>" method="DELETE" class="btn btn-danger">Delete Transaction</a>
-						</div>
+						<!-- <div class="d-grid col-3"> -->
+							<form class="d-grid col-3" action="/owner/transactions/<%=transaction._id%>?_method=DELETE" method=POST>
+								<button class="btn btn-danger">Delete Transaction</button>
+							</form>
+						<!-- </div> -->
 					</div>
 			</div>
 		</div>
