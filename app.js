@@ -8,7 +8,8 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	{singleTransaction, manyTransactions, sortedAllTransactions} = require('./seeds/transactions'),
 	{ownerSample} = require('./seeds/users'),
-	Transaction = require('./models/transaction')
+	Transaction = require('./models/transaction'),
+	User = require('./models/user'),
 	sortTransactions = require('./utils/sortTransactions'),
 	methodOverride = require('method-override'),
 	cookieParser = require('cookie-parser'),
@@ -68,9 +69,10 @@ app.get('/register', async(req, res, next) => {
 
 app.post('/register', async(req, res, next) => {
 	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
-	const user = new User({})
+	const user = new User(req.body);
+	await user.save();
 	console.log(req.body);
-	res.send(req.body);
+	res.redirect('/dashboard');
 })
 // User Routes End
 
