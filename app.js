@@ -119,8 +119,7 @@ app.get('/owner/transactions', async (req, res, next) => {
 	res.cookie('endDate', endDate);
 
 // Prev or Next Start: handles dates based on queries of prev or next by user
-	startDate = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate)[0];
-	endDate = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate)[1];
+	[startDate, endDate] = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate);
 	res.cookie('startDate', startDate);
 	res.cookie('endDate', endDate);
 // Prev or Next End
