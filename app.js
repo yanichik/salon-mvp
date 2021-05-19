@@ -15,7 +15,8 @@ const express = require('express'),
 	cookieParser = require('cookie-parser'),
 	setDateByViewType = require('./utils/setDateByViewType'),
 	setDateAtFirstVisit = require('./utils/setDateAtFirstVisit'),
-	setDateByPrevOrNext = require('./utils/setDateByPrevOrNext');
+	setDateByPrevOrNext = require('./utils/setDateByPrevOrNext'),
+	session = require('express-session');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -50,6 +51,22 @@ app.use( (req, res, next) =>{
 	next();
 })
 app.use(cookieParser());
+const sessionConfig = {
+	cookie: {
+		httpOnly: true
+	},
+  secret: 'user-register',
+  resave: false,
+  saveUninitialized: true
+}
+app.use(session(sessionConfig));
+app.use((req, res, next) => {
+	req.session.something = 'something';
+	console.log(req.sessionID);
+	console.log(req.session);
+	console.log(req.session.something);
+	next();
+})
 // app.use(express.json());
 /*END USES*/
 
