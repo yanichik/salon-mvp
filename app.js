@@ -16,7 +16,9 @@ const express = require('express'),
 	setDateByViewType = require('./utils/setDateByViewType'),
 	setDateAtFirstVisit = require('./utils/setDateAtFirstVisit'),
 	setDateByPrevOrNext = require('./utils/setDateByPrevOrNext'),
-	session = require('express-session');
+	session = require('express-session'),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy;
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -60,14 +62,11 @@ const sessionConfig = {
   saveUninitialized: true
 }
 app.use(session(sessionConfig));
-app.use((req, res, next) => {
-	req.session.something = 'something';
-	console.log(req.sessionID);
-	console.log(req.session);
-	console.log(req.session.something);
-	next();
-})
-// app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 /*END USES*/
 
 /*START ROUTES*/
@@ -79,18 +78,38 @@ app.get('/login', async (req, res, next)=>{
 	res.render('users/login');
 })
 
+app.post('/login', async (req, res, next)=>{
+	const email = req.body.email;
+	const pw = req.body.password;
+	const user = await User.findOne({email: email});
+	if (user.password === pw) {
+		res.send('signed in');
+	} else {res.send('not signed in')};
+	// res.redirect('/dashboard');
+})
+
 // User Routes Start
 app.get('/register', async(req, res, next) => {
 	res.render('users/register');
 })
 
 app.post('/register', async(req, res, next) => {
-	// const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
-	const user = new User(req.body);
-	await user.save();
-	console.log(req.body);
-	res.redirect('/dashboard');
-})
+	const {userType, firstName, lastName, username, phoneNumber, businessName, businessAddress} = req.body;
+	// const user = new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress});
+	User.register(
+		new User({userType, firstName, lastName, username, email: username, phoneNumber, businessName, businessAddress}),
+		req.body.password,
+		function(e, user){
+			if(e){
+				console.log(e);
+				return res.render('users/register')
+			}
+			passport.authenticate('local')(req, res, ()=>{
+				console.log('user');
+				res.redirect('dashboard');
+			});
+		});
+});
 // User Routes End
 
 // Dashboard Redirect Start 

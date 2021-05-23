@@ -1,4 +1,5 @@
 module.exports.ownerSample = {
+	userType: "owner",
 	firstName: "Bela",
 	lastName: "Brunshteyn",
 	businessName: "Bela's Beauty Studio",
