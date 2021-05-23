@@ -52,6 +52,7 @@ app.use( (req, res, next) =>{
 	res.locals.isOwner = isOwner = 1;
 	next();
 })
+// Cookie Config Start
 app.use(cookieParser());
 const sessionConfig = {
 	cookie: {
@@ -62,11 +63,14 @@ const sessionConfig = {
   saveUninitialized: true
 }
 app.use(session(sessionConfig));
+// Cookie Config End
+// Passport Config Start
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy({usernameField: 'email'}, User.createStrategy()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// Passport Config End
 /*END USES*/
 
 /*START ROUTES*/
@@ -94,10 +98,10 @@ app.get('/register', async(req, res, next) => {
 })
 
 app.post('/register', async(req, res, next) => {
-	const {userType, firstName, lastName, username, phoneNumber, businessName, businessAddress} = req.body;
+	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
 	// const user = new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress});
 	User.register(
-		new User({userType, firstName, lastName, username, email: username, phoneNumber, businessName, businessAddress}),
+		new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress}),
 		req.body.password,
 		function(e, user){
 			if(e){
