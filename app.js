@@ -18,7 +18,9 @@ const express = require('express'),
 	setDateByPrevOrNext = require('./utils/setDateByPrevOrNext'),
 	session = require('express-session'),
 	passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy;
+	LocalStrategy = require('passport-local').Strategy,
+	flash = require('connect-flash'),
+	isLoggedIn = require('./middleware');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -42,11 +44,14 @@ app.set('views', path.join(__dirname, 'views'));  // sets default directory for 
 /*END SETS*/
 
 /*START USES*/
+app.use(flash());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use( (req, res, next) =>{
+	res.locals.success = flash('success');
+	res.locals.error = flash('error');
 	res.locals.url = req.originalUrl;
 	res.locals.isClient = isClient = 0;
 	res.locals.isOwner = isOwner = 1;
@@ -67,7 +72,7 @@ app.use(session(sessionConfig));
 // Passport Config Start
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy({usernameField: 'email'}, User.createStrategy()));
+passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // Passport Config End
@@ -82,15 +87,19 @@ app.get('/login', async (req, res, next)=>{
 	res.render('users/login');
 })
 
-app.post('/login', async (req, res, next)=>{
-	const email = req.body.email;
-	const pw = req.body.password;
-	const user = await User.findOne({email: email});
-	if (user.password === pw) {
-		res.send('signed in');
-	} else {res.send('not signed in')};
-	// res.redirect('/dashboard');
+app.post('/login', passport.authenticate('local'), (req, res)=>{
+	res.redirect('dashboard');
 })
+
+// app.post('/login', async (req, res, next)=>{
+// 	const email = req.body.email;
+// 	const pw = req.body.password;
+// 	const user = await User.findOne({email: email});
+// 	if (user.password === pw) {
+// 		res.send('signed in');
+// 	} else {res.send('not signed in')};
+// 	// res.redirect('/dashboard');
+// })
 
 // User Routes Start
 app.get('/register', async(req, res, next) => {
