@@ -20,7 +20,7 @@ const express = require('express'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	flash = require('connect-flash'),
-	isLoggedIn = require('./middleware');
+	{isLoggedIn} = require('./middleware');
 /*END INCLUSIONS*/
 
 /*START MONGOOSE SETUP*/
@@ -49,14 +49,6 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use( (req, res, next) =>{
-	res.locals.success = flash('success');
-	res.locals.error = flash('error');
-	res.locals.url = req.originalUrl;
-	res.locals.isClient = isClient = 0;
-	res.locals.isOwner = isOwner = 1;
-	next();
-})
 // Cookie Config Start
 app.use(cookieParser());
 const sessionConfig = {
@@ -69,6 +61,17 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 // Cookie Config End
+// Flash start
+app.use( (req, res, next) =>{
+	res.locals.success = req.flash('success');
+	// res.locals.error = req.flash(error);
+	res.locals.url = req.originalUrl;
+	res.locals.isClient = isClient = 0;
+	res.locals.isOwner = isOwner = 1;
+	next();
+})
+// Flash end
+
 // Passport Config Start
 app.use(passport.initialize());
 app.use(passport.session());
@@ -87,8 +90,9 @@ app.get('/login', async (req, res, next)=>{
 	res.render('users/login');
 })
 
-app.post('/login', passport.authenticate('local'), (req, res)=>{
-	res.redirect('dashboard');
+app.post('/login', passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), (req, res, next)=>{
+	req.flash('success', 'Welcome back!');
+	res.redirect('/owner/transactions/new');
 })
 
 // app.post('/login', async (req, res, next)=>{
@@ -126,7 +130,7 @@ app.post('/register', async(req, res, next) => {
 // User Routes End
 
 // Dashboard Redirect Start 
-app.get('/dashboard', (req, res, next) => {
+app.get('/dashboard', isLoggedIn, (req, res, next) => {
 	if (isOwner) {
 		res.redirect('owner/transactions/new');
 	}
@@ -137,7 +141,7 @@ app.get('/dashboard', (req, res, next) => {
 // Dashboard Redirect End
 
 // Owner Routes Start
-app.get('/owner/transactions/new', async (req, res, next) =>{
+app.get('/owner/transactions/new', isLoggedIn, async (req, res, next) =>{
 	res.render('dashboards/owner/transactions/new');
 })
 
