@@ -64,7 +64,7 @@ app.use(session(sessionConfig));
 // Flash start
 app.use( (req, res, next) =>{
 	res.locals.success = req.flash('success');
-	// res.locals.error = req.flash(error);
+	res.locals.error = req.flash('error');
 	res.locals.url = req.originalUrl;
 	res.locals.isClient = isClient = 0;
 	res.locals.isOwner = isOwner = 1;
@@ -90,7 +90,7 @@ app.get('/login', async (req, res, next)=>{
 	res.render('users/login');
 })
 
-app.post('/login', passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), (req, res, next)=>{
+app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res, next)=>{
 	req.flash('success', 'Welcome back!');
 	res.redirect('/owner/transactions/new');
 })
@@ -122,7 +122,7 @@ app.post('/register', async(req, res, next) => {
 				return res.render('users/register')
 			}
 			passport.authenticate('local')(req, res, ()=>{
-				console.log('user');
+				// console.log('user');
 				res.redirect('dashboard');
 			});
 		});
@@ -243,7 +243,7 @@ app.get('/owner/transactions/:id/edit', async (req, res, next) => {
 })
 
 app.put('/owner/transactions/:id', async (req, res, next) => {
-	console.log(typeof req.params.id);
+	// console.log(typeof req.params.id);
 	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
 		owner: req.body.owner,
 		client: req.body.client,
@@ -262,7 +262,7 @@ app.put('/owner/transactions/:id', async (req, res, next) => {
 				return acc + parseInt(v);
 			}, 0)
 	})
-	console.log(transaction);
+	// console.log(transaction);
 	await transaction.save();
 	res.redirect(`${req.params.id}`);
 })
