@@ -32,7 +32,8 @@ mongoose.connect('mongodb://localhost:27017/salon-mvp', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
-	useFindAndModify: false});
+	useFindAndModify: false
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -79,7 +80,7 @@ app.use( (req, res, next) =>{
 // Passport Config Start
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
+passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // Passport Config End

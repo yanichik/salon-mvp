@@ -1,9 +1,7 @@
 const express = require('express'),
 	router = express.Router(),
-	ejsMate = require('ejs-mate'),  // includes layout, partial, & block template functions for view engine
 	User = require('../models/user'),
-	passport = require('passport'),
-	{isLoggedIn} = require('../middleware');
+	passport = require('passport');
 
 router.get('/', async (req, res, next)=>{
 	res.redirect('login');
@@ -31,13 +29,22 @@ router.post('/register', async(req, res, next) => {
 		function(e, user){
 			if(e){
 				console.log(e);
-				return res.render('users/register')
+				console.log('something');
+				req.flash('error', "something's wrong");
+				return res.redirect('register')
 			}
+							// req.login(user, function(e) {
+					   	//    if (e) {
+					   	//      console.log(e);
+					   	//      return next(e);
+					   	//    }
+					   	//    return res.redirect('dashboard');
+					   	//  	});
 			passport.authenticate('local')(req, res, ()=>{
-				// console.log('user');
 				res.redirect('dashboard');
 			});
-		});
+		}
+	);
 });
 
 module.exports = router;
