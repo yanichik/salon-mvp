@@ -23,6 +23,10 @@ const express = require('express'),
 	{isLoggedIn} = require('./middleware');
 /*END INCLUSIONS*/
 
+// START INCLUDE ROUTES
+const userRoutes = require('./routes/userRoutes');
+// END INCLUDE ROUTES
+
 /*START MONGOOSE SETUP*/
 mongoose.connect('mongodb://localhost:27017/salon-mvp', {
 	useNewUrlParser: true,
@@ -82,51 +86,9 @@ passport.deserializeUser(User.deserializeUser());
 /*END USES*/
 
 /*START ROUTES*/
-app.get('/', async (req, res, next)=>{
-	res.redirect('login');
-})
-
-app.get('/login', async (req, res, next)=>{
-	res.render('users/login');
-})
-
-app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res, next)=>{
-	req.flash('success', 'Welcome back!');
-	res.redirect('/owner/transactions/new');
-})
-
-// app.post('/login', async (req, res, next)=>{
-// 	const email = req.body.email;
-// 	const pw = req.body.password;
-// 	const user = await User.findOne({email: email});
-// 	if (user.password === pw) {
-// 		res.send('signed in');
-// 	} else {res.send('not signed in')};
-// 	// res.redirect('/dashboard');
-// })
 
 // User Routes Start
-app.get('/register', async(req, res, next) => {
-	res.render('users/register');
-})
-
-app.post('/register', async(req, res, next) => {
-	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
-	// const user = new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress});
-	User.register(
-		new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress}),
-		req.body.password,
-		function(e, user){
-			if(e){
-				console.log(e);
-				return res.render('users/register')
-			}
-			passport.authenticate('local')(req, res, ()=>{
-				// console.log('user');
-				res.redirect('dashboard');
-			});
-		});
-});
+app.use('/', userRoutes);
 // User Routes End
 
 // Dashboard Redirect Start 
@@ -148,7 +110,7 @@ app.get('/owner/transactions/new', isLoggedIn, async (req, res, next) =>{
 // Option 1: use GET method to pass in user's date range to view Reports
 // LOOK INTO: underscore or lodash util libs 
 // NEED TO ADD: datepicker
-app.get('/owner/transactions', async (req, res, next) => {
+app.get('/owner/transactions', isLoggedIn, async (req, res, next) => {
 	if (!Object.keys(req.query).length) {
 		res.cookie('viewType', 'all');
 	}else if(req.query.viewType != undefined){
@@ -206,7 +168,7 @@ app.get('/owner/transactions', async (req, res, next) => {
 // 	// res.send(req.body);
 // })
 
-app.post('/owner/transactions', async (req, res, next) => {
+app.post('/owner/transactions', isLoggedIn, async (req, res, next) => {
 	const transaction = new Transaction({
 		owner: req.body.owner,
 		client: req.body.client,
@@ -267,7 +229,7 @@ app.put('/owner/transactions/:id', async (req, res, next) => {
 	res.redirect(`${req.params.id}`);
 })
 
-app.delete('/owner/transactions/:id', async (req, res, next) => {
+app.delete('/owner/transactions/:id', isLoggedIn, async (req, res, next) => {
 	const transaction = await Transaction.findByIdAndRemove(req.params.id, (e, doc)=>{
 		if(e) {
 			console.log(e);
@@ -278,20 +240,20 @@ app.delete('/owner/transactions/:id', async (req, res, next) => {
 	res.redirect('/owner/transactions');
 })
 
-app.get('/owner/profile', async (req, res, next) => {
+app.get('/owner/profile', isLoggedIn, async (req, res, next) => {
 	res.render('dashboards/owner/profile/show', {ownerSample});
 })
 
-app.post('/owner/profile', async (req, res, next) => {
+app.post('/owner/profile', isLoggedIn, async (req, res, next) => {
 	// res.render('dashboards/owner/profile/show', {ownerSample});
 	res.send('Edit Profile Here')
 })
 
-app.get('/owner/profile/edit', async (req, res, next) => {
+app.get('/owner/profile/edit', isLoggedIn, async (req, res, next) => {
 	res.render('dashboards/owner/profile/edit', {ownerSample});
 })
 
-app.delete('/owner/profile', async (req, res, next) => {
+app.delete('/owner/profile', isLoggedIn, async (req, res, next) => {
 	console.log('Deleting Profile');
 	res.redirect('/register');
 })
