@@ -17,12 +17,14 @@
         <!-- <a class="nav-link active" href="/">Home</a> -->
       </div>
       <div class="navbar-nav nav-masthead">
-        <% /* if(!loggedInUser) { */%>
+        <%  if(!loggedInUser) { %>
+          <% /* console.log(loggedInUser) */ %>
           <a class="nav-link" href="/login">Login</a>
           <a class="nav-link" href="/register">Register</a>
-        <% /* } else { */ %>
+        <%  } else {  %>
+          <% /* console.log(loggedInUser) */ %>
           <a class="nav-link" href="/logout">Logout</a>
-        <% /* } */ %>
+        <%  }  %>
       </div>
     </div>
   </div>
