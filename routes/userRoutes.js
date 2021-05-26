@@ -5,20 +5,20 @@ const express = require('express'),
 
 router.get('/', async (req, res, next)=>{
 	res.redirect('login');
-})
+});
 
 router.get('/login', async (req, res, next)=>{
 	res.render('users/login');
-})
+});
 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res, next)=>{
 	req.flash('success', 'Welcome back!');
 	res.redirect('/owner/transactions/new');
-})
+});
 
 router.get('/register', async(req, res, next) => {
 	res.render('users/register');
-})
+});
 
 router.post('/register', async(req, res, next) => {
 	const {userType, firstName, lastName, email, phoneNumber, businessName, businessAddress} = req.body;
@@ -45,6 +45,12 @@ router.post('/register', async(req, res, next) => {
 			});
 		}
 	);
+});
+
+router.get('/logout', (req, res, next)=>{
+	req.logout();
+	req.flash('success', 'Successfully logged out. See you next time!');
+	res.redirect('login');
 });
 
 module.exports = router;
