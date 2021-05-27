@@ -7,7 +7,7 @@ const express = require('express'),
 	setDateByPrevOrNext = require('../utils/setDateByPrevOrNext'),
 	sortTransactions = require('../utils/sortTransactions'),
 	Transaction = require('../models/transaction'),
-	{ownerSample} = require('../seeds/users'),
+	{ownerSample} = require('../seeds/users/ownerSample'),
 	{singleTransaction, manyTransactions, sortedAllTransactions} = require('../seeds/transactions'),
 	{isLoggedIn} = require('../middleware');
 
@@ -65,6 +65,8 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate);
 	}
+	// window.history.pushState({'blankQuery': ''}, '', '/owner/transactions');
+	// this.window.history.back();
 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
 })
 
