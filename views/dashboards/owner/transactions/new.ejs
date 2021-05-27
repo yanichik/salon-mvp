@@ -53,7 +53,8 @@
 
  <script>
  	// inner html of expense div to be added at click of "Add Product/Service Item"
-	const prodServDiv = `<div class="col-8">
+	function prodServDiv(inputId) {
+		return 				`<div class="col-8">
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
@@ -64,15 +65,20 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+									<div class="col-3">
 										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
 										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
+									</div>
+									<div class="col-1">
+										<button onclick="deleteItem(${inputId})">D</button>
 									</div>`;
+	}
 
 	// inner html of expense div to be added at click of "Add Expense Item"
-	const expenseDiv = `<div class="col-8">
+	function expenseDiv(inputId) {
+		return 				`<div class="col-8">
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
@@ -83,12 +89,16 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+									<div class="col-3">
 										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
 										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
+									</div>
+									<div class="col-1">
+										<button onclick="deleteItem(${inputId})">D</button>
 									</div>`;
+	}
 	
 	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
 	
@@ -96,15 +106,19 @@
 		inputIds: {},
 		total: 0
 	}
+	let inputLines = 0;
+
+
 	// Refactor: create 3rd function with passed-in parameters and condense addProdServ & addExpense
 	// add Product-Service line item
 	function addProdServ(){
 		const prodServElement = document.createElement('div');
 		prodServElement.className = 'row mb-2';
-		prodServElement.innerHTML = prodServDiv;
+		prodServElement.innerHTML = prodServDiv(inputLines);
 
 		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
-		prodServElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		// prodServElementInput.id = `inputId-${inputLines}`;
+		prodServElement.id = `inputId-${inputLines}`;
 		prodServExpItems.appendChild(prodServElement);
 
 		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
@@ -115,10 +129,12 @@
 	function addExpense(){
 		const expElement = document.createElement('div');
 		expElement.className = 'row mb-2';
-		expElement.innerHTML = expenseDiv;
+		expElement.innerHTML = expenseDiv(inputLines);
+		//console.log(expenseDiv(inputLines));
 
 		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
-		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		// expElementInput.id = `inputId-${inputLines}`;
+		expElement.id = `inputId-${inputLines}`;
 		prodServExpItems.appendChild(expElement);
 
 		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
@@ -132,6 +148,15 @@
 			input.removeEventListener('change', updateState);
 			input.addEventListener('change', updateState);
 		})
+		inputLines++;
+		console.log(inputLines);
+	}
+
+	function deleteItem(inputNo){
+		const idToDelete = document.getElementById(`inputId-${inputNo}`);
+		console.log(idToDelete);
+		inputLines --;
+		idToDelete.remove();
 	}
 
 	// update state with key-value pairs of IDs to current value, and total sum of transaction values
@@ -163,5 +188,3 @@
 	}
 
 </script>
-
-
