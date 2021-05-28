@@ -6,17 +6,13 @@
 	<div class="col-10 border border-secondary">
 		<div class="card row">
 			<div class="col-4 offset-4 card-title text-center h2 bg-primary">
-				Bela's Beauty Studio
+				<%= user.businessName %>
 			</div>
 			<div class="card-body">
 				<form action="/owner/transactions" method="POST">
 					<div class="row mb-2">
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Owner" value="Bela's Beauty Studio" aria-label="salon name" name="salon">
-							<input type="hidden" name="address" value="1452 Noriega St., San Francisco, CA">
-							<input type="hidden" name="owner" value="Bela">
-							<input type="hidden" name="email" value="bela@bela.com">
-							<input type="hidden" name="phone" value="415-566-1404">
+							<input type="text" class="form-control" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
 						</div>
 						<div class="col">
 							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="client">

@@ -13,7 +13,9 @@ const express = require('express'),
 
 // Owner Routes Start
 router.get('/transactions/new', isLoggedIn, async (req, res, next) =>{
-	res.render('dashboards/owner/transactions/new');
+	console.log(req.session.passport.user)
+	const user = await User.findOne({email: req.session.passport.user});
+	res.render('dashboards/owner/transactions/new', {user});
 })
 
 // Option 1: use GET method to pass in user's date range to view Reports
@@ -98,8 +100,9 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 				return acc + parseInt(v);
 			}, 0)
 	})
-	await transaction.save();
-	res.render('dashboards/owner/transactions/show', {transaction});
+	res.send(transaction);
+	// await transaction.save();
+	// res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 router.get('/transactions/:id', async (req, res, next) => {
