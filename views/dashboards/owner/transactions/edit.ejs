@@ -61,7 +61,8 @@
 
  <script>
  	// inner html of expense div to be added at click of "Add Product/Service Item"
-	const prodServDiv = `<div class="col-8">
+	function prodServDiv(inputId) {
+		return				`<div class="col-8">
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
@@ -72,15 +73,20 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+									<div class="col-3">
 										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
 										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
+									</div>
+									<div class="col-1">
+										<button onclick="deleteItem(${inputId})">D</button>
 									</div>`;
+		}
 
 	// inner html of expense div to be added at click of "Add Expense Item"
-	const expenseDiv = `<div class="col-8">
+	function expenseDiv(inputId) {
+		return				`<div class="col-8">
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
@@ -91,12 +97,16 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-4">
+									<div class="col-3">
 										<div class="input-group mb-1">
 										    <span class="input-group-text">$</span>
 										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
+									</div>
+									<div class="col-1">
+										<button onclick="deleteItem(${inputId})">D</button>
 									</div>`;
+		}
 	
 	const prodServExpItems = document.querySelector('.prod-serv-exp-items');
 	
@@ -105,14 +115,16 @@
 		total: 0,
 		idCounter: 0
 	}
+	let inputLines = document.querySelectorAll('.prod-serv-exp-value').length-1;
 	updateState();
 
 	// add Product-Service line item
 	function addProdServ(){
+		inputLines++;
 		updateState();
 		const prodServElement = document.createElement('div');
 		prodServElement.className = 'row mb-2';
-		prodServElement.innerHTML = prodServDiv;
+		prodServElement.innerHTML = prodServDiv(inputLines);
 
 		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
 		let nextId;
@@ -123,7 +135,7 @@
 			nextId = document.querySelectorAll('input.prod-serv-exp-value').length + 1;
 			state.idCounter++;
 		}
-		prodServElementInput.id = `inputId-${nextId}`;
+		prodServElement.id = `inputId-${inputLines}`;
 		prodServExpItems.appendChild(prodServElement);
 
 		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
@@ -132,10 +144,11 @@
 
 	// add Expense line item
 	function addExpense(){
+		inputLines++;
 		updateState();
 		const expElement = document.createElement('div');
 		expElement.className = 'row mb-2';
-		expElement.innerHTML = expenseDiv;
+		expElement.innerHTML = expenseDiv(inputLines);
 
 		const expElementInput = expElement.querySelector('input.prod-serv-exp-value');
 		let nextId;
@@ -146,7 +159,7 @@
 			nextId = document.querySelectorAll('input.prod-serv-exp-value').length + 1;
 			state.idCounter++;
 		}
-		expElementInput.id = `inputId-${document.querySelectorAll('input.prod-serv-exp-value').length + 1}`;
+		expElement.id = `inputId-${inputLines}`;
 		prodServExpItems.appendChild(expElement);
 
 		// console.log(document.querySelectorAll('input.prod-serv-exp-value'));
@@ -162,11 +175,22 @@
 		})
 	}
 
+	function deleteItem(inputNo){
+		const idToDelete = document.getElementById(`inputId-${inputNo}`);
+		// console.log(idToDelete);
+		inputLines --;
+		idToDelete.remove();
+		updateState();
+	}
+
 	// update state with key-value pairs of IDs to current value, and total sum of transaction values
 	function updateState(){
+		// console.log(state);
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
 		inputs.forEach(input => {
-			state.inputIds[input.id] = parseInt(input.value) | 0;
+			inputId = input.parentElement.parentElement.parentElement.id;
+			state.inputIds[inputId] = parseInt(input.value) | 0;
+			console.log(state.inputIds[inputId])
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
 				return acc + v;
 			}, 0)
@@ -189,4 +213,5 @@
 		}
 	}
 
+	// console.log(state.idCounter);
 </script>

@@ -1,4 +1,4 @@
-<div class="row mb-2">
+<div class="row mb-2" id="inputId-<%=ind%>">
 	<div class="col-8">
 		<div class="row">
 			<div class="col-12">
@@ -10,10 +10,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-4">
+	<div class="col-3">
 		<div class="input-group mb-1">
 		    <span class="input-group-text">$</span>
-		  <input type="text" name="lineItemValue[]" id="<%=ind%>" value="<%=item.lineItemValue%>" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+		  <input type="text" name="lineItemValue[]" value="<%=item.lineItemValue%>" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 		</div>
+	</div>
+	<div class="col-1">
+		<button onclick="deleteItem(<%=ind%>)">D</button>
 	</div>
 </div>
