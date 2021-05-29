@@ -160,16 +160,30 @@ router.delete('/transactions/:id', isLoggedIn, async (req, res, next) => {
 })
 
 router.get('/profile', isLoggedIn, async (req, res, next) => {
-	res.render('dashboards/owner/profile/show', {ownerSample});
+	const user = await User.findOne({email: req.session.passport.user});
+	res.render('dashboards/owner/profile/show', {user});
 })
 
 router.post('/profile', isLoggedIn, async (req, res, next) => {
-	// res.render('dashboards/owner/profile/show', {ownerSample});
-	res.send('Edit Profile Here')
+	let user = await User.findOneAndUpdate(
+		{email: req.session.passport.user},
+		{	firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			phone: req.body.phone,
+			businessName: req.body.businessName,
+			businessAddress: req.body.businessAddress,
+			email: req.body.email
+		}
+	);
+	await user.save();
+	res.redirect('/owner/profile');
+	// res.render('dashboards/owner/profile/show', {user});
+	// res.send(req.body)
 })
 
 router.get('/profile/edit', isLoggedIn, async (req, res, next) => {
-	res.render('dashboards/owner/profile/edit', {ownerSample});
+	const user = await User.findOne({email: req.session.passport.user});
+	res.render('dashboards/owner/profile/edit', {user});
 })
 
 router.delete('/profile', isLoggedIn, async (req, res, next) => {
