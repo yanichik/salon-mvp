@@ -165,7 +165,10 @@ router.get('/profile', isLoggedIn, async (req, res, next) => {
 })
 
 router.post('/profile', isLoggedIn, async (req, res, next) => {
-	let user = await User.findOneAndUpdate(
+	const user = await User.findOne({email: req.session.passport.user});
+	const password = req.body.password;
+	const passwordRepeat = req.body.passwordRepeat;
+	await User.findOneAndUpdate(
 		{email: req.session.passport.user},
 		{	firstName: req.body.firstName,
 			lastName: req.body.lastName,
@@ -175,7 +178,14 @@ router.post('/profile', isLoggedIn, async (req, res, next) => {
 			email: req.body.email
 		}
 	);
-	await user.save();
+	console.log(user);
+	if (password.length && (password === passwordRepeat)) {
+		user.changePassword(req.body.currentPassword, password, function(err, u){
+			if (err) {
+				console.log(err);
+			}
+		});
+	}
 	res.redirect('/owner/profile');
 	// res.render('dashboards/owner/profile/show', {user});
 	// res.send(req.body)
