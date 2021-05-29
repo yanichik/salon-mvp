@@ -13,9 +13,31 @@ const express = require('express'),
 
 // Owner Routes Start
 router.get('/transactions/new', isLoggedIn, async (req, res, next) =>{
-	console.log(req.session.passport.user)
+	// console.log(req.session.passport.user)
 	const user = await User.findOne({email: req.session.passport.user});
 	res.render('dashboards/owner/transactions/new', {user});
+})
+
+router.post('/transactions', isLoggedIn, async (req, res, next) => {
+	const user = await User.findOne({email: req.session.passport.user});
+	const transaction = new Transaction({
+		owner: `${user.firstName} ${user.lastName}`,
+		client: req.body.client,
+		salon: `${user.businessName}`,
+		date:	req.body.date,
+		transactionNotes: req.body.transactionNotes,
+		lineItems: req.body.lineItemContent.map(function (content, index){
+   		return {lineItemContent: content, 
+   		lineItemType: req.body.lineItemType[index], 
+   		lineItemValue: req.body.lineItemValue[index]}
+   	}),
+		total: req.body.lineItemValue.reduce((acc, v) => {
+				return acc + parseInt(v);
+			}, 0)
+	})
+	// res.send(transaction);
+	await transaction.save();
+	res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 // Option 1: use GET method to pass in user's date range to view Reports
@@ -27,7 +49,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	}else if(req.query.viewType != undefined){
 		res.cookie('viewType', req.query.viewType);
 	}
-
+	const user = await User.findOne({email: req.session.passport.user});
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
 	let {startDate, endDate} = req.cookies;
 	// if startDate left blank, set to start of 1900
@@ -51,9 +73,11 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	res.cookie('startDate', startDate);
 	res.cookie('endDate', endDate);
 // Prev or Next End
-
+	
+	// console.log(`${user.firstName} ${user.lastName}`);
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	let sortedTransactions = await Transaction.find({
+		owner: `${user.firstName} ${user.lastName}`,
     date: {
         $gte: new Date(startDate),
         $lt:  new Date(endDate)
@@ -61,6 +85,11 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	}).sort({
 		date: -1
 	})
+
+	let viewTotal = sortedTransactions.reduce((acc, v) => {
+		return acc + v.total;
+	}, 0);
+
 	// if startDate is left blank pass in the date of the first transaction
 	// benefits user: date is informative and not arbitrary
 	if (sortedTransactions.length > 0 && startDate === '1/1/1900') {
@@ -69,7 +98,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	}
 	// window.history.pushState({'blankQuery': ''}, '', '/owner/transactions');
 	// this.window.history.back();
-	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
+	res.render('dashboards/owner/transactions/index', {user, sortedTransactions, startDate, endDate, viewTotal});
 })
 
 // Option 2: use PUT method to pass in user's date range to view Reports
@@ -80,30 +109,6 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 // 	res.render('dashboards/owner/transactions/index', {sortedTransactions, startDate, endDate});
 // 	// res.send(req.body);
 // })
-
-router.post('/transactions', isLoggedIn, async (req, res, next) => {
-	const transaction = new Transaction({
-		owner: req.body.owner,
-		client: req.body.client,
-		salon: req.body.salon,
-		date:	req.body.date,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
-		transactionNotes: req.body.transactionNotes,
-		lineItems: req.body.lineItemContent.map(function (content, index){
-   		return {lineItemContent: content, 
-   		lineItemType: req.body.lineItemType[index], 
-   		lineItemValue: req.body.lineItemValue[index]}
-   	}),
-		total: req.body.lineItemValue.reduce((acc, v) => {
-				return acc + parseInt(v);
-			}, 0)
-	})
-	res.send(transaction);
-	// await transaction.save();
-	// res.render('dashboards/owner/transactions/show', {transaction});
-})
 
 router.get('/transactions/:id', async (req, res, next) => {
 	// console.log(req.params['id'])

@@ -5,6 +5,7 @@
 		<div class="card row">
 			<div class="col-6 offset-3 card-title text-center h2 fw-bold">
 				<p class="m-0"><%= sortedTransactions.length? sortedTransactions[0].salon: "Bela's Beauty Salon"%> Salon</p>
+				<p class="m-0"><%= user.salon%> Salon</p>
 				<p class="m-0">Transactions</p>
 
 			</div>
@@ -76,11 +77,11 @@
 					</div>
 					 
 					<div class="row mb-2 inline-block">
-						<div class="col-4 offset-4">
+						<div class="col-4 offset-5">
 							<p class="display-6">TOTAL:</p>
 						</div>
-						<div class="col-4">
-							<p class="display-6 fw-bold">$<%= sortedTransactions.length? sortedTransactions[0].total: ""%></p>
+						<div class="col-3 text-end">
+							<p class="display-6 fw-bold">$<%= viewTotal %></p>
 						</div>
 					
 					</div>

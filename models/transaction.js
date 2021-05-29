@@ -7,9 +7,6 @@ const transactionSchema = new Schema({
 	client: String,
 	salon: String,
 	date:	Date,
-	// email: String,
-	// phone: String,
-	// address: String,
 	transactionNotes: String,
 	lineItems: [
 		{
