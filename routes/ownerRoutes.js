@@ -21,7 +21,7 @@ router.get('/transactions/new', isLoggedIn, async (req, res, next) =>{
 router.post('/transactions', isLoggedIn, async (req, res, next) => {
 	const user = await User.findOne({email: req.session.passport.user});
 	const transaction = new Transaction({
-		owner: `${user.firstName} ${user.lastName}`,
+		owner: user._id,
 		client: req.body.client,
 		salon: `${user.businessName}`,
 		date:	req.body.date,
@@ -34,8 +34,7 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 		total: req.body.lineItemValue.reduce((acc, v) => {
 				return acc + parseInt(v);
 			}, 0)
-	})
-	// res.send(transaction);
+	});
 	await transaction.save();
 	res.render('dashboards/owner/transactions/show', {transaction});
 })
@@ -77,7 +76,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	// console.log(`${user.firstName} ${user.lastName}`);
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	let sortedTransactions = await Transaction.find({
-		owner: `${user.firstName} ${user.lastName}`,
+		owner: user._id,
     date: {
         $gte: new Date(startDate),
         $lt:  new Date(endDate)
@@ -110,9 +109,10 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 // 	// res.send(req.body);
 // })
 
-router.get('/transactions/:id', async (req, res, next) => {
+router.get('/transactions/:id', isLoggedIn, async (req, res, next) => {
 	// console.log(req.params['id'])
 	const transaction = await Transaction.findById(req.params['id'])
+		.populate('owner')
 	// res.render('dashboards/owner/transactions/show', {singleTransaction});
 	res.render('dashboards/owner/transactions/show', {transaction});
 })
