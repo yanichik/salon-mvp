@@ -19,4 +19,4 @@ userSchema.plugin(passportLocalMongoose, {
 	usernameField: 'email'
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('User', userSchema);
