@@ -12,6 +12,7 @@ router.get('/login', async (req, res, next)=>{
 });
 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res, next)=>{
+	res.clearCookie('clientName');
 	req.flash('success', 'Welcome back!');
 	res.redirect('/owner/transactions/new');
 });

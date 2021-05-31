@@ -147,13 +147,10 @@ router.get('/transactions/clients', isLoggedIn, async (req, res, next) => {
 	// console.log(`${user.firstName} ${user.lastName}`);
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
 	if (req.query.client != undefined && req.query.client != 'all') {
-		console.log('query')
 		clientName = req.query.client;
 	} else if (req.cookies.clientName != undefined && req.cookies.clientName != 'all' && req.query.client != 'all'){
-		console.log('cookies')
 		clientName = req.cookies.clientName;
 	} else {
-		console.log('else')
 		clientName = 'all';
 		res.cookie('clientName', 'all');
 	}
