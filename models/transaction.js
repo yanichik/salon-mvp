@@ -1,9 +1,13 @@
-const mongoose = require('mongoose')
-const {Schema} = mongoose;
+const mongoose = require('mongoose'),
+	User = require('./user'),
+	{Schema} = mongoose;
 
 const opts = { toJSON: { virtuals: true } };
 const transactionSchema = new Schema({
-	owner: String,
+	owner: {
+		type: Schema.Types.ObjectId,
+		ref: 'User'
+	},
 	client: String,
 	salon: String,
 	date:	Date,
