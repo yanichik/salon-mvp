@@ -21,30 +21,24 @@ router.get('/register', async(req, res, next) => {
 });
 
 router.post('/register', async(req, res, next) => {
-	const {userType, firstName, lastName, email, phone, businessName, businessAddress} = req.body;
-	// const user = new User({userType, firstName, lastName, email, phoneNumber, businessName, businessAddress});
-	User.register(
-		new User({userType, firstName, lastName, email, phone, businessName, businessAddress}),
-		req.body.password,
-		function(e, user){
-			if(e){
-				console.log(e);
-				console.log('something');
-				req.flash('error', "something's wrong");
-				return res.redirect('register')
+	const {userType, firstName, lastName, email, phone, businessName, businessAddress, password, passwordRepeat} = req.body;
+	if (password.length && (password === passwordRepeat)) {
+		User.register(
+			new User({userType, firstName, lastName, email, phone, businessName, businessAddress}),
+			req.body.password,
+			function(e, user){
+				if(e){
+					console.log(e);
+					console.log('something');
+					req.flash('error', "something's wrong");
+					return res.redirect('register')
+				}
+				passport.authenticate('local')(req, res, ()=>{
+					res.redirect('dashboard');
+				});
 			}
-							// req.login(user, function(e) {
-					   	//    if (e) {
-					   	//      console.log(e);
-					   	//      return next(e);
-					   	//    }
-					   	//    return res.redirect('dashboard');
-					   	//  	});
-			passport.authenticate('local')(req, res, ()=>{
-				res.redirect('dashboard');
-			});
-		}
-	);
+		);
+	}
 });
 
 router.get('/logout', (req, res, next)=>{
