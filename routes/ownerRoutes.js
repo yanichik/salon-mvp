@@ -109,22 +109,104 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 // 	// res.send(req.body);
 // })
 
+router.get('/transactions/clients', isLoggedIn, async (req, res, next) => {
+	if (!Object.keys(req.query).length) {
+		res.cookie('viewType', 'all');
+	}else if(req.query.viewType != undefined){
+		res.cookie('viewType', req.query.viewType);
+	}else if(req.query.client != undefined){
+		res.cookie('clientName', req.query.client);
+	}
+	const user = await User.findOne({email: req.session.passport.user});
+	let sortedTransactions;
+// Default Dates Start: when first opening reports, sets defaults to view all transactions
+	let {startDate, endDate} = req.cookies;
+	// if startDate left blank, set to start of 1900
+	[startDate, endDate] = setDateAtFirstVisit(startDate, endDate)
+	// endDate = setDateAtFirstVisit(startDate, endDate)[1];
+// Default Dates End
+
+// Toggle View Start: toggle between 30-day, monthly, or all transactions views
+// setDateByViewType function: checks if user toggled any of these by checking the query
+	let {viewType, prevOrNext} = req.query;
+	let clientName = req.query.client;
+	startDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[0];
+	endDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[1];
+	// console.log(startDate, endDate);
+// Toggle View End
+
+	res.cookie('startDate', startDate);
+	res.cookie('endDate', endDate);
+
+// Prev or Next Start: handles dates based on queries of prev or next by user
+	[startDate, endDate] = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate);
+	res.cookie('startDate', startDate);
+	res.cookie('endDate', endDate);
+// Prev or Next End
+	
+	// console.log(`${user.firstName} ${user.lastName}`);
+	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
+	if (req.query.client != undefined && req.query.client != 'all') {
+		console.log('query')
+		clientName = req.query.client;
+	} else if (req.cookies.clientName != undefined && req.cookies.clientName != 'all' && req.query.client != 'all'){
+		console.log('cookies')
+		clientName = req.cookies.clientName;
+	} else {
+		console.log('else')
+		clientName = 'all';
+		res.cookie('clientName', 'all');
+	}
+	if (clientName != undefined && clientName != 'all') {
+		sortedTransactions = await Transaction.find({
+			client: clientName,
+			owner: user._id,
+	    date: {
+	        $gte: new Date(startDate),
+	        $lt:  new Date(endDate)
+	    }
+		}).sort({
+			date: -1
+		})
+	} else {
+			sortedTransactions = await Transaction.find({
+				owner: user._id,
+		    date: {
+		        $gte: new Date(startDate),
+		        $lt:  new Date(endDate)
+		    }
+			}).sort({
+				date: -1
+			})
+	}
+
+	let viewTotal = sortedTransactions.reduce((acc, v) => {
+		return acc + v.total;
+	}, 0);
+
+	// if startDate is left blank pass in the date of the first transaction
+	// benefits user: date is informative and not arbitrary
+	if (sortedTransactions.length > 0 && startDate === '1/1/1900') {
+		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
+		res.cookie('startDate', startDate);
+	}
+	// window.history.pushState({'blankQuery': ''}, '', '/owner/transactions');
+	// this.window.history.back();
+	res.render('dashboards/owner/transactions/clients/index', {clientName, user, sortedTransactions, startDate, endDate, viewTotal});
+})
+
 router.get('/transactions/:id', isLoggedIn, async (req, res, next) => {
-	// console.log(req.params['id'])
 	const transaction = await Transaction.findById(req.params['id'])
 		.populate('owner')
-	// res.render('dashboards/owner/transactions/show', {singleTransaction});
 	res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 router.get('/transactions/:id/edit', async (req, res, next) => {
-	// console.log(req.params['id'])
 	const transaction = await Transaction.findById(req.params['id'])
 	res.render('dashboards/owner/transactions/edit', {transaction});
 })
 
 router.put('/transactions/:id', async (req, res, next) => {
-	// console.log(typeof req.params.id);
 	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
 		owner: req.body.owner,
 		client: req.body.client,
@@ -143,7 +225,6 @@ router.put('/transactions/:id', async (req, res, next) => {
 				return acc + parseInt(v);
 			}, 0)
 	})
-	// console.log(transaction);
 	await transaction.save();
 	res.redirect(`${req.params.id}`);
 })
@@ -187,8 +268,6 @@ router.post('/profile', isLoggedIn, async (req, res, next) => {
 		});
 	}
 	res.redirect('/owner/profile');
-	// res.render('dashboards/owner/profile/show', {user});
-	// res.send(req.body)
 })
 
 router.get('/profile/edit', isLoggedIn, async (req, res, next) => {

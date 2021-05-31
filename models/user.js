@@ -12,7 +12,6 @@ const userSchema = new Schema({
 	phone: String,
 	businessName: String,
 	businessAddress: String
-	// password: String
 })
 
 userSchema.plugin(passportLocalMongoose, {
