@@ -4,11 +4,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 <%} */ %>
 
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Salon MVP</a>
+    <a class="navbar-brand" href="/">
+      <!-- Salon-MVP -->
+      <img src="/images/freekut_haircounting_logo.png" alt="" width="50" height="50">
+    </a>
+    <%  if(loggedInUser) { %>
+      <div class="col-10 d-flex justify-content-center">
+          <a href="/dashboard" class="btn btn-light border border-2 mx-5">New Transaction</a>
+          <a href="/owner/transactions" class="btn btn-light border border-2 mx-5">Reports</a>
+          <a href="/owner/transactions/clients" class="btn btn-light border border-2 mx-5">Clients</a>
+          <a href="/owner/profile" class="btn btn-light border border-2 mx-5">Profile</a>
+      </div>
+    <%  }  %>
     <button 
       class="navbar-toggler" 
       type="button" 

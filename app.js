@@ -58,6 +58,7 @@
 /*END SETS*/
 
 /*START USES*/
+	app.use(express.static('public'));
 	app.use(flash());
 	app.use(methodOverride('_method'));
 	app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
