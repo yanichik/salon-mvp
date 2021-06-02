@@ -1,11 +1,13 @@
 <% layout('layouts/boilerplate') %>
 <!-- <h1>isOwner</h1> -->
-<p><%=success%></p>
+<% if (success.length) { -%>
+	<p><%=success%></p>
+<% } -%>
 <div class="row">
 	<div class="col-12">
 		<div class="card row">
-			<div class="col-4 offset-4 card-title text-center h2">
-				<%= user.businessName %>
+			<div class="col-6 offset-3 card-title text-center">
+				<p class="display-6 fw-bold m-0"><%= user.businessName %></p>
 			</div>
 			<div class="card-body">
 				<form action="/owner/transactions" method="POST">
@@ -20,9 +22,13 @@
 					    <input type="date" class="form-control" placeholder="Today's Date" aria-label="date" name="date">
 					  </div>
 					</div>
-					<div class="d-flex flex-column align-items-end prod-serv-exp-buttons">
-						<a class="btn btn-secondary" onclick="addProdServ()">Add Product/Service Item</a>
-						<a class="btn btn-secondary" onclick="addExpense()">Add Expense Item</a>
+					<div class="row mb-2 justify-content-end">
+						<div class="col-4">
+							<div class="d-grid prod-serv-exp-buttons">
+								<a class="btn btn-secondary mb-1" onclick="addProdServ()">Add Product/Service Item</a>
+								<a class="btn btn-secondary" onclick="addExpense()">Add Expense Item</a>
+							</div>
+						</div>
 					</div>
 					<!-- List of products/services and/or expenses-->
 					<div class="prod-serv-exp-items">

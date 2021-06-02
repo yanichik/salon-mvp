@@ -4,8 +4,8 @@
 <div class="row vh-90">
 	<div class="col-12">
 		<div class="card row">
-			<div class="col-4 offset-4 card-title text-center h2">
-				<%= transaction.salon %> Salon
+			<div class="col-6 offset-3 card-title text-center">
+				<p class="display-6 fw-bold mb-0"><%= transaction.salon %></p>
 			</div>
 			<div class="card-body">
 					<div class="row mb-2">
@@ -51,7 +51,11 @@
 					<div class="row mb-2">
 						<div class="col-12">
 							<h3>Transaction Notes:</h3>
-							<%= transaction.transactionNotes%>
+							<% if(transaction.transactionNotes.length) {%>
+								<%= transaction.transactionNotes %>
+								<% } else {%>
+								None
+								<% } %>
 						</div>
 					</div>
 					<div class="row mb-2">

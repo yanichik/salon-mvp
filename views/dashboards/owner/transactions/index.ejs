@@ -2,9 +2,9 @@
 <div class="row vh-90">
 	<div class="col-12">
 		<div class="card row">
-			<div class="col-6 offset-3 card-title text-center h2 fw-bold">
-				<p class="m-0"><%= user.businessName%></p>
-				<p class="m-0">Transactions</p>
+			<div class="col-6 offset-3 card-title text-center">
+				<p class="display-6 fw-bold m-0"><%= user.businessName%></p>
+				<p class="display-6 fw-bold m-0">Transactions</p>
 
 			</div>
 			<div class="card-body">
@@ -13,43 +13,23 @@
 							<form class="d-grid" action="/owner/transactions" method="GET">
 								<button type="submit" name="prevOrNext" value="prev" class="btn btn-info mb-2">Previous</button>
 							</form>
-							<button class="btn btn-info mb-2"><%=startDate%></button>
+							<p class="btn btn-outline-secondary mb-2 d-grid"><%=startDate%></p>
 							<h3>Date</h3>
 							<% for(let item of sortedTransactions) { %>
 							<p><a href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
 							<% } %>
 						</div>
 						<div class="col-8">
-							<div class="row mb-2">
+							<div class="row mb-2 justify-content-center">
 								<form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
-									<div class="btn-group" role="group" aria-label="Basic example">
-									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-warning">30-Day View</button>
-									  <button type="submit" name="viewType" value="all" class="btn btn-primary">All Transactions</button>
-									  <button type="submit" name="viewType" value="monthly" class="btn btn-danger">Monthly</button>
+									<div class="btn-group" role="group" aria-label="Filter type">
+									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-info w-100 mx-1">30-Day View</button>
+									  <button type="submit" name="viewType" value="all" class="btn btn-info w-100 mx-1">All Transactions</button>
+									  <button type="submit" name="viewType" value="monthly" class="btn btn-info w-100 mx-1">Monthly</button>
 									</div>
-								</form>								
-								<!-- <form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
-									<div class="col-5">
-										<label class="visually-hidden" for="startDate">Start Date</label>
-										<div class="input-group">
-											<div class="input-group-text">Start Date</div>
-											<input type="text" id="startDate" class="form-control" placeholder="" aria-label="startdate" name="startDate">
-										</div>
-									</div>
-									<div class="col-5">
-										<label class="visually-hidden" for="endDate">End Date</label>
-										<div class="input-group">
-											<div class="input-group-text">End Date</div>
-											<input type="text" id="endDate" class="form-control" placeholder="" aria-label="enddate" name="endDate">
-										</div>
-									</div>
-									<div class="col-2">
-										<button class="btn btn-success">Submit</button>
-									</div>
-								</form> -->
+								</form>
 							</div>
-							<h3 class="text-center mt-5 mb-3">Description</h3>
-
+							<h3 class="text-center mb-3" style="margin-top: 54px;">Description</h3>
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
@@ -65,7 +45,7 @@
 							<form class="d-grid" action="/owner/transactions" method="GET">
 								<button type="submit" name="prevOrNext" value="next" class="btn btn-info mb-2">Next</button>
 							</form>
-							<button class="btn btn-info mb-2"><%=endDate%></button>
+							<p class="btn btn-outline-secondary mb-2 d-grid"><%=endDate%></p>
 							<h3>Total</h3>
 							<% for(let item of sortedTransactions) { %>
 								<p>$<%=item.total%></p>
@@ -92,19 +72,3 @@
 		</div>
 	</div>
 </div>
-<!-- <script>
-	const startDate	= "1/1/19",
-				endDate		= "12/31/20";
-	let myScript = document.createElement('script');
-	myScript.textContent = sortTransactions.sortTransactions(sortedTransactions, startDate, endDate);
-	myScript.appendChild()
-</script> -->
-
-
-
-<!-- <script>
-	// turn array into comma-separated string
-	function stringifyLineItemContent(lineItemsArray){
-		lineItemsArray.join
-	}
-</script> -->

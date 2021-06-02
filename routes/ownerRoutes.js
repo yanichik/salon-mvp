@@ -109,6 +109,52 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 // 	// res.send(req.body);
 // })
 
+router.get('/transactions/:id', isLoggedIn, async (req, res, next) => {
+	const transaction = await Transaction.findById(req.params['id'])
+		.populate('owner')
+	res.render('dashboards/owner/transactions/show', {transaction});
+})
+
+router.get('/transactions/:id/edit', async (req, res, next) => {
+	const user = await User.findOne({email: req.session.passport.user});
+	const transaction = await Transaction.findById(req.params['id'])
+	res.render('dashboards/owner/transactions/edit', {transaction, user});
+})
+
+router.put('/transactions/:id', async (req, res, next) => {
+	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
+		owner: req.body.owner,
+		client: req.body.client,
+		salon: req.body.salon,
+		date:	req.body.date,
+		email: req.body.email,
+		phone: req.body.phone,
+		address: req.body.address,
+		transactionNotes: req.body.transactionNotes,
+		lineItems: req.body.lineItemContent.map(function (content, index){
+   		return {lineItemContent: content, 
+   		lineItemType: req.body.lineItemType[index], 
+   		lineItemValue: req.body.lineItemValue[index]}
+   	}),
+		total: req.body.lineItemValue.reduce((acc, v) => {
+				return acc + parseInt(v);
+			}, 0)
+	})
+	await transaction.save();
+	res.redirect(`${req.params.id}`);
+})
+
+router.delete('/transactions/:id', isLoggedIn, async (req, res, next) => {
+	const transaction = await Transaction.findByIdAndRemove(req.params.id, (e, doc)=>{
+		if(e) {
+			console.log(e);
+		}else {
+			console.log('Removed transaction:', doc);
+		}
+	});
+	res.redirect('/owner/transactions');
+})
+
 router.get('/transactions/clients', isLoggedIn, async (req, res, next) => {
 	if (!Object.keys(req.query).length) {
 		res.cookie('viewType', 'all');
@@ -190,51 +236,6 @@ router.get('/transactions/clients', isLoggedIn, async (req, res, next) => {
 	// window.history.pushState({'blankQuery': ''}, '', '/owner/transactions');
 	// this.window.history.back();
 	res.render('dashboards/owner/transactions/clients/index', {clientName, user, sortedTransactions, startDate, endDate, viewTotal});
-})
-
-router.get('/transactions/:id', isLoggedIn, async (req, res, next) => {
-	const transaction = await Transaction.findById(req.params['id'])
-		.populate('owner')
-	res.render('dashboards/owner/transactions/show', {transaction});
-})
-
-router.get('/transactions/:id/edit', async (req, res, next) => {
-	const transaction = await Transaction.findById(req.params['id'])
-	res.render('dashboards/owner/transactions/edit', {transaction});
-})
-
-router.put('/transactions/:id', async (req, res, next) => {
-	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
-		owner: req.body.owner,
-		client: req.body.client,
-		salon: req.body.salon,
-		date:	req.body.date,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
-		transactionNotes: req.body.transactionNotes,
-		lineItems: req.body.lineItemContent.map(function (content, index){
-   		return {lineItemContent: content, 
-   		lineItemType: req.body.lineItemType[index], 
-   		lineItemValue: req.body.lineItemValue[index]}
-   	}),
-		total: req.body.lineItemValue.reduce((acc, v) => {
-				return acc + parseInt(v);
-			}, 0)
-	})
-	await transaction.save();
-	res.redirect(`${req.params.id}`);
-})
-
-router.delete('/transactions/:id', isLoggedIn, async (req, res, next) => {
-	const transaction = await Transaction.findByIdAndRemove(req.params.id, (e, doc)=>{
-		if(e) {
-			console.log(e);
-		}else {
-			console.log('Removed transaction:', doc);
-		}
-	});
-	res.redirect('/owner/transactions');
 })
 
 router.get('/profile', isLoggedIn, async (req, res, next) => {
