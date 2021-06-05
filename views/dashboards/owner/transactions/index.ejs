@@ -4,7 +4,7 @@
 		<div class="card row">
 			<div class="col-6 offset-3 card-title text-center">
 				<p class="display-6 fw-bold m-0"><%= user.businessName%></p>
-				<p class="display-6 fw-bold m-0">Transactions</p>
+				<p class="display-6 fw-bold m-0">Client Filter</p>
 
 			</div>
 			<div class="card-body">
@@ -22,14 +22,26 @@
 						<div class="col-8">
 							<div class="row mb-2 justify-content-center">
 								<form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
-									<div class="btn-group" role="group" aria-label="Filter type">
+									<div class="btn-group" role="group" aria-label="Basic example">
 									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-info w-100 mx-1">30-Day View</button>
 									  <button type="submit" name="viewType" value="all" class="btn btn-info w-100 mx-1">All Transactions</button>
 									  <button type="submit" name="viewType" value="monthly" class="btn btn-info w-100 mx-1">Monthly</button>
 									</div>
 								</form>
 							</div>
-							<h3 class="text-center mb-3" style="margin-top: 54px;">Description</h3>
+							<div class="row mb-2 mx-1">
+								<form action="/owner/transactions" method="GET">
+									<div class="input-group">
+										<span class="input-group-text">Filter By Client</span>
+										<input type="text" class="form-control" placeholder="Client Name" aria-label="client name" name="client" value="<%=clientName%>">
+										<div class="input-group-btn">
+											<button class="btn btn-secondary">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+							<h3 class="text-center mb-3">Description</h3>
+
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
