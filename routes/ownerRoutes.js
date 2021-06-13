@@ -123,25 +123,22 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 
 router.get('/transactions/:id', isLoggedIn, async (req, res, next) => {
 	const transaction = await Transaction.findById(req.params['id'])
-		.populate('owner')
+		.populate('owner');
+	// res.send(transaction);
 	res.render('dashboards/owner/transactions/show', {transaction});
 })
 
 router.get('/transactions/:id/edit', async (req, res, next) => {
 	const user = await User.findOne({email: req.session.passport.user});
 	const transaction = await Transaction.findById(req.params['id'])
+		.populate('owner');
 	res.render('dashboards/owner/transactions/edit', {transaction, user});
 })
 
 router.put('/transactions/:id', async (req, res, next) => {
 	const transaction = await Transaction.findByIdAndUpdate(req.params.id, {
-		owner: req.body.owner,
 		client: req.body.client,
-		salon: req.body.salon,
 		date:	req.body.date,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
 		transactionNotes: req.body.transactionNotes,
 		lineItems: req.body.lineItemContent.map(function (content, index){
    		return {lineItemContent: content, 
@@ -153,6 +150,7 @@ router.put('/transactions/:id', async (req, res, next) => {
 			}, 0)
 	})
 	await transaction.save();
+	req.flash('success', 'Successfully edited transaction');
 	res.redirect(`${req.params.id}`);
 })
 

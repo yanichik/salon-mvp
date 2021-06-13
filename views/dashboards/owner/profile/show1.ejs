@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate') %>
+<div class="row vh-90">
+	<div class="col-12">
+		<div class="card row">
+			<div class="col-8 offset-2 card-title text-center">
+				<p class="display-6 fw-bold mb-0"><%= user.businessName %></p>
+				<p><%= user.businessAddress %></p>
+			</div>
+			<div class="card-body">
+				<p>First Name: <%= user.firstName %></p>
+				<p>Last Name: <%= user.lastName %></p>
+				<p>Phone: <%= user.phone %></p>
+				<p>Email: <%= user.email %></p>
+			</div>
+			<div class="w-100"><hr></div>
+			<div class="row mb-2">
+				<div class="d-grid col-6">
+					<a href="/owner/profile/edit" class="btn btn-success">Edit Profile</a>
+				</div>
+				<div class="d-grid col-6">
+					<a href="/owner/transactions" class="btn btn-success">Go to Reports</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -11,7 +11,7 @@
 				<form action="/owner/transactions/<%=transaction._id%>?_method=PUT" method="POST">
 					<div class="row mb-2">
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
+							<input type="text" class="form-control" placeholder="Salon Owner" value="<%=transaction.owner.firstName%> <%=transaction.owner.lastName%>" aria-label="salon name">
 						</div>
 						<div class="col">
 							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="client" value="<%=transaction.client%>">
