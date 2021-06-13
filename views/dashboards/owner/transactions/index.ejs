@@ -60,18 +60,18 @@
 							<p class="btn btn-outline-secondary mb-2 d-grid"><%=endDate%></p>
 							<h3>Total</h3>
 							<% for(let item of sortedTransactions) { %>
-								<p>$<%=item.total%></p>
+								<p class="text-start">$<%=item.total%></p>
 							<% } %>
 						</div>
 						<hr>
 					</div>
 					 
 					<div class="row mb-2 inline-block">
-						<div class="col-4 offset-5">
-							<p class="display-6">TOTAL:</p>
+						<div class="col-5 offset-5">
+							<p class="display-6 fw-bold">TOTAL:</p>
 						</div>
-						<div class="col-3 text-end">
-							<p class="display-6 fw-bold">$<%= viewTotal %></p>
+						<div class="col-2">
+							<p class="text-start display-6 fw-bold">$<%= viewTotal %></p>
 						</div>
 					
 					</div>

@@ -1,6 +1,10 @@
 <% layout('layouts/boilerplate') %>
-<p><%=error%></p>
-<p><%=success%></p>
+<% if (success.length) { -%>
+	<%-include('../partials/success')%>
+<% } -%>
+<% if (error.length) { -%>
+	<%-include('../partials/error')%>
+<% } -%>
 <div class="container">
 	<div class="row justify-content-center">
 			<div class="card col-6" style="width: 18rem;">

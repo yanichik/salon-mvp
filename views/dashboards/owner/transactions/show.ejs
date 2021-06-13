@@ -1,6 +1,8 @@
 <% layout('layouts/boilerplate') %>
 <!-- <h1>isOwner</h1> -->
-
+<% if (success.length) { -%>
+	<%-include('../../../partials/success')%>
+<% } -%>
 <div class="row vh-90">
 	<div class="col-12">
 		<div class="card row">

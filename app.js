@@ -59,11 +59,12 @@
 
 /*START USES*/
 	app.use(express.static('public'));
-	app.use(flash());
-	app.use(methodOverride('_method'));
 	app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
 	app.use(express.urlencoded({extended: true}));
 	app.use(express.json());
+	app.use(flash());
+	app.use(methodOverride('_method'));
+
 	// Start Cookie Config
 		app.use(cookieParser());
 		const sessionConfig = {

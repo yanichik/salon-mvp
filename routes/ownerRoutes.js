@@ -36,7 +36,8 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 			}, 0)
 	});
 	await transaction.save();
-	res.render('dashboards/owner/transactions/show', {transaction});
+	req.flash('success', 'Successfully created new transaction');
+	res.redirect(`transactions/${transaction._id}`);
 })
 
 
