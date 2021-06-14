@@ -36,7 +36,7 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 			}, 0)
 	});
 	await transaction.save();
-	req.flash('success', 'Successfully created new transaction');
+	req.flash('success', 'Successfully created new transaction.');
 	res.redirect(`transactions/${transaction._id}`);
 })
 
@@ -162,7 +162,7 @@ router.put('/transactions/:id', async (req, res, next) => {
 			}, 0)
 	})
 	await transaction.save();
-	req.flash('success', 'Successfully edited transaction');
+	req.flash('success', 'Successfully edited transaction.');
 	res.redirect(`${req.params.id}`);
 })
 
@@ -174,6 +174,7 @@ router.delete('/transactions/:id', isLoggedIn, async (req, res, next) => {
 			console.log('Removed transaction:', doc);
 		}
 	});
+	req.flash('success', 'Successfully deleted transaction.');
 	res.redirect('/owner/transactions');
 })
 
