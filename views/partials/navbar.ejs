@@ -8,14 +8,14 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
       <!-- Salon-MVP -->
-      <img src="/images/freekut_haircounting_logo.png" alt="" width="50" height="50">
+      <img class="rounded-pill" src="/images/CS.png" alt="" width="60" height="60">
     </a>
     <%  if(loggedInUser) { %>
       <div class="col-10 d-flex justify-content-center">
           <!-- <a href="/dashboard" class="btn btn-light border border-2 mx-5">New Transaction</a> -->
           <!-- <a href="/owner/transactions" class="btn btn-light border border-2 mx-5">Reports</a> -->
-          <a href="/owner/transactions" class="btn btn-primary border border-2 mx-5" style="width:15%">Transactions</a>
-          <a href="/owner/profile" class="btn btn-primary border border-2 mx-5" style="width:15%">Profile</a>
+          <a href="/owner/transactions" class="btn btn-primary rounded-pill mx-3" style="width:15%">Transactions</a>
+          <a href="/owner/profile" class="btn btn-primary rounded-pill mx-3" style="width:15%">Profile</a>
       </div>
     <%  }  %>
     <button 
@@ -33,14 +33,14 @@
       <ul class="navbar-nav ms-auto text-end">
         <%  if(!loggedInUser) { %>
           <li>
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link fw-bold text-primary" href="/login">Login</a>
           </li>
           <li>
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link fw-bold text-primary" href="/register">Register</a>
           </li>    
         <%  } else {  %>
           <li>
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link fw-bold text-primary" href="/logout">Logout</a>
           </li>  
         <%  }  %>
       </ul>
