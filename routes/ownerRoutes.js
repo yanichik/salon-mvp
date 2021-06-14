@@ -47,8 +47,15 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	}else if(req.query.viewType != undefined){
 		res.cookie('viewType', req.query.viewType);
 	}else if(req.query.client != undefined){
-		res.cookie('clientName', req.query.client);
+		if (req.query.client =='') {
+			// console.log('blank')
+			res.cookie('clientName', 'all');
+		}
+		else {
+			res.cookie('clientName', req.query.client);
+		}
 	}
+	// console.log(req.query.client);
 	const user = await User.findOne({email: req.session.passport.user});
 	let sortedTransactions;
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
@@ -62,6 +69,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 // setDateByViewType function: checks if user toggled any of these by checking the query
 	let {viewType, prevOrNext} = req.query;
 	let clientName = req.query.client;
+
 	startDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[0];
 	endDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[1];
 // Toggle View End
@@ -83,6 +91,10 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	} else {
 		clientName = 'all';
 		res.cookie('clientName', 'all');
+	}
+	// if client filter left blank, default to all transactions
+	if (clientName=='') {
+		clientName = 'all';
 	}
 	if (clientName != undefined && clientName != 'all') {
 		sortedTransactions = await Transaction.find({
