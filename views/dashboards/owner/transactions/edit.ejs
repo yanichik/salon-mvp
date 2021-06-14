@@ -183,9 +183,8 @@
 		// console.log(state);
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
 		inputs.forEach(input => {
-			inputId = input.parentElement.parentElement.parentElement.id;
+			let inputId = input.parentElement.parentElement.parentElement.id;
 			state.inputIds[inputId] = parseInt(input.value) | 0;
-			console.log(state.inputIds[inputId])
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
 				return acc + v;
 			}, 0)
