@@ -2,9 +2,9 @@
 <% if (success.length) { -%>
 	<%-include('../../../partials/success')%>
 <% } -%>
-<div class="row vh-90">
+<div class="row vh-90 text-primary">
 	<div class="col-12">
-		<div class="card row">
+		<div class="card row bg-light">
 			<div class="col-6 offset-3 mb-0 mt-2 card-title text-center">
 				<p class="display-6 fw-bold m-0"><%= user.businessName%></p>
 				<p class="display-6 fw-bold m-0">Transactions</p>
@@ -13,31 +13,31 @@
 					<div class="row mb-2">
 						<div class="col-2">
 							<form class="d-grid" action="/owner/transactions" method="GET">
-								<button type="submit" name="prevOrNext" value="prev" class="btn btn-info mb-2">Previous</button>
+								<button type="submit" name="prevOrNext" value="prev" class="btn btn-secondary text-primary mb-2">Previous</button>
 							</form>
-							<p class="btn btn-outline-secondary mb-2 d-grid"><%=startDate%></p>
-							<h3>Date</h3>
+							<p class="btn btn-outline-none text-primary mb-2 d-grid"><%=startDate%></p>
+							<h3 class="text-center">Date</h3>
 							<% for(let item of sortedTransactions) { %>
-							<p><a href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
+							<p class="text-center"><a class="text-secondary" href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
 							<% } %>
 						</div>
 						<div class="col-8">
 							<div class="row mb-2 justify-content-center">
 								<form class="row row-cols align-items-center" action="/owner/transactions" method="GET">
 									<div class="btn-group" role="group" aria-label="Basic example">
-									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-info w-100 mx-1">30-Day View</button>
-									  <button type="submit" name="viewType" value="all" class="btn btn-info w-100 mx-1">All Transactions</button>
-									  <button type="submit" name="viewType" value="monthly" class="btn btn-info w-100 mx-1">Monthly</button>
+									  <button type="submit" name="viewType" value="thirty-day" class="btn btn-secondary text-primary w-100 mx-1">30-Day View</button>
+									  <button type="submit" name="viewType" value="all" class="btn btn-secondary text-primary w-100 mx-1">All Transactions</button>
+									  <button type="submit" name="viewType" value="monthly" class="btn btn-secondary text-primary w-100 mx-1">Monthly</button>
 									</div>
 								</form>
 							</div>
 							<div class="row mb-2 mx-1">
 								<form action="/owner/transactions" method="GET">
 									<div class="input-group">
-										<span class="input-group-text">Filter By Client</span>
-										<input type="text" class="form-control" placeholder="Client Name" aria-label="client name" name="client" value="<%=clientName%>">
+										<span class="input-group-text bg-secondary text-primary">Filter By Client</span>
+										<input type="text" class="form-control text-primary" placeholder="Client Name" aria-label="client name" name="client" value="<%=clientName%>">
 										<div class="input-group-btn">
-											<button class="btn btn-secondary">Filter</button>
+											<button class="btn btn-secondary text-primary">Filter</button>
 										</div>
 									</div>
 								</form>
@@ -57,12 +57,12 @@
 
 						<div class="col-2">
 							<form class="d-grid" action="/owner/transactions" method="GET">
-								<button type="submit" name="prevOrNext" value="next" class="btn btn-info mb-2">Next</button>
+								<button type="submit" name="prevOrNext" value="next" class="btn btn-secondary text-primary mb-2">Next</button>
 							</form>
-							<p class="btn btn-outline-secondary mb-2 d-grid"><%=endDate%></p>
-							<h3>Total</h3>
+							<p class="btn btn-outline-none text-primary mb-2 d-grid"><%=endDate%></p>
+							<h3 class="text-center">Total</h3>
 							<% for(let item of sortedTransactions) { %>
-								<p class="text-start">$<%=item.total%></p>
+								<p class="text-center">$<%=item.total%></p>
 							<% } %>
 						</div>
 						<hr>
@@ -79,7 +79,7 @@
 					</div>
 					<div class="row mb-2">
 						<div class="d-grid">
-							<a href="/owner/transactions/new" class="btn btn-success">Start a New Transaction</a>
+							<a href="/owner/transactions/new" class="btn btn-success text-primary">Start a New Transaction</a>
 						</div>
 					</div>
 			</div>

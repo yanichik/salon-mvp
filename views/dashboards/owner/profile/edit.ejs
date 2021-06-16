@@ -1,37 +1,37 @@
 <% layout('layouts/boilerplate') %>
-<div class="row vh-90">
+<div class="row vh-90 text-primary">
 	<div class="col-12">
 		<div class="container">
 			<div class="row justify-content-center">
 					<div class="card col-6" style="width: 30rem;">
-						<span class="text-center h3">Edit Profile</span>
+						<span class="text-center fw-bold h3">Edit Profile</span>
 					  <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2706&q=80" class="card-img-top" alt="...">
 					  <div class="card-body">
 					  	<form action="/owner/profile" method="POST">
 								<div class="row mb-2">
 								  <div class="col">
-								    <input type="text" class="form-control" placeholder="Business Name" aria-label="business name" name="businessName" id="businessName" value="<%= user.businessName %>">
+								    <input type="text" class="form-control text-primary" placeholder="Business Name" aria-label="business name" name="businessName" id="businessName" value="<%= user.businessName %>">
 								  </div>
 								</div>
 								<div class="row mb-2">
 								  <div class="col">
-								    <input type="text" class="form-control" placeholder="Business Address" aria-label="business address" name="businessAddress" id="businessAddress" value="<%= user.businessAddress %>">
+								    <input type="text" class="form-control text-primary" placeholder="Business Address" aria-label="business address" name="businessAddress" id="businessAddress" value="<%= user.businessAddress %>">
 								  </div>
 								</div>
 								<div class="row mb-2">
 								  <div class="col">
-								    <input type="text" class="form-control" placeholder="First Name" aria-label="first name" name="firstName" value="<%= user.firstName %>">
+								    <input type="text" class="form-control text-primary" placeholder="First Name" aria-label="first name" name="firstName" value="<%= user.firstName %>">
 								  </div>
 								  <div class="col">
-								    <input type="text" class="form-control" placeholder="Last Name" aria-label="last name" name="lastName" value="<%= user.lastName %>">
+								    <input type="text" class="form-control text-primary" placeholder="Last Name" aria-label="last name" name="lastName" value="<%= user.lastName %>">
 								  </div>
 								</div>
 								<div class="row mb-2">
 								  <div class="col">
-								    <input type="email" class="form-control" placeholder="Email" aria-label="email" name="email" value="<%= user.email %>">
+								    <input type="email" class="form-control text-primary" placeholder="Email" aria-label="email" name="email" value="<%= user.email %>">
 								  </div>
 								  <div class="col">
-								    <input type="text" class="form-control" placeholder="Phone Number" aria-label="phone number" name="phone" value="<%= user.phone %>">
+								    <input type="text" class="form-control text-primary" placeholder="Phone Number" aria-label="phone number" name="phone" value="<%= user.phone %>">
 								  </div>
 								</div>
 								<div class="row mb-2">
@@ -51,17 +51,17 @@
 								</div>
 								<div class="row mb-2">
 									<div class="d-grid">
-										<button class="btn btn-success">Submit Profile Edit</button>
+										<button class="btn btn-success text-primary">Submit Profile Edit</button>
 									</div>
 								</div>
 					  	</form>
 								<div class="row mb-2">
 									<div class="d-grid col-6">
-										<a href="/owner/profile" class="btn btn-success">Cancel Profile Edit</a>
+										<a href="/owner/profile" class="btn btn-success text-primary">Cancel Profile Edit</a>
 									</div>
 									<div class="col-6">
 										<form class="d-grid" action="/owner/profile?_method=DELETE" method=POST>
-											<button class="btn btn-danger">Delete User</button>
+											<button class="btn btn-danger text-primary">Delete User</button>
 										</form>
 									</div>
 								</div>
