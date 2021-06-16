@@ -92,7 +92,6 @@
 		res.locals.loggedInUser = req.user;
 		res.locals.success = req.flash('success');
 		res.locals.error = req.flash('error');
-		res.locals.url = req.originalUrl;
 		res.locals.isClient = isClient = 0;
 		res.locals.isOwner = isOwner = 1;
 		next();
