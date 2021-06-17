@@ -1,4 +1,10 @@
 <% layout('layouts/boilerplate') %>
+<% if (success.length) { -%>
+	<%-include('../partials/success')%>
+<% } -%>
+<% if (error.length) { -%>
+	<%-include('../partials/error')%>
+<% } -%>
 <div class="container">
 	<div class="row justify-content-center">
 			<div class="card col-6" style="width: 28rem;">
@@ -9,11 +15,11 @@
 			  		<p class="text-center text-primary mb-1">Select One:</p>
 			  		<div class="row mb-2">
 			  			<div class="col-6 text-center">
-			  				<input type="radio" class="form-control btn-check" name="userType" value="owner" id="regOwner" autocomplete="off" onchange="viewOwner(this)">
+			  				<input type="radio" class="btn-check" name="userType" value="owner" id="regOwner" autocomplete="off" onchange="viewOwner(this)">
 								<label class="btn btn-secondary btn-sm" for="regOwner">I'm a Salon Owner</label>
 			  			</div>
 			  			<div class="col-6 text-center">
-								<input type="radio" class="form-control btn-check" name="userType" value="client" id="regClient" autocomplete="off" onchange="hideOwner(this)">
+								<input type="radio" class="btn-check" name="userType" value="client" id="regClient" autocomplete="off" onchange="hideOwner(this)">
 								<label class="btn btn-secondary btn-sm" for="regClient">I'm a Salon Client</label>
 							</div>
 						</div>

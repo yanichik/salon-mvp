@@ -119,6 +119,15 @@
 	// End Owner Routes
 /*END ROUTES*/
 
+/*START ERROR HANDLING*/
+app.use((err, req, res, next)=>{
+	const {message = "Something went wrong. Go back and try again.", statusCode = 500 } = err;
+	console.log("err");
+	res.status(statusCode).render('error');
+})
+/*END ERROR HANDLING*/
+
+
 /*START LISTEN @ ROUTER*/
 	app.listen(port, ()=>{
 		console.log(`Listening on Port ${port}`);
