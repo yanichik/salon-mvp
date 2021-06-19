@@ -7,7 +7,7 @@
 						<span class="text-center fw-bold h3">Edit Profile</span>
 					  <img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2706&q=80" class="card-img-top" alt="...">
 					  <div class="card-body">
-					  	<form action="/owner/profile" method="POST">
+					  	<form action="/owner/profile?_method=PUT" method="POST">
 								<div class="row mb-2">
 								  <div class="col">
 								    <input type="text" class="form-control text-primary" placeholder="Business Name" aria-label="business name" name="businessName" id="businessName" value="<%= user.businessName %>">

@@ -1,4 +1,7 @@
 // Refactor: divide between external lib imports, local libs, and initializations
+if (process.env.NODE_ENV != 'production') {
+	require('dotenv').config();
+}
 
 /*START IMPORTS*/
 	// Start External Imports
@@ -11,7 +14,8 @@
 		session = require('express-session'),
 		passport = require('passport'),
 		LocalStrategy = require('passport-local').Strategy,
-		flash = require('connect-flash');
+		flash = require('connect-flash'),
+		MongoStore = require('connect-mongo');
 	// End External Imports
 
 	// Start Local Imports
@@ -37,7 +41,9 @@
 /*END IMPORTS*/
 
 /*START MONGOOSE SETUP*/
-	mongoose.connect('mongodb://localhost:27017/salon-mvp', {
+	// const dbUrl = 'mongodb://localhost:27017/salon-mvp' || process.env.ATLAS_URI;
+	const dbUrl = process.env.ATLAS_URI;
+	mongoose.connect(dbUrl, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
@@ -66,14 +72,26 @@
 	app.use(methodOverride('_method'));
 
 	// Start Cookie Config
+		const secret = process.env.SESSION_SECRET || 'notsomesecret';
+
+		const store = MongoStore.create({
+	  	mongoUrl: dbUrl,
+	  	mongoOptions: {
+	  		useUnifiedTopology: true
+	  	},
+	  	crypto: {
+	  		secret
+	  	}
+	  });
 		app.use(cookieParser());
 		const sessionConfig = {
 			cookie: {
 				httpOnly: true
 			},
-		  secret: 'user-register',
+		  secret,
 		  resave: false,
-		  saveUninitialized: true
+		  saveUninitialized: true,
+		  store
 		}
 		app.use(session(sessionConfig));
 	// End Cookie Config

@@ -1,4 +1,4 @@
-module.exports.isLoggedIn = (req, res, next) =>{
+module.exports.isLoggedIn = async (req, res, next) =>{
 	// console.log(req.session.cookie)
 	if (!req.isAuthenticated()) {
 		req.session.returnToUrl = req.originalUrl;

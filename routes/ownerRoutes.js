@@ -183,7 +183,7 @@ router.get('/profile', isLoggedIn, async (req, res, next) => {
 	res.render('dashboards/owner/profile/show', {user});
 })
 
-router.post('/profile', isLoggedIn, async (req, res, next) => {
+router.put('/profile', isLoggedIn, async (req, res, next) => {
 	const user = await User.findOne({email: req.session.passport.user});
 	const password = req.body.password;
 	const passwordRepeat = req.body.passwordRepeat;
@@ -205,6 +205,7 @@ router.post('/profile', isLoggedIn, async (req, res, next) => {
 			}
 		});
 	}
+	await User.authenticate('local')(req.body.email, password);
 	res.redirect('/owner/profile');
 })
 
@@ -214,7 +215,7 @@ router.get('/profile/edit', isLoggedIn, async (req, res, next) => {
 })
 
 router.delete('/profile', isLoggedIn, async (req, res, next) => {
-	console.log('Deleting Profile');
+	const user = await User.findOneAndRemove({email: req.session.passport.user});
 	res.redirect('/register');
 })
 // Owner Routes End
