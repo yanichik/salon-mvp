@@ -108,6 +108,7 @@ if (process.env.NODE_ENV != 'production') {
 /*START SET LOCALS FOR STATIC PAGES*/
 	app.use( (req, res, next) =>{
 		res.locals.loggedInUser = req.user;
+		console.log(res.locals.loggedInUser);
 		res.locals.success = req.flash('success');
 		res.locals.error = req.flash('error');
 		res.locals.isClient = isClient = 0;
