@@ -41,8 +41,8 @@ if (process.env.NODE_ENV != 'production') {
 /*END IMPORTS*/
 
 /*START MONGOOSE SETUP*/
-	// const dbUrl = 'mongodb://localhost:27017/salon-mvp' || process.env.ATLAS_URI;
-	const dbUrl = process.env.ATLAS_URI;
+	const dbUrl = process.env.ATLAS_URI || 'mongodb://localhost:27017/salon-mvp';
+	// const dbUrl = process.env.ATLAS_URI;
 	mongoose.connect(dbUrl, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
