@@ -1,4 +1,7 @@
 // Refactor: divide between external lib imports, local libs, and initializations
+if (process.env.NODE_ENV != 'production') {
+	require('dotenv').config();
+}
 
 /*START IMPORTS*/
 	// Start External Imports
@@ -11,7 +14,8 @@
 		session = require('express-session'),
 		passport = require('passport'),
 		LocalStrategy = require('passport-local').Strategy,
-		flash = require('connect-flash');
+		flash = require('connect-flash'),
+		MongoStore = require('connect-mongo');
 	// End External Imports
 
 	// Start Local Imports
@@ -37,7 +41,9 @@
 /*END IMPORTS*/
 
 /*START MONGOOSE SETUP*/
-	mongoose.connect('mongodb://localhost:27017/salon-mvp', {
+	// const dbUrl = 'mongodb://localhost:27017/salon-mvp' || process.env.ATLAS_URI;
+	const dbUrl = process.env.ATLAS_URI;
+	mongoose.connect(dbUrl, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
@@ -59,20 +65,33 @@
 
 /*START USES*/
 	app.use(express.static('public'));
-	app.use(flash());
-	app.use(methodOverride('_method'));
 	app.use(express.static(path.join(__dirname, 'public')));  // sets default directory 'public' to serve all static assets
 	app.use(express.urlencoded({extended: true}));
 	app.use(express.json());
+	app.use(flash());
+	app.use(methodOverride('_method'));
+
 	// Start Cookie Config
+		const secret = process.env.SESSION_SECRET || 'notsomesecret';
+
+		const store = MongoStore.create({
+	  	mongoUrl: dbUrl,
+	  	mongoOptions: {
+	  		useUnifiedTopology: true
+	  	},
+	  	crypto: {
+	  		secret
+	  	}
+	  });
 		app.use(cookieParser());
 		const sessionConfig = {
 			cookie: {
 				httpOnly: true
 			},
-		  secret: 'user-register',
+		  secret,
 		  resave: false,
-		  saveUninitialized: true
+		  saveUninitialized: true,
+		  store
 		}
 		app.use(session(sessionConfig));
 	// End Cookie Config
@@ -91,7 +110,6 @@
 		res.locals.loggedInUser = req.user;
 		res.locals.success = req.flash('success');
 		res.locals.error = req.flash('error');
-		res.locals.url = req.originalUrl;
 		res.locals.isClient = isClient = 0;
 		res.locals.isOwner = isOwner = 1;
 		next();
@@ -118,6 +136,15 @@
 		app.use('/owner', ownerRoutes);
 	// End Owner Routes
 /*END ROUTES*/
+
+/*START ERROR HANDLING*/
+app.use((err, req, res, next)=>{
+	const {message = "Something went wrong. Go back and try again.", statusCode = 500 } = err;
+	console.log("err");
+	res.status(statusCode).render('error');
+})
+/*END ERROR HANDLING*/
+
 
 /*START LISTEN @ ROUTER*/
 	app.listen(port, ()=>{

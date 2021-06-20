@@ -3,8 +3,8 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="input-group">
-					<span class="input-group-text">Product/Service</span>
-					<input type="text" name="lineItemContent[]" value="<%=item.lineItemContent%>" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+					<span class="input-group-text text-primary bg-secondary">Product/Service</span>
+					<input type="text" name="lineItemContent[]" value="<%=item.lineItemContent%>" class="form-control prod-serv-exp-descr text-primary" placeholder="Color #23g" aria-label="Product, Service, Expense description">
 					<input type="hidden" name="lineItemType[]" value="product/service">
 				</div>
 			</div>
@@ -12,11 +12,11 @@
 	</div>
 	<div class="col-3">
 		<div class="input-group mb-1">
-		    <span class="input-group-text">$</span>
+		    <span class="input-group-text bg-secondary">$</span>
 		  <input type="text" name="lineItemValue[]" value="<%=item.lineItemValue%>" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 		</div>
 	</div>
-	<div class="col-1">
-		<button onclick="deleteItem(<%=ind%>)">D</button>
+	<div class="col-1 align-self-center">
+		<button class="text-primary bg-secondary" onclick="deleteItem(<%=ind%>)">D</button>
 	</div>
 </div>

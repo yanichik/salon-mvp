@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <!-- <h1>isOwner</h1> -->
 <% if (success.length) { -%>
-	<p><%=success%></p>
+	<%-include('../../../partials/success')%>
 <% } -%>
-<div class="row">
+<div class="row text-primary">
 	<div class="col-12">
 		<div class="card row">
 			<div class="col-6 offset-3 card-title text-center">
@@ -13,20 +13,20 @@
 				<form action="/owner/transactions" method="POST">
 					<div class="row mb-2">
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
+							<input type="text" class="form-control text-primary" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
 						</div>
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Salon Client" aria-label="salon client" name="client">
+							<input type="text" class="form-control text-primary" placeholder="Salon Client" aria-label="salon client" name="client">
 						</div>
 						<div class="col">
-					    <input type="date" class="form-control" placeholder="Today's Date" aria-label="date" name="date">
+					    <input type="date" class="form-control text-muted" placeholder="Today's Date" aria-label="date" name="date">
 					  </div>
 					</div>
 					<div class="row mb-2 justify-content-end">
 						<div class="col-4">
 							<div class="d-grid prod-serv-exp-buttons">
-								<a class="btn btn-secondary mb-1" onclick="addProdServ()">Add Product/Service Item</a>
-								<a class="btn btn-secondary" onclick="addExpense()">Add Expense Item</a>
+								<a class="btn btn-secondary text-primary mb-1" onclick="addProdServ()">Add Product/Service Item</a>
+								<a class="btn btn-secondary text-primary" onclick="addExpense()">Add Expense Item</a>
 							</div>
 						</div>
 					</div>
@@ -40,10 +40,10 @@
 					</div>
 					<div class="row">
 						<div class="d-grid col-6">
-							<button class="btn btn-lg btn-success">Submit Transaction</button>
+							<button class="btn btn-lg btn-success text-primary">Submit Transaction</button>
 						</div>
 						<div class="d-grid col-6">
-							<a href="/owner/transactions/new" class="btn btn-lg btn-success">Cancel Transaction</a >
+							<a href="/owner/transactions/new" class="btn btn-lg btn-success text-primary">Cancel Transaction</a >
 						</div>
 					</div>
 				</form>
@@ -59,7 +59,7 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
-													<span class="input-group-text">Product/Service</span>
+													<span class="input-group-text text-primary bg-secondary">Product/Service</span>
 													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
 													<input type="hidden" name="lineItemType[]" value="product/service">
 												</div>
@@ -68,12 +68,12 @@
 									</div>
 									<div class="col-3">
 										<div class="input-group mb-1">
-										    <span class="input-group-text">$</span>
+										    <span class="input-group-text text-primary bg-secondary">$</span>
 										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>
 									<div class="col-1">
-										<button onclick="deleteItem(${inputId})">D</button>
+										<button class="text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
 									</div>`;
 	}
 
@@ -97,7 +97,7 @@
 										</div>
 									</div>
 									<div class="col-1">
-										<button onclick="deleteItem(${inputId})">D</button>
+										<button class="text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
 									</div>`;
 	}
 	
@@ -163,9 +163,9 @@
 	// update state with key-value pairs of IDs to current value, and total sum of transaction values
 	function updateState(){
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
-		// console.log(inputs);
 		inputs.forEach(input => {
-			state.inputIds[input.id] = parseInt(input.value) | 0;
+			let inputId = input.parentElement.parentElement.parentElement.id;
+			state.inputIds[inputId] = parseInt(input.value) | 0;
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
 				return acc + v;
 			}, 0)
