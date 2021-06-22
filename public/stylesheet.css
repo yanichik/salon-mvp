@@ -70,4 +70,17 @@
  height: 2px;
  bottom: 8px;
  background: currentColor
-} 
+}
+
+/*FILTER NAV BTNS*/
+.filter-nav-btns {
+	line-height: 0.5;
+}
+
+/*FILTER NAV FORM*/
+.filter-nav-form {
+	line-height: 0.5;
+}
+
+
+
