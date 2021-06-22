@@ -4,49 +4,52 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 <%} */ %>
 
-<nav class="navbar navbar-expand-sm navbar-secondary bg-secondary sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <!-- Salon-MVP -->
-      <img class="rounded-pill shadow-lg border border-3" src="/images/CS.png" alt="" width="40" height="40">
-    </a>
-    <%  if(loggedInUser) { %>
-      <div class="col-10 d-flex justify-content-center">
-          <!-- <a href="/dashboard" class="btn btn-light border border-2 mx-5">New Transaction</a> -->
-          <!-- <a href="/owner/transactions" class="btn btn-light border border-2 mx-5">Reports</a> -->
-          <a href="/owner/transactions" class="btn btn-sm btn-primary rounded-pill mx-3 fw-bold">Transactions</a>
-          <a href="/owner/profile" class="btn btn-sm btn-primary rounded-pill mx-3 fw-bold">Profile</a>
+<!-- <div class="container"> -->
+  <nav class="navbar navbar-expand navbar-secondary bg-secondary sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img class="rounded-pill shadow-lg border border-3" src="/images/CS.png" alt="" width="40" height="40">
+      </a>
+      <%  if(loggedInUser) { %>
+        <div class="col-6 offset-2 d-grid justify-content-center">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="/owner/transactions" class="btn btn-sm btn-primary rounded-pill mx-1 fw-bold">Transactions</a>
+            </li>
+            <li class="nav-item">
+              <a href="/owner/profile" class="btn btn-sm btn-primary rounded-pill mx-1 fw-bold">Profile</a>
+            </li>
+          </ul>
+        </div>
+      <%  }  %>
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarNavAltMarkup" 
+        aria-controls="navbarNavAltMarkup" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav ms-auto text-end">
+          <%  if(!loggedInUser) { %>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-primary" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-primary" href="/register">Register</a>
+            </li>
+          <%  } else {  %>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-primary" href="/logout">Logout</a>
+            </li>  
+          <%  }  %>
+        </ul>
       </div>
-    <%  }  %>
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarNavAltMarkup" 
-      aria-controls="navbarNavAltMarkup" 
-      aria-expanded="false" 
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav ms-auto text-end">
-        <%  if(!loggedInUser) { %>
-          <li>
-            <a class="nav-link fw-bold text-primary" href="/login">Login</a>
-          </li>
-          <li>
-            <a class="nav-link fw-bold text-primary" href="/register">Register</a>
-          </li>
-      </ul>
     </div>
-        <%  } else {  %>
-          <li>
-            <a class="nav-link fw-bold text-primary" href="/logout">Logout</a>
-          </li>  
-        <%  }  %>
-  </div>
-</nav>
-
-
+  </nav>
+<!-- </div> -->
 
