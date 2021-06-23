@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<!-- List of products/services and/or expenses-->
-					<div class="prod-serv-exp-items">
+					<div class="prod-serv-exp-items row mb-2">
 					</div>
 					<div class="row textArea">
 						<div class="col-12">
@@ -127,7 +127,7 @@
 	// add Product-Service line item
 	function addProdServ(){
 		const prodServElement = document.createElement('div');
-		prodServElement.className = 'row mb-2';
+		prodServElement.className = 'row';
 		prodServElement.innerHTML = prodServDiv(inputLines);
 
 		const prodServElementInput = prodServElement.querySelector('input.prod-serv-exp-value');
@@ -142,7 +142,7 @@
 	// add Expense line item
 	function addExpense(){
 		const expElement = document.createElement('div');
-		expElement.className = 'row mb-2';
+		expElement.className = 'row';
 		expElement.innerHTML = expenseDiv(inputLines);
 		//console.log(expenseDiv(inputLines));
 
