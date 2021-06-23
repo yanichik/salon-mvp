@@ -6,27 +6,40 @@
 <div class="row text-primary">
 	<div class="col-12">
 		<div class="card row">
-			<div class="col-6 offset-3 card-title text-center">
-				<p class="display-6 fw-bold m-0"><%= user.businessName %></p>
+			<div class="col-10 offset-1 card-title text-center">
+				<h1 class="fw-bold m-1"><%= user.businessName %></h1>
+				<h5 class="fw-bold mb-0">New Transaction</h5>
 			</div>
-			<div class="card-body">
+			<div class="card-body mt-0 pt-1">
 				<form action="/owner/transactions" method="POST">
 					<div class="row mb-2">
-						<div class="col">
-							<input type="text" class="form-control text-primary" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
+						<div class="col-4">
+							<input type="text" class="style-top-line-input text-center form-control text-primary mx-0 px-0" placeholder="Salon Owner" value="<%=user.firstName%> <%=user.lastName%>" aria-label="salon name" name="salon">
 						</div>
-						<div class="col">
-							<input type="text" class="form-control text-primary" placeholder="Salon Client" aria-label="salon client" name="client">
+						<div class="col-4">
+							<input type="text" class="style-top-line-input text-center form-control text-primary mx-0 px-0" placeholder="Salon Client" aria-label="salon client" name="client">
 						</div>
-						<div class="col">
-					    <input type="date" class="form-control text-muted" placeholder="Today's Date" aria-label="date" name="date">
+						<div class="col-4">
+					    <input type="date" class="style-top-line-input text-center form-control text-muted mx-0 px-0" placeholder="Today's Date" aria-label="date" name="date">
 					  </div>
 					</div>
-					<div class="row mb-2 justify-content-end">
+					<!-- <div class="row mb-2 justify-content-end">
 						<div class="col-4">
 							<div class="d-grid prod-serv-exp-buttons">
-								<a class="btn btn-secondary text-primary mb-1" onclick="addProdServ()">Add Product/Service Item</a>
-								<a class="btn btn-secondary text-primary" onclick="addExpense()">Add Expense Item</a>
+								<a class="style-new-item-btn btn btn-success text-primary py-0 mb-2" onclick="addProdServ()">Add Product/Service</a>
+								<a class="style-new-item-btn btn btn-success text-primary py-0" onclick="addExpense()">Add Expense</a>
+							</div>
+						</div>
+					</div> -->
+					<div class="row mb-2">
+						<div class="col-12">
+							<div class="row w-90 justify-content-center">
+								<div class="col-5 d-grid prod-serv-exp-buttons">
+									<a class="style-new-item-btn btn btn-success text-primary py-0 px-1" onclick="addProdServ()">Add Product/Service</a>
+								</div>
+								<div class="col-5 d-grid">
+									<a class="style-new-item-btn btn btn-success text-primary py-0 px-1" onclick="addExpense()">Add Expense</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -40,10 +53,10 @@
 					</div>
 					<div class="row">
 						<div class="d-grid col-6">
-							<button class="btn btn-lg btn-success text-primary">Submit Transaction</button>
+							<button class="style-submit-btn btn btn-lg btn-success text-primary fw-bold p-1 my-1">Submit</button>
 						</div>
 						<div class="d-grid col-6">
-							<a href="/owner/transactions/new" class="btn btn-lg btn-success text-primary">Cancel Transaction</a >
+							<a href="/owner/transactions/new" class="style-submit-btn btn btn-lg btn-success text-primary fw-bold p-1 my-1">Cancel</a >
 						</div>
 					</div>
 				</form>
@@ -59,8 +72,8 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
-													<span class="input-group-text text-primary bg-secondary">Product/Service</span>
-													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<span class="style-new-item input-group-text text-primary bg-secondary px-1 mr-1">Product/Service</span>
+													<input type="text" name="lineItemContent[]" class="style-new-item form-control prod-serv-exp-descr px-1 mr-0" placeholder="Color #23g" aria-label="Product, Service, Expense description">
 													<input type="hidden" name="lineItemType[]" value="product/service">
 												</div>
 											</div>
@@ -68,12 +81,12 @@
 									</div>
 									<div class="col-3">
 										<div class="input-group mb-1">
-										    <span class="input-group-text text-primary bg-secondary">$</span>
-										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										    <span class="style-new-item input-group-text text-primary bg-secondary px-1 ml-0">$</span>
+										  <input type="text" name="lineItemValue[]" class="style-new-item form-control prod-serv-exp-value mr-0 px-1" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>
-									<div class="col-1">
-										<button class="text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
+									<div class="col-1 mt-1 mx-0">
+										<button class="style-new-item text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
 									</div>`;
 	}
 
@@ -83,8 +96,8 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="input-group">
-													<span class="input-group-text">Expense</span>
-													<input type="text" name="lineItemContent[]" class="form-control prod-serv-exp-descr" placeholder="Color #23g" aria-label="Product, Service, Expense description">
+													<span class="style-new-item input-group-text text-primary bg-secondary px-1 mr-1">Expense</span>
+													<input type="text" name="lineItemContent[]" class="style-new-item form-control prod-serv-exp-descr px-1 mr-0" placeholder="Color #23g" aria-label="Product, Service, Expense description">
 													<input type="hidden" name="lineItemType[]" value="expense">
 												</div>
 											</div>
@@ -92,12 +105,12 @@
 									</div>
 									<div class="col-3">
 										<div class="input-group mb-1">
-										    <span class="input-group-text">$</span>
-										  <input type="text" name="lineItemValue[]" class="form-control prod-serv-exp-value" aria-label="Amount (to the nearest dollar)">
+										    <span class="style-new-item input-group-text text-primary bg-secondary px-1 ml-0">$</span>
+										  <input type="text" name="lineItemValue[]" class="style-new-item form-control prod-serv-exp-value mr-0 px-1" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>
-									<div class="col-1">
-										<button class="text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
+									<div class="col-1 mt-1 mx-0">
+										<button class="style-new-item text-primary bg-secondary" onclick="deleteItem(${inputId})">D</button>
 									</div>`;
 	}
 	
