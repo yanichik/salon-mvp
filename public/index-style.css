@@ -75,6 +75,7 @@
 /*FILTER NAV BTNS*/
 .filter-nav-btns {
 	line-height: .75;
+	font-size: .75em;
 }
 
 /*FILTER NAV FORM*/
@@ -82,5 +83,8 @@
 	line-height: 0.5;
 }
 
-
+/*START & END DATES*/
+.style-start-end {
+	font-size: .75em;
+}
 

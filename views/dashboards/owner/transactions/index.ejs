@@ -9,29 +9,39 @@
 				<p class="display-6 fw-bold m-0"><%= user.businessName%></p>
 				<p class="display-6 fw-bold m-0">Transactions</p>
 			</div>
-			<div class="card-body">
-					<div class="row mb-2">
-						<div class="col-3">
-							<form class="d-grid justify-content-center" action="/owner/transactions" method="GET">
+			<div class="card-body p-1">
+					<div class="row mb-2 align-items-center p-0">
+						<div class="col-2">
+							<form class="d-grid justify-content-start" action="/owner/transactions" method="GET">
 								<button type="submit" name="prevOrNext" value="prev" class="gg-arrow-left-o btn btn-secondary text-primary"></button>
 							</form>
-							<p class="btn btn-outline-none mt-3 text-primary d-grid filter-nav-form"><%=startDate%></p>
-							<h3 class="text-center">Date</h3>
-							<% for(let item of sortedTransactions) { %>
-							<p class="text-center"><a class="text-secondary" href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
-							<% } %>
 						</div>
-						<div class="col-6">
-							<div class="row align-items-center">
-								<form action="/owner/transactions" method="GET">
-									<div class="btn-group btn-group-sm mb-2" role="group" aria-label="Basic example">
-									  <button type="submit" name="viewType" value="thirty-day" class="p-1 btn btn-secondary text-primary filter-nav-btns">30-Day</button>
-									  <button type="submit" name="viewType" value="all" class="btn btn-secondary text-primary mx-1 filter-nav-btns">All</button>
-									  <button type="submit" name="viewType" value="monthly" class="btn btn-secondary text-primary filter-nav-btns">Monthly</button>
-									</div>
-								</form>
+						<div class="col-8">
+							<div class="row">
+								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
+						  		<button type="submit" name="viewType" value="thirty-day" class="btn btn-sm btn-secondary text-primary">30-Day</button>
+						  	</form>
+								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
+							  	<button type="submit" name="viewType" value="all" class="btn btn-sm btn-secondary text-primary mx-1">All</button>
+							  </form>
+								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
+						  		<button type="submit" name="viewType" value="monthly" class="btn btn-sm btn-secondary text-primary">Monthly</button>
+						  	</form>
 							</div>
-							<div class="row mb-2">
+						</div>
+						<div class="col-2">
+							<form class="justify-content-end" action="/owner/transactions" method="GET">
+								<button type="submit" name="prevOrNext" value="next" class="gg-arrow-right-o btn btn-secondary text-primary"></button>
+							</form>
+						</div>
+					</div>
+
+					<div class="row mb-2 align-items-center">
+						<div class="col-2 d-grid px-0 justify-content-start">
+							<p class="text-primary style-start-end"><%=startDate%></p>
+						</div>
+						<div class="col-8 px-1">
+							<!-- <div class="row mb-2"> -->
 								<form action="/owner/transactions" method="GET">
 									<div class="input-group input-group-sm">
 										<span class="px-0 input-group-text btn btn-sm bg-secondary text-primary">Client</span>
@@ -41,9 +51,22 @@
 										</div>
 									</div>
 								</form>
-							</div>
-							<h3 class="text-center mb-3 pt-2">Description</h3>
+							<!-- </div> -->
+						</div>
+						<div class="col-2 d-grid px-0 justify-content-end">
+							<p class="text-primary style-start-end"><%=endDate%></p>
+						</div>
+					</div>
 
+					<div class="row mb-2">
+						<div class="col-3">
+							<h3 class="text-center">Date</h3>
+							<% for(let item of sortedTransactions) { %>
+							<p class="text-center"><a class="text-secondary" href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
+							<% } %>
+						</div>
+						<div class="col-6">
+							<h3 class="text-center mb-3 pt-2">Description</h3>
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
@@ -54,20 +77,16 @@
 								</p>
 							<% } %>
 						</div>
-
 						<div class="col-3">
-							<form class="d-grid justify-content-center" action="/owner/transactions" method="GET">
-								<button type="submit" name="prevOrNext" value="next" class="gg-arrow-right-o btn btn-secondary text-primary"></button>
-							</form>
-							<p class="btn btn-outline-none mt-3 text-primary d-grid filter-nav-form"><%=endDate%></p>
 							<h3 class="text-center">Total</h3>
 							<% for(let item of sortedTransactions) { %>
 								<p class="text-center">$<%=item.total%></p>
 							<% } %>
 						</div>
-						<hr>
 					</div>
-					 
+					
+					<hr>
+					
 					<div class="row mb-2 inline-block">
 						<div class="col-5 offset-4">
 							<h5 class="fw-bold">TOTAL:</h5>
