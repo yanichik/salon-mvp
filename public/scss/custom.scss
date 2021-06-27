@@ -8,5 +8,5 @@ $theme-colors: (
 	"light":         #f8f9fa,
 	"dark":          #212529
 );
-
+$enable-negative-margins: true;
 @import "../bootstrap-5.0.1/scss/bootstrap"
