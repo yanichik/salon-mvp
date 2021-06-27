@@ -60,17 +60,17 @@
 						<div class="col-3">
 							<h3 class="text-center">Date</h3>
 							<% for(let item of sortedTransactions) { %>
-							<p class="text-center"><a class="text-secondary" href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
+							<p class="text-center style-transaction-info"><a class="text-secondary" href="/owner/transactions/<%= item._id %>"><%= item.myDate %></a></p>
 							<% } %>
 						</div>
 						<div class="col-6">
-							<h3 class="text-center mb-3 pt-2">Description</h3>
+							<h3 class="text-center">Description</h3>
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
 									<% final = content.lineItemContent + "," + final %>
 								<% }) %>
-								<p class="text-center">
+								<p class="text-center style-transaction-info">
 									<%= item.client %>: <%= final.split(',').slice(0,-1).join(', ') %>
 								</p>
 							<% } %>
@@ -78,7 +78,7 @@
 						<div class="col-3">
 							<h3 class="text-center">Total</h3>
 							<% for(let item of sortedTransactions) { %>
-								<p class="text-center">$<%=item.total%></p>
+								<p class="text-center style-transaction-info">$<%=item.total%></p>
 							<% } %>
 						</div>
 					</div>
