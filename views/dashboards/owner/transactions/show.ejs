@@ -62,17 +62,17 @@
 					</div>
 					<div class="row mb-2">
 						<div class="d-grid col-3">
-							<a href="/owner/transactions/new" class="btn btn-success text-primary">Start a New Transaction</a>
+							<a href="/owner/transactions/new" class="btn btn-success text-primary style-show-btns">New Transaction</a>
 						</div>
 						<div class="d-grid col-3">
-							<a href="/owner/transactions" class="btn btn-success text-primary">Go to Reports</a>
+							<a href="/owner/transactions" class="btn btn-success text-primary style-show-btns">Reports</a>
 						</div>
 						<div class="d-grid col-3">
-							<a href="/owner/transactions/<%=transaction._id%>/edit" class="btn btn-success text-primary">Edit Transaction</a>
+							<a href="/owner/transactions/<%=transaction._id%>/edit" class="btn btn-success text-primary style-show-btns">Edit</a>
 						</div>
 						<!-- <div class="d-grid col-3"> -->
 							<form class="d-grid col-3" action="/owner/transactions/<%=transaction._id%>?_method=DELETE" method=POST>
-								<button class="btn btn-danger text-primary">Delete Transaction</button>
+								<button class="btn btn-danger text-primary style-show-btns">Delete</button>
 							</form>
 						<!-- </div> -->
 					</div>

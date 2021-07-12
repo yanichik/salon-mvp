@@ -69,6 +69,7 @@
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
 									<% final = content.lineItemContent + "," + final %>
+									<% final = final.length + item.client.length > 25? final.substring(0,25-item.client.length) : final;%>
 								<% }) %>
 								<p class="text-center style-transaction-info">
 									<%= item.client %>: <%= final.split(',').slice(0,-1).join(', ') %>
