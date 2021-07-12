@@ -23,19 +23,19 @@
 					</div>
 					<div class="row mb-2 style-show-info">
 						<div class="col-4">
-							<h6 class="fw-bold">Type</h6>
+							<h6 class="fw-bold">Type:</h6>
 							<% for(let lineItem of transaction.lineItems) {%>
-								<p><%=lineItem.lineItemType%>: </p>
+								<p><%=lineItem.lineItemType%></p>
 							<% } %>
 						</div>
 						<div class="col-4">
-							<h6 class="fw-bold">Description</h6>
+							<h6 class="fw-bold">Description:</h6>
 							<% for(let lineItem of transaction.lineItems) {%>
 								<p><%=lineItem.lineItemContent%></p>
 							<% } %>
 						</div>
 						<div class="col-4">
-							<h6 class="fw-bold">Value</h6>
+							<h6 class="fw-bold">Value:</h6>
 							<% for(let lineItem of transaction.lineItems) {%>
 								<p>$<%=lineItem.lineItemValue%></p>
 							<% } %>
