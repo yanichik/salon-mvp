@@ -9,6 +9,11 @@
 				<p class="display-5 fw-bold p-0 m-0"><%= user.businessName%></p>
 				<p class="display-6 fw-bold m-0">Transactions</p>
 			</div>
+			<div class="row mb-2 p-0 m-0">
+				<div class="d-grid">
+					<a href="/owner/transactions/new" class="btn btn-success text-primary">Start a New Transaction</a>
+				</div>
+			</div>
 			<div class="card-body p-1">
 					<div class="row mb-2 align-items-center p-0">
 						<div class="col-2">
@@ -67,12 +72,12 @@
 							<h3 class="text-center">Description</h3>
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
-								<% item.lineItems.forEach(content => {%>
+								<% item.lineItems.reverse().forEach(content => {%>
 									<% final = content.lineItemContent + "," + final %>
 								<% }) %>
-								<% final = final.length + item.client.length > 25? final.substring(0,25-item.client.length) : final;%>
+								<% final = final.length + item.client.length > 23? final.substring(0,23-item.client.length) : final;%>
 								<p class="text-center style-transaction-info">
-									<%= item.client %>: <%= final.split(',').slice(0,-1).join(', ') %>
+									<%= item.client %>: <%= final.includes(',') ? final.split(',').slice(0,-1).join(', ') : final %>
 								</p>
 							<% } %>
 						</div>
