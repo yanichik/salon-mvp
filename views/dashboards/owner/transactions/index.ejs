@@ -5,8 +5,8 @@
 <div class="row vh-90 text-primary">
 	<div class="col-10 offset-1 p-0">
 		<div class="card row bg-light">
-			<div class="col-10 offset-1 mb-0 mt-2 card-title text-center">
-				<p class="display-6 fw-bold m-0"><%= user.businessName%></p>
+			<div class="col-12 mb-0 mt-2 card-title text-center">
+				<p class="display-5 fw-bold p-0 m-0"><%= user.businessName%></p>
 				<p class="display-6 fw-bold m-0">Transactions</p>
 			</div>
 			<div class="card-body p-1">
@@ -69,8 +69,8 @@
 								<% let final = "" %>
 								<% item.lineItems.forEach(content => {%>
 									<% final = content.lineItemContent + "," + final %>
-									<% final = final.length + item.client.length > 25? final.substring(0,25-item.client.length) : final;%>
 								<% }) %>
+								<% final = final.length + item.client.length > 25? final.substring(0,25-item.client.length) : final;%>
 								<p class="text-center style-transaction-info">
 									<%= item.client %>: <%= final.split(',').slice(0,-1).join(', ') %>
 								</p>
