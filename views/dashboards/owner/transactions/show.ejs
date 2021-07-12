@@ -11,13 +11,13 @@
 			</div>
 			<div class="card-body">
 					<div class="row mb-2 style-show-info">
-						<div class="col">
+						<div class="col-4">
 							<h6 class="fw-bold">Owner:</h6> <p><%= transaction.owner.firstName%> <%= transaction.owner.lastName%></p>
 						</div>
-						<div class="col">
+						<div class="col-5">
 							<h6 class="fw-bold">Client:</h6> <p><%= transaction.client%></p>
 						</div>
-						<div class="col">
+						<div class="col-3">
 							<h6 class="fw-bold">Date:</h6> <p><%=transaction.date.toLocaleString().split(',')[0]%></p>
 						</div>
 					</div>
@@ -28,13 +28,13 @@
 								<p><%=lineItem.lineItemType%></p>
 							<% } %>
 						</div>
-						<div class="col-4">
+						<div class="col-5">
 							<h6 class="fw-bold">Description:</h6>
 							<% for(let lineItem of transaction.lineItems) {%>
 								<p><%=lineItem.lineItemContent%></p>
 							<% } %>
 						</div>
-						<div class="col-4">
+						<div class="col-3">
 							<h6 class="fw-bold">Value:</h6>
 							<% for(let lineItem of transaction.lineItems) {%>
 								<p>$<%=lineItem.lineItemValue%></p>
@@ -42,11 +42,11 @@
 						</div>
 						<hr>
 					</div>
-						<div class="row mb-2 inline-block">
+						<div class="row mb-2">
 							<div class="col-4 offset-4">
 								<p class="display-6">TOTAL:</p>
 							</div>
-							<div class="col-4">
+							<div class="col-4 justify-content-end">
 								<p class="display-6 fw-bold">$<%=transaction.total%></p>
 							</div>
 						</div>
