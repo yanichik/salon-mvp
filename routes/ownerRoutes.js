@@ -129,7 +129,11 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate);
 	}
-	res.render('dashboards/owner/transactions/index', {clientName, user, sortedTransactions, startDate, endDate, viewTotal});
+	let clientList = [];
+	sortedTransactions.forEach((item, ind) =>{
+		clientList[ind] = item.client;
+	})
+	res.render('dashboards/owner/transactions/index', {clientName, user, sortedTransactions, startDate, endDate, viewTotal, clientList});
 })
 
 

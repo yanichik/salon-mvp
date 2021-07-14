@@ -49,7 +49,7 @@
 							<form action="/owner/transactions" method="GET">
 								<div class="input-group input-group-sm">
 									<span class="px-0 input-group-text btn btn-sm bg-secondary text-primary">Client</span>
-									<input type="text" class="px-1 form-control btn-sm text-primary" placeholder="Client Name" aria-label="client name" name="client" value="<%=clientName%>">
+									<input id="filterInput" type="text" class="px-1 form-control btn-sm text-primary" placeholder="Client Name" aria-label="client name" name="client" value="<%=clientName%>">
 									<div class="input-group-btn">
 										<button class="px-0 btn btn-sm btn-success text-primary">Filter</button>
 									</div>
@@ -73,11 +73,12 @@
 							<% for(let item of sortedTransactions) { %>
 								<% let final = "" %>
 								<% item.lineItems.reverse().forEach(content => {%>
-									<% final = content.lineItemContent + "," + final %>
+									<% final = content.lineItemContent + "," + final; %>
 								<% }) %>
-								<% final = final.length + item.client.length > 23? final.substring(0,23-item.client.length) : final;%>
+								<% final = item.client + ": " + final;%>
+								<% final = final.length > 23? final.substring(0,23) : final;%>
 								<p class="text-center style-transaction-info">
-									<%= item.client %>: <%= final.includes(',') ? final.split(',').slice(0,-1).join(', ') : final %>
+									<%= final.includes(',') ? final.split(',').slice(0,-1).join(', ') : final %>
 								</p>
 							<% } %>
 						</div>
@@ -108,3 +109,25 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	let clientArray = [];
+	clientList = `<%-JSON.stringify(clientList)%>`;
+	clientList = clientList.substring(1,clientList.length-1);
+	clientList = clientList.replaceAll('"', "");
+	clientList = Object.values(clientList.split(','));
+	console.log(clientList);
+
+	document.getElementById('filterInput').addEventListener('keyup', (e)=>{
+		if (e.target.value) {
+			clientArray = clientList.filter(client =>
+				client.includes(e.target.value)
+			)
+			// clientArray = clientList.filter(client =>{
+				// client.toLowerCase().includes(e.target.value);
+			// })
+			// console.log(e.target.value)
+		}
+		// console.log(clientArray);
+	})
+</script>
