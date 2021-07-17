@@ -36,7 +36,7 @@ if (process.env.NODE_ENV != 'production') {
 
 	// End route imports
 		const userRoutes = require('./routes/userRoutes');
-		const ownerRoutes = require('./routes/ownerRoutes');
+		const {ownerRoutes} = require('./routes/ownerRoutes');
 	// End route imports
 /*END IMPORTS*/
 
