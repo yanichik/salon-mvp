@@ -63,9 +63,9 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	const user = await User.findOne({email: req.session.passport.user});
 	
 	// fuzzy search using search-index
-	let allTransactions = await Transaction.find({
-			owner: user._id
-	});
+	// let allTransactions = await Transaction.find({
+	// 		owner: user._id
+	// });
 	// initialize an index
 	// const { PUT, QUERY } = await si();
 	// add documents to the index
@@ -135,6 +135,11 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 				date: -1
 			})
 	}
+	let allTransactions = await Transaction.find({
+		owner: user._id
+	})
+	// console.log(sortedTransactions)
+	// console.log(allTransactions)
 
 	let viewTotal = sortedTransactions.reduce((acc, v) => {
 		return acc + v.total;
@@ -146,7 +151,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
 	}
-	res.render('dashboards/owner/transactions/index', {clientName, user, sortedTransactions, startDate, endDate, viewTotal});
+	res.render('dashboards/owner/transactions/index', {clientName, user, allTransactions, sortedTransactions, startDate, endDate, viewTotal});
 })
 
 
