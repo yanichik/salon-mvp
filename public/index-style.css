@@ -96,3 +96,7 @@
 #match-list {
 	font-size: .75em;
 }
+
+.style-filter-list-names{
+	cursor: pointer;
+}
