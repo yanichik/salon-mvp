@@ -106,7 +106,7 @@
 									<div class="col-3">
 										<div class="input-group mb-1">
 										    <span class="style-new-item input-group-text text-primary bg-secondary px-1 ml-0">$</span>
-										  <input type="text" name="lineItemValue[]" class="style-new-item form-control prod-serv-exp-value mr-0 px-1" aria-label="Amount (to the nearest dollar)">
+										  <input type="text" name="lineItemValue[]" class="style-new-item form-control prod-serv-exp-value mr-0 px-1" id="expense-amt" aria-label="Amount (to the nearest dollar)">
 										</div>
 									</div>
 									<div class="col-1 mt-1 mx-0">
@@ -177,6 +177,7 @@
 	function updateState(){
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
 		inputs.forEach(input => {
+			input.value = input.id === "expense-amt"? Math.abs(input.value)*(-1): input.value;
 			let inputId = input.parentElement.parentElement.parentElement.id;
 			state.inputIds[inputId] = parseInt(input.value) | 0;
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
