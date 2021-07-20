@@ -30,7 +30,7 @@ transactionSchema.virtual('myDate').get(function() {
     return tokens[0];
 })
 
-// todo:
+// TODO:
 // transactionSchema.virtual('fullDate').set(function (d) {
 //     const tokens = d.split('-');
 //     this.year = tokens[0];
