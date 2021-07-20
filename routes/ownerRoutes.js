@@ -30,7 +30,7 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 		lineItems: req.body.lineItemContent.map(function (content, index){
    		return {lineItemContent: content, 
    		lineItemType: req.body.lineItemType[index], 
-   		lineItemValue: req.body.lineItemValue[index]}
+   		lineItemValue: req.body.lineItemType[index] === 'expense'? Math.abs(req.body.lineItemValue[index])*(-1): req.body.lineItemValue[index]}
    	}),
 		total: req.body.lineItemValue.reduce((acc, v) => {
 				return acc + parseInt(v);
@@ -63,16 +63,14 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	const user = await User.findOne({email: req.session.passport.user});
 	
 	// fuzzy search using search-index
-	// let allTransactions = await Transaction.find({
-	// 		owner: user._id
-	// });
-	// initialize an index
-	// const { PUT, QUERY } = await si();
-	// add documents to the index
-	// await PUT(allTransactions);
-	// read documents from the index
-	// const results = await QUERY(req.query.client);
-	// console.log(results);
+	let allTransactions = await Transaction.find({
+			owner: user._id
+	});
+	// create full client list to pull from during search
+	let clientNames = [];
+	allTransactions.forEach(transaction => {
+		clientNames.push(transaction.client);
+	})
 
 	let sortedTransactions;
 // Default Dates Start: when first opening reports, sets defaults to view all transactions
@@ -135,12 +133,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 				date: -1
 			})
 	}
-	let allTransactions = await Transaction.find({
-		owner: user._id
-	})
-	// console.log(sortedTransactions)
-	// console.log(allTransactions)
-
+	
 	let viewTotal = sortedTransactions.reduce((acc, v) => {
 		return acc + v.total;
 	}, 0);
@@ -151,7 +144,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
 	}
-	res.render('dashboards/owner/transactions/index', {clientName, user, allTransactions, sortedTransactions, startDate, endDate, viewTotal});
+	res.render('dashboards/owner/transactions/index', {clientNames, clientName, user, allTransactions, sortedTransactions, startDate, endDate, viewTotal});
 })
 
 
