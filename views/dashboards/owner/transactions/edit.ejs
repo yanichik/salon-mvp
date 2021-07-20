@@ -183,7 +183,7 @@
 		// console.log(state);
 		const inputs = document.querySelectorAll('.prod-serv-exp-value');
 		inputs.forEach(input => {
-			input.value = input.id === "expense-amt"? Math.abs(input.value)*(-1): input.value;
+			input.value = input.id === "expense-amt"? Math.abs(input.value)*(-1): Math.abs(input.value);
 			let inputId = input.parentElement.parentElement.parentElement.id;
 			state.inputIds[inputId] = parseInt(input.value) | 0;
 			state.total = Object.values(state.inputIds).reduce((acc, v) => {
