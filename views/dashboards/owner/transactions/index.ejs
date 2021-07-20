@@ -113,70 +113,47 @@
 
 
 <script>
-	
-	let clientList = `<%-JSON.stringify(sortedTransactions)%>`;
-	let clientListv2 = clientList.replaceAll("\r", "\\r");
-	let clientListv3 = clientListv2.replaceAll("\n", "\\n");
-	let clientListv4 = clientListv3.replaceAll("\r\n", "\\r\\n");
-	let clientListv5 = JSON.parse(clientListv4);
+	let allClients = `<%-JSON.stringify(clientNames)%>`
+	allClients = JSON.parse(allClients);
 
 	const filterInput = document.getElementById('filter-input');
 	const matchList = document.getElementById('match-list');
 	
 	const searchClients = async searchText => {
 		// match results to text
-		let matches = clientListv5.filter(item => {
+		let matches = allClients.filter(item => {
 			const regex = new RegExp(`^${searchText}`, 'gi');
-			return item.client.match(regex);
+			return item.match(regex);
 		})
 
 		if (searchText.length === 0) {
 			matches = [];
 			matchList.innerHTML = '';
 		}
-		// console.log(matches);
 		matches = matches.filter((obj, index, arr) => {
-        return arr.map(mapObj => mapObj.client).indexOf(obj.client) === index;
+        return arr.indexOf(obj) === index;
  		});
-		// console.log(matches);
-		// removeDups(matches);
 		outputHtml(matches);
-	}
-	const callBack = (client)=>{
-		// let clientClean= client.replaceAll('\r', '\\r');
-		// clientClean= client.replaceAll('\n', '\\n');
-		// clientClean= client.replaceAll('\r\n', '\\r\\n');
-		// clientClean= client.replaceAll('"', '\"');
-		// console.log(clientClean);
-		// console.log(client);
 	}
 
 	// Show match results in HTML
-	
 	const outputHtml = matches => {
-		
-		
 		if (matches.length > 0) {
 			let filterListNames =[];
 			const html = matches.map(
 				(match, ind) => {
-				// console.log('match: ', match)
-				
-				
 				let filterListName = `list-filter-name-${ind}`
 				filterListNames.push(filterListName)
 				return `<div id="${filterListName}">
-									<p class='m-0 p-0'>${match.client}</p>
+									<p class='m-0 p-0'>${match}</p>
 							</div>`
 						}
 			)
 			.join('');
-			// console.log('html: ', html)
 			matchList.innerHTML = html;
 			let filterListEls = document.querySelectorAll('[id^="list-filter-name-"]')
 			filterListEls.forEach((el) => {
 				el.addEventListener('click', (e) => {
-					console.log('e: ', e.target.textContent)
 					filterInput.value = e.target.textContent;
 					searchClients(filterInput.value);
 				})
@@ -196,27 +173,3 @@
 	filterInput.addEventListener('keyup', ()=> searchClients(filterInput.value))
 	document.getElementById('')
 </script>
-
-<!-- <script type="text/javascript" src="/typeAhead.js"></script> -->
-
-<!-- <script>
-	let clientArray = [];
-	clientList = `< % -JSON.stringify(clientList)%>`;
-	clientList = clientList.substring(1,clientList.length-1);
-	clientList = clientList.replaceAll('"', "");
-	clientList = Object.values(clientList.split(','));
-	console.log(clientList);
-
-	document.getElementById('filter-input').addEventListener('keyup', (e)=>{
-		if (e.target.value) {
-			clientArray = clientList.filter(client =>
-				client.includes(e.target.value)
-			)
-			// clientArray = clientList.filter(client =>{
-				// client.toLowerCase().includes(e.target.value);
-			// })
-			// console.log(e.target.value)
-		}
-		// console.log(clientArray);
-	})
-</script> -->
