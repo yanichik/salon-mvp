@@ -93,14 +93,33 @@
 					
 					<hr>
 					
-					<div class="row mb-2 inline-block">
+					<div class="row m-0 p-0  inline-block">
 						<div class="col-5 offset-3">
-							<h5 class="fw-bold">TOTAL:</h5>
+							<p class="m-0 p-0">Revenues:</p>
+						</div>
+						<div class="col-4 p-0 m-0">
+							<p class="text-center m-0 p-0">$<%= viewRevs.toLocaleString(undefined) %></p>
+						</div>
+					</div>
+
+					<div class="row m-0 p-0  inline-block">
+						<div class="col-5 offset-3">
+							<p class="m-0 p-0">Expenses:</p>
+						</div>
+						<div class="col-4 p-0 m-0">
+							<p class="text-center m-0 p-0">$<%= viewExps.toLocaleString(undefined) %></p>
+						</div>
+					</div>
+					<hr>
+					<div class="row m-0 p-0  inline-block">
+						<div class="col-5 offset-3">
+							<h5 class="fw-bold">PROFIT:</h5>
 						</div>
 						<div class="col-4 p-0 m-0">
 							<h5 class="text-center fw-bold">$<%= viewProfit.toLocaleString(undefined) %></h5>
 						</div>
 					</div>
+
 					<div class="row mb-2">
 						<div class="d-grid">
 							<a href="/owner/transactions/new" class="btn btn-success text-primary">Start a New Transaction</a>

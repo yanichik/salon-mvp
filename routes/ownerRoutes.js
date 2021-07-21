@@ -138,14 +138,24 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		return acc + v.total;
 	}, 0);
 	
-	// TODO: create revenue & expenses totals to be able to display in index page
-	// 	let viewRevenue = sortedTransactions.reduce((acc, v) => {
-	// 	return acc + v.total;
-	// }, 0);
-	// 	let viewExpenses = sortedTransactions.reduce((acc, v) => {
-	// 	return acc + v.total;
-	// }, 0);
+	// revenue & expenses totals to be able to display in index page
+	let viewRevs = 0;
+	sortedTransactions.forEach(item =>{
+		let totRevSingleTransaction = 0;
+		totRevSingleTransaction = item.lineItems.reduce((acc, v, ind) => {
+			return (v.lineItemType === "product/service"? acc + v.lineItemValue: acc);
+		}, 0);
+		viewRevs += totRevSingleTransaction;
+	});
 
+	let viewExps = 0;
+	sortedTransactions.forEach(item =>{
+		let totExpSingleTransaction = 0;
+		totExpSingleTransaction = item.lineItems.reduce((acc, v, ind) => {
+			return (v.lineItemType === "expense"? acc + v.lineItemValue: acc);
+		}, 0);
+		viewExps += totExpSingleTransaction;
+	});
 
 	// if startDate is left blank pass in the date of the first transaction
 	// benefits user: date is informative and not arbitrary
@@ -153,7 +163,7 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
 		res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
 	}
-	res.render('dashboards/owner/transactions/index', {clientNames, clientName, user, allTransactions, sortedTransactions, startDate, endDate, viewProfit});
+	res.render('dashboards/owner/transactions/index', {viewRevs, viewExps, viewProfit, clientNames, clientName, user, allTransactions, sortedTransactions, startDate, endDate});
 })
 
 
