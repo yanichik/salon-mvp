@@ -21,5 +21,6 @@ module.exports = function setDateByPrevOrNext(query, cookies, start, end){
 		end = new Date((new Date(cookies.startDate).getFullYear()), (new Date(cookies.startDate).getMonth()), 0)
 			.toLocaleString().split(',')[0];
 	}
+	console.log(start, end);
 	return [start, end];
 }
