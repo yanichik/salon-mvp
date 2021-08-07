@@ -41,7 +41,8 @@ router.post('/transactions', isLoggedIn, async (req, res, next) => {
 	res.redirect(`transactions/${transaction._id}`);
 })
 
-let cookieOptions = {secure: true, sameSite: "none"};
+let cookieOptions = {sameSite: "Lax"};
+// let cookieOptions = {secure: true, sameSite: "Lax"};
 let setCookie = (res, key, value, options)=>{
 	res.cookie(key, value, options);
 }
@@ -89,13 +90,17 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	endDate = setDateByViewType(req.cookies, viewType, startDate, endDate)[1];
 // Toggle View End
 
-	res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
-	res.cookie('endDate', endDate, {secure: true, sameSite: "none"});
+	res.cookie('startDate', startDate, {sameSite: "Lax"});
+	// res.cookie('startDate', startDate, {secure: true, sameSite: "Lax"});
+	res.cookie('endDate', endDate, {sameSite: "Lax"});
+	// res.cookie('endDate', endDate, {secure: true, sameSite: "Lax"});
 
 // Prev or Next Start: handles dates based on queries of prev or next by user
 	[startDate, endDate] = setDateByPrevOrNext(req.query, req.cookies, startDate, endDate);
-	res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
-	res.cookie('endDate', endDate, {secure: true, sameSite: "none"});
+	res.cookie('startDate', startDate, {sameSite: "Lax"});
+	// res.cookie('startDate', startDate, {secure: true, sameSite: "Lax"});
+	res.cookie('endDate', endDate, {sameSite: "Lax"});
+	// res.cookie('endDate', endDate, {secure: true, sameSite: "Lax"});
 // Prev or Next End
 	
 	// filter inside mongoDB & return filtered + sorted (descending) data per user's date range input
@@ -105,7 +110,8 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 		clientName = req.cookies.clientName;
 	} else {
 		clientName = 'all';
-		res.cookie('clientName', 'all', {secure: true, sameSite: "none"});
+		res.cookie('clientName', 'all', {sameSite: "Lax"});
+		// res.cookie('clientName', 'all', {secure: true, sameSite: "Lax"});
 	}
 	// if client filter left blank, default to all transactions
 	if (clientName=='') {
@@ -161,7 +167,8 @@ router.get('/transactions', isLoggedIn, async (req, res, next) => {
 	// benefits user: date is informative and not arbitrary
 	if (sortedTransactions.length > 0 && startDate === '1/1/1900') {
 		startDate = sortedTransactions[sortedTransactions.length-1].date.toLocaleString().split(',')[0];
-		res.cookie('startDate', startDate, {secure: true, sameSite: "none"});
+		res.cookie('startDate', startDate, {sameSite: "Lax"});
+		// res.cookie('startDate', startDate, {secure: true, sameSite: "Lax"});
 	}
 	res.render('dashboards/owner/transactions/index', {viewRevs, viewExps, viewProfit, clientNames, clientName, user, allTransactions, sortedTransactions, startDate, endDate});
 })
