@@ -24,13 +24,25 @@
 						<div class="col-8">
 							<div class="row">
 								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
-						  		<button type="submit" name="viewType" value="thirty-day" class="btn btn-sm btn-secondary text-primary">30-Day</button>
-						  	</form>
+									<% if(viewType4Format === 'thirty-day') { %>
+						  		<button type="submit" name="viewType" value="thirty-day" class="btn btn-sm btn-secondary text-primary fw-bold border-3 border-primary">30-Day</button>
+									<%} else { %>
+										<button type="submit" name="viewType" value="thirty-day" class="btn btn-sm btn-secondary text-primary">30-Day</button>
+									<% } %>
+								</form>
 								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
-							  	<button type="submit" name="viewType" value="all" class="btn btn-sm btn-secondary text-primary mx-1">All</button>
+									<% if(viewType4Format === 'all') { %>
+							  	<button type="submit" name="viewType" value="all" class="btn btn-sm btn-secondary text-primary mx-1 fw-bold border-3 border-primary">All</button>
+									<%} else { %>
+										<button type="submit" name="viewType" value="all" class="btn btn-sm btn-secondary text-primary mx-1">All</button>
+									<% } %>
 							  </form>
 								<form class="col-4 d-grid p-0" action="/owner/transactions" method="GET">
+									<% if(viewType4Format === 'monthly') { %>
+						  		<button type="submit" name="viewType" value="monthly" class="btn btn-sm btn-secondary text-primary fw-bold border-3 border-primary">Monthly</button>
+									<%} else { %>
 						  		<button type="submit" name="viewType" value="monthly" class="btn btn-sm btn-secondary text-primary">Monthly</button>
+									<% } %>
 						  	</form>
 							</div>
 						</div>

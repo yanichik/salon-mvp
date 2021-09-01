@@ -19,7 +19,7 @@ module.exports = function sortTransactions(unsortedXactions, startDate, endDate)
 
 	var start = new Date(startDate);
 	/* console.log(Date(start)) */
-	start.setHours(0,0,0,0);
+	start.setUTCHours(0,0,0,0);
 	/* console.log(typeof start) */
 	/* console.log(start.toString()) */
 
@@ -27,7 +27,7 @@ module.exports = function sortTransactions(unsortedXactions, startDate, endDate)
 	 // console.log(start.toString()) 
 
 	var end = new Date(endDate);
-	end.setHours(23,59,59,999);
+	end.setUTCHours(23,59,59,999);
 	 // console.log(end.toString()) 
 
 	/* alert( start.toUTCString() + ':' + end.toUTCString() ); */
