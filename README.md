@@ -1,4 +1,4 @@
-# salon-mvp
+# salon-mvp: Review Branch
 Web platform for small-business salon owners to record and manage all business transactions
 
 *[Live Site - check it out!](https://salon-mvp.herokuapp.com/register)*
